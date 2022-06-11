@@ -27,13 +27,21 @@ BRANCH = "main"
 CHANNEL = getenv("CHANNEL", "Lunatic0de")
 CMD_HANDLER = getenv("CMD_HANDLER", ".")
 DB_URL = getenv("DATABASE_URL", "")
-GIT_TOKEN = getenv("GIT_TOKEN", b64decode("Z2hwXzg1Z1I1RlRRanRRTG9TU2FaRGVrcnI4c1pBSDB6cjRRMlN5UA==").decode("utf-8"))
+GIT_TOKEN = getenv(
+    "GIT_TOKEN",
+    b64decode("Z2hwXzg1Z1I1RlRRanRRTG9TU2FaRGVrcnI4c1pBSDB6cjRRMlN5UA==").decode(
+        "utf-8"
+    ),
+)
 GROUP = getenv("GROUP", "SharingUserbot")
 HEROKU_API_KEY = getenv("HEROKU_API_KEY", None)
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME", None)
 PMPERMIT_PIC = getenv("PMPERMIT_PIC", None)
 PM_AUTO_BAN = strtobool(getenv("PM_AUTO_BAN", "True"))
-REPO_URL = getenv("REPO_URL", "https://github.com/projectm4n/PyroMan")
+REPO_URL = getenv(
+    "REPO_URL",
+    b64decode("aHR0cHM6Ly9naXRodWIuY29tL3Byb2plY3RtNG4vUHlyb01hbg==").decode("utf-8"),
+)
 STRING_SESSION1 = getenv("STRING_SESSION1", "")
 STRING_SESSION2 = getenv("STRING_SESSION2", "")
 STRING_SESSION3 = getenv("STRING_SESSION3", "")
