@@ -1,0 +1,45 @@
+{
+  "name": "PyroMan-Userbot",
+  "description": "[PyroMan-Userbot] adalah userbot Telegram modular yang berjalan di Python3 dengan Library Pyrogram.",
+  "env": {
+    "API_ID": {
+      "description": "Dapatkan API ID di web my.telegram.org Masukan yg APP ID Telegram",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Dapatkan API Hash di web my.telegram.org",
+      "required": true
+    },
+    "STRING_SESSION1": {
+      "description": "Dapatkan String Session Pyrogram di Grup » https://t.me/SharingUserbot » Lalu ketik #string",
+      "required": true
+    },
+    "HEROKU_API_KEY": {
+      "description": "Ambil Heroku API KEY mu disini » https://dashboard.heroku.com/account〔 Bila Tidak tau bisa di /skip 〕",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Masukan Nama App heroku, Nama App yang paling pertama di isi〔 Bila Tidak tau bisa di /skip 〕",
+      "required": false
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+    }
+  ],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  }
+}
