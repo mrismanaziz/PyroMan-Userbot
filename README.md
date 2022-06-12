@@ -34,6 +34,7 @@ Ketika anda sudah memasang userbot ini, berarti anda sudah siap dengan resikonya
 #### Special Thanks To [Everyone](https://github.com/mrismanaziz/PyroMan-Userbot/graphs/contributors) Who Has Helped Make This Userbot Awesome!
 -  [TeamDerUntergang](https://github.com/TeamDerUntergang/Telegram-SedenUserBot) : SedenUserBot
 -  [TheHamkerCat](https://github.com/TheHamkerCat/WilliamButcherBot) : WilliamButcherBot
+-  [TeamYukki](https://github.com/TeamYukki/YukkiMusicBot) : YukkiMusicBot
 -  [ITZ-ZAID](https://github.com/ITZ-ZAID) : Zaid-UserBot
 -  [Tofikdn](https://github.com/tofikdn) : Tede
 -  [Toni](https://github.com/Toni880) : Prime-UserBot
