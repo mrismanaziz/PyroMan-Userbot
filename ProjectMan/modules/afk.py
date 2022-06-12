@@ -15,7 +15,7 @@ from pyrogram.types import Message
 from config import CMD_HANDLER as cmd
 from ProjectMan import BOTLOG_CHATID
 from ProjectMan.helpers.msg_types import Types, get_message_type
-from ProjectMan.helpers.parser import escape_markdown, mention_markdown
+from ProjectMan.helpers.parser import escape_markdown
 from ProjectMan.helpers.SQL.afk_db import get_afk, set_afk
 from ProjectMan.modules.help import add_command_help
 
@@ -26,42 +26,22 @@ AFK_RESTIRECT = {}
 DELAY_TIME = 3  # seconds
 
 
-@Client.on_message(
-    filters.me & (filters.command(["afk"], cmd) | filters.regex("^brb "))
-)
+@Client.on_message(filters.me & filters.command("afk", cmd))
 async def afk(client: Client, message: Message):
-    if len(message.text.split()) >= 2:
-        getself = await client.get_me()
-        if getself.last_name:
-            getself.first_name + " " + getself.last_name
-        else:
-            getself.first_name
-        set_afk(True, message.text.split(None, 1)[1])
-        await message.edit(
-            "❏ {} **Telah AFK**!\n└ **Karena:** `{}`".format(
-                mention_markdown(message.from_user.id, message.from_user.first_name),
-                message.text.split(None, 1)[1],
-            )
-        )
-    else:
-        set_afk(True, "")
-        await message.edit(
-            "✘ {} **Telah AFK** ✘".format(
-                mention_markdown(message.from_user.id, message.from_user.first_name)
-            )
-        )
-    await message.stop_propagation()
+    karena = message.text.split(None, 1)[1] if len(message.command) != 1 else ""
+    set_afk(True, karena)
+    text = (
+        "❏ {} **Telah AFK**!\n└ **Karena:** `{}`".format(client.me.mention, karena)
+        if karena
+        else "✘ {} **Telah AFK** ✘".format(client.me.mention)
+    )
+    await message.edit_text(text)
 
 
 @Client.on_message(filters.mentioned & ~filters.bot, group=11)
 async def afk_mentioned(client: Client, message: Message):
     global MENTIONED
     get = get_afk()
-    getself = await client.get_me()
-    if getself.last_name:
-        OwnerName = getself.first_name + " " + getself.last_name
-    else:
-        OwnerName = getself.first_name
     if get and get["afk"]:
         if "-" in str(message.chat.id):
             cid = str(message.chat.id)[4:]
@@ -75,11 +55,11 @@ async def afk_mentioned(client: Client, message: Message):
         if get["reason"]:
             await message.reply(
                 "❏ {} **Sedang AFK!**\n└ **Karena:** `{}`".format(
-                    mention_markdown(client.me.id, OwnerName), get["reason"]
+                    client.me.mention, get["reason"]
                 )
             )
         else:
-            await message.reply(f"**Maaf** {client.me.first_name} **Sedang AFK!**")
+            await message.reply(f"**Maaf** {client.me.mention} **Sedang AFK!**")
 
         _, message_type = get_message_type(message)
         if message_type == Types.TEXT:
@@ -103,7 +83,7 @@ async def afk_mentioned(client: Client, message: Message):
         await client.send_message(
             Owner,
             "**#MENTION**\n • **Dari :** {}\n • **Grup :** `{}`\n • **Pesan :** `{}`".format(
-                mention_markdown(message.from_user.id, message.from_user.first_name),
+                message.from_user.mention,
                 message.chat.title,
                 text[:3500],
             ),
@@ -115,7 +95,7 @@ async def no_longer_afk(client: Client, message: Message):
     global MENTIONED
     get = get_afk()
     if get and get["afk"]:
-        await client.send_message(message.from_user.id, "Anda sudah tidak lagi AFK!")
+        await client.send_message(Owner, "Anda sudah tidak lagi AFK!")
         set_afk(False, "")
         text = "**Total {} Mention Saat Sedang AFK**\n".format(len(MENTIONED))
         for x in MENTIONED:
@@ -129,7 +109,7 @@ async def no_longer_afk(client: Client, message: Message):
                 x["chat"],
                 msg_text,
             )
-        await client.send_message(message.from_user.id, text)
+        await client.send_message(Owner, text)
         MENTIONED = []
 
 
