@@ -48,7 +48,7 @@ async def module_help(client: Client, message: Message):
         else:
             await edit_or_reply(
                 message,
-                f"Tidak Dapat Module `{help_arg}` **Bukan Nama Modul yang Valid.**",
+                f"`{help_arg}` **Bukan Nama Modul yang Valid.**",
             )
 
 
