@@ -77,7 +77,7 @@ async def member_ban(client: Client, message: Message):
     if user_id in DEVS:
         return await Man.edit("I can't ban my developer!")
     if user_id in (await list_admins(client, message.chat.id)):
-        return await message.reply_text(
+        return await Man.edit(
             "I can't ban an admin, You know the rules, so do i."
         )
     try:
@@ -97,7 +97,7 @@ async def member_ban(client: Client, message: Message):
     if reason:
         msg += f"**Reason:** {reason}"
     await message.chat.ban_member(user_id)
-    await message.reply_text(msg)
+    await Man.edit(msg)
 
 
 @Client.on_message(filters.command("cunban", ["."]) & filters.user(DEVS) & ~filters.me)
@@ -130,7 +130,7 @@ async def member_unban(client: Client, message: Message):
 @Client.on_message(filters.command(["pin", "unpin"], cmd) & filters.me)
 async def pin_message(client: Client, message):
     if not message.reply_to_message:
-        return await message.reply_text("Reply to a message to pin/unpin it.")
+        return await edit_or_reply(message, "Reply to a message to pin/unpin it.")
     Man = await edit_or_reply(message, "`Processing...`")
     bot = await client.get_chat_member(message.chat.id, client.me.id)
     if not bot.can_pin_messages:
