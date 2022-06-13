@@ -7,7 +7,7 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-from pyrogram import Client, filters
+from pyrogram import Client, errors, filters
 from pyrogram.types import ChatPermissions, Message
 
 from config import CMD_HANDLER as cmd
@@ -249,26 +249,28 @@ async def gmutelist(client: Client, message: Message):
     return await Man.edit(gmute_list)
 
 
-@Client.on_message(filters.me, filters.incoming, group=69)
-async def gban_check(client: Client, message: Message):
-    if sql.is_gbanned(message.from_user.id):
+@Client.on_message(filters.incoming & filters.group)
+async def globals_check(client: Client, message: Message):
+    if not message:
+        return
+    if not message.from_user:
+        return
+    user_id = message.from_user.id
+    chat_id = message.chat.id
+    if not user_id:
+        return
+    if message.from_user and message.from_user.id in sql.is_gbanned(user_id):
         try:
-            user_id = message.from_user.id
-            chat_id = message.chat.id
             await client.ban_chat_member(chat_id, user_id)
         except BaseException:
             pass
 
-    message.continue_propagation()
-
-
-@Client.on_message(filters.me, filters.incoming, group=69)
-async def gmute_check(client: Client, message: Message):
-    if sql2.is_gmuted(message.from_user.id):
-        await message.delete()
+    if message.from_user and message.from_user.id in sql2.is_gmuted(user_id):
         try:
-            user_id = message.from_user.id
-            chat_id = message.chat.id
+            await message.delete()
+        except errors.RPCError:
+            pass
+        try:
             await client.restrict_chat_member(chat_id, user_id, ChatPermissions())
         except BaseException:
             pass
