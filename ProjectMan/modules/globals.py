@@ -77,11 +77,11 @@ async def gban_user(client: Client, message: Message):
     sql.gban(user.id)
     msg = (
         r"**\\#GBanned_User//**"
-        f"\n**First Name:** [{user.first_name}](tg://user?id={user.id})"
-        f"**User ID:** `{user.id}`"
+        f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})"
+        f"\n**User ID:** `{user.id}`"
     )
     if reason:
-        msg += f"**Reason:** `{reason}`"
+        msg += f"\n**Reason:** `{reason}`"
     msg += f"\n**Affected To:** `{done}` **Chats**"
     await Man.edit(msg)
 
