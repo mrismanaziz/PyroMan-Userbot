@@ -259,13 +259,13 @@ async def globals_check(client: Client, message: Message):
     chat_id = message.chat.id
     if not user_id:
         return
-    if message.from_user and message.from_user.id in sql.is_gbanned(user_id):
+    if sql.is_gbanned(user_id):
         try:
             await client.ban_chat_member(chat_id, user_id)
         except BaseException:
             pass
 
-    if message.from_user and message.from_user.id in sql2.is_gmuted(user_id):
+    if sql2.is_gmuted(user_id):
         try:
             await message.delete()
         except errors.RPCError:
