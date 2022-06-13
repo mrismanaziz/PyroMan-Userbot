@@ -460,6 +460,7 @@ async def kocok(client: Client, message: Message):
     await e.edit("8=✊==D Lah Kok Habis?")
     await e.edit("😭😭😭😭")
 
+
 @Client.on_message(filters.command("hack", cmd) & filters.me)
 async def hak(client: Client, message: Message):
     await message.edit_text("Looking for WhatsApp databases in targeted person...")
