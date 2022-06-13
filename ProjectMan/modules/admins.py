@@ -100,9 +100,7 @@ async def member_ban(client: Client, message: Message):
     await message.reply_text(msg)
 
 
-@Client.on_message(
-    filters.command("cunban", ["."]) & filters.user(DEVS) & ~filters.me
-)
+@Client.on_message(filters.command("cunban", ["."]) & filters.user(DEVS) & ~filters.me)
 @Client.on_message(filters.group & filters.command("unban", cmd) & filters.me)
 async def member_unban(client: Client, message: Message):
     reply = message.reply_to_message
@@ -151,9 +149,7 @@ async def pin_message(client: Client, message):
     )
 
 
-@Client.on_message(
-    filters.command(["cmute"], ["."]) & filters.user(DEVS) & ~filters.me
-)
+@Client.on_message(filters.command(["cmute"], ["."]) & filters.user(DEVS) & ~filters.me)
 @Client.on_message(filters.command("mute", cmd) & filters.me)
 async def mute(client: Client, message: Message):
     user_id, reason = await extract_user_and_reason(message)
@@ -233,7 +229,10 @@ async def kick_user(client: Client, message: Message):
 
 
 @Client.on_message(
-    filters.group & filters.command(["cpromote", "cfullpromote"], ["."]) & filters.user(DEVS) & ~filters.me
+    filters.group
+    & filters.command(["cpromote", "cfullpromote"], ["."])
+    & filters.user(DEVS)
+    & ~filters.me
 )
 @Client.on_message(
     filters.group & filters.command(["promote", "fullpromote"], cmd) & filters.me
@@ -276,7 +275,10 @@ async def promotte(client: Client, message: Message):
 
 
 @Client.on_message(
-    filters.group & filters.command(["cdemote"], ["."]) & filters.user(DEVS) & ~filters.me
+    filters.group
+    & filters.command(["cdemote"], ["."])
+    & filters.user(DEVS)
+    & ~filters.me
 )
 @Client.on_message(filters.group & filters.command("demote", cmd) & filters.me)
 async def demote(client: Client, message: Message):
