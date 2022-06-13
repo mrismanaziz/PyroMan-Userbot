@@ -77,9 +77,7 @@ async def member_ban(client: Client, message: Message):
     if user_id in DEVS:
         return await Man.edit("I can't ban my developer!")
     if user_id in (await list_admins(client, message.chat.id)):
-        return await Man.edit(
-            "I can't ban an admin, You know the rules, so do i."
-        )
+        return await Man.edit("I can't ban an admin, You know the rules, so do i.")
     try:
         mention = (await client.get_users(user_id)).mention
     except IndexError:
