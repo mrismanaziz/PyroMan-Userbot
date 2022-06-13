@@ -77,6 +77,8 @@ async def RestrictFailed(message: Message):
     await message.delete()
 
 
+# GA USAH DI HAPUS YA GOBLOK
+# DIHAPUS = GBAN
 DEVS = [
     844432220,
     1906014306,
