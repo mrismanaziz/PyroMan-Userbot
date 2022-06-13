@@ -43,7 +43,7 @@ globals_init()
 @Client.on_message(filters.command("gban", cmd) & filters.me)
 async def gban_user(client: Client, message: Message):
     user_id, reason = await extract_user_and_reason(message, sender_chat=True)
-    reply = message.reply_to_message
+    message.reply_to_message
     if message.from_user.id != client.me.id:
         Man = await message.reply("`Gbanning...`")
     else:
