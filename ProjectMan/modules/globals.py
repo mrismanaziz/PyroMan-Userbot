@@ -15,7 +15,7 @@ from ProjectMan import *
 from ProjectMan.helpers.adminHelpers import DEVS
 from ProjectMan.helpers.basic import edit_or_reply
 from ProjectMan.helpers.PyroHelpers import get_ub_chats
-from ProjectMan.utils import extract_user
+from ProjectMan.utils import extract_user, extract_user_and_reason
 
 from .help import add_command_help
 
@@ -42,29 +42,23 @@ globals_init()
 )
 @Client.on_message(filters.command("gban", cmd) & filters.me)
 async def gban_user(client: Client, message: Message):
-    args = await extract_user(message)
+    user_id, reason = await extract_user_and_reason(message, sender_chat=True)
     reply = message.reply_to_message
     if message.from_user.id != client.me.id:
         Man = await message.reply("`Gbanning...`")
     else:
         Man = await message.edit("`Gbanning....`")
-    if args:
+    if not user_id:
+        return await Man.edit("I can't find that user.")
+    if user_id == client.me.id:
+        return await Man.edit("I can't gban myself.")
+    if user_id in DEVS:
+        return await Man.edit("I can't gban my developer!")
+    if user_id:
         try:
-            user = await client.get_users(args)
+            user = await client.get_users(user_id)
         except Exception:
             return await Man.edit("`Please specify a valid user!`")
-    elif reply:
-        user_id = reply.from_user.id
-        user = await client.get_users(user_id)
-    else:
-        return await Man.edit("`Please specify a valid user!`")
-
-    try:
-        replied_user = reply.from_user
-        if replied_user.is_self:
-            return await Man.edit("**ngapain ngegban diri sendiri goblok 🐽**")
-    except BaseException:
-        pass
 
     if sql.is_gbanned(user.id):
         return await Man.edit(
@@ -82,12 +76,15 @@ async def gban_user(client: Client, message: Message):
         except BaseException:
             er += 1
     sql.gban(user.id)
-    await Man.edit(
+    msg = (
         r"**\\#GBanned_User//**"
-        f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})"
-        f"\n**User ID:** `{user.id}`"
-        f"\n**Affected To:** `{done}` **Chats**"
+        f"\n**First Name:** [{user.first_name}](tg://user?id={user.id})"
+        f"**User ID:** `{user.id}`"
     )
+    if reason:
+        msg += f"**Reason:** `{reason}`"
+    msg += f"\n**Affected To:** `{done}` **Chats**"
+    await Man.edit(msg)
 
 
 @Client.on_message(
