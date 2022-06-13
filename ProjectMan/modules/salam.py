@@ -7,7 +7,7 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-from time import sleep
+from asyncio import sleep
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
