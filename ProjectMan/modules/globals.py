@@ -91,38 +91,29 @@ async def gban_user(client: Client, message: Message):
 )
 @Client.on_message(filters.command("ungban", cmd) & filters.me)
 async def ungban_user(client: Client, message: Message):
-    args = await extract_user(message)
-    reply = message.reply_to_message
+    user_id, reason = await extract_user_and_reason(message, sender_chat=True)
     if message.from_user.id != client.me.id:
         Man = await message.reply("`UnGbanning...`")
     else:
         Man = await message.edit("`UnGbanning....`")
-    if args:
+    if not user_id:
+        return await Man.edit("I can't find that user.")
+    if user_id == client.me.id:
+        return await Man.edit("I can't gban myself.")
+    if user_id in DEVS:
+        return await Man.edit("I can't gban my developer!")
+    if user_id:
         try:
-            user = await client.get_users(args)
+            user = await client.get_users(user_id)
         except Exception:
-            await Man.edit(f"`Please specify a valid user!`")
-            return
-    elif reply:
-        user_id = reply.from_user.id
-        user = await client.get_users(user_id)
-    else:
-        await Man.edit(f"`Please specify a valid user!`")
-        return
-
-    try:
-        replied_user = reply.from_user
-        if replied_user.is_self:
-            return await Man.edit("**ngapain ngeungban diri sendiri goblok 🐽**")
-    except BaseException:
-        pass
+            return await Man.edit("`Please specify a valid user!`")
 
     try:
         if not sql.is_gbanned(user.id):
             return await Man.edit("`User already ungban`")
         ung_chats = await get_ub_chats(client)
         if not ung_chats:
-            return await Man.edit("`No Chats to unGban!`")
+            return await Man.edit("**Anda tidak mempunyai GC yang anda admin 🥺**")
         er = 0
         done = 0
         for good_boi in ung_chats:
@@ -132,12 +123,15 @@ async def ungban_user(client: Client, message: Message):
             except BaseException:
                 er += 1
         sql.ungban(user.id)
-        await Man.edit(
+        msg = (
             r"**\\#UnGbanned_User//**"
             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})"
             f"\n**User ID:** `{user.id}`"
-            f"\n**Affected To:** `{done}` **Chats**"
         )
+        if reason:
+            msg += f"\n**Reason:** `{reason}`"
+        msg += f"\n**Affected To:** `{done}` **Chats**"
+        await Man.edit(msg)
     except Exception as e:
         await Man.edit(f"**ERROR:** `{e}`")
         return
