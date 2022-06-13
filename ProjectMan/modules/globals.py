@@ -156,7 +156,7 @@ async def gmute_user(client: Client, message: Message):
     args = await extract_user(message)
     reply = message.reply_to_message
     Man = await edit_or_reply(message, "`Processing...`")
-    if len(args):
+    if args:
         try:
             user = await client.get_users(args)
         except Exception:
@@ -197,7 +197,7 @@ async def ungmute_user(client: Client, message: Message):
     args = await extract_user(message)
     reply = message.reply_to_message
     Man = await edit_or_reply(message, "`Processing...`")
-    if len(args):
+    if args:
         try:
             user = await client.get_users(args)
         except Exception:
