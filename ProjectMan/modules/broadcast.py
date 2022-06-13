@@ -10,6 +10,7 @@
 import asyncio
 
 from pyrogram import Client, filters
+from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 from requests import get
 
@@ -57,8 +58,11 @@ async def gcast_cmd(client: Client, message: Message):
             if chat not in GCAST_BLACKLIST:
                 try:
                     await client.send_message(chat, text)
-                    done += 1
                     await asyncio.sleep(0.1)
+                    done += 1
+                except FloodWaitError as e:
+                    await asyncio.sleep(e.value)
+                    await client.send_message(chat, text)
                 except Exception:
                     error += 1
     await Man.edit_text(
@@ -89,8 +93,11 @@ async def gucast_cmd(client: Client, message: Message):
             if chat not in DEVS:
                 try:
                     await client.send_message(chat, text)
-                    done += 1
                     await asyncio.sleep(0.1)
+                    done += 1
+                except FloodWaitError as e:
+                    await asyncio.sleep(e.value)
+                    await client.send_message(chat, text)
                 except Exception:
                     error += 1
     await Man.edit_text(
