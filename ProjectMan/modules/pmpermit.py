@@ -286,15 +286,15 @@ add_command_help(
             "Untuk mengcustom pesan limit auto block pesan",
         ],
         [
-            f"{cmd}set pmpermit <balas ke pesan>",
+            f"{cmd}setpmpermit <balas ke pesan>",
             "Untuk mengcustom pesan PMPERMIT untuk orang yang pesannya belum diterima.",
         ],
         [
-            f"{cmd}get pmpermit",
+            f"{cmd}getpmpermit",
             "Untuk melihat pesan PMPERMIT.",
         ],
         [
-            f"{cmd}reset pmpermit",
+            f"{cmd}resetpmpermit",
             "Untuk Mereset Pesan PMPERMIT menjadi DEFAULT",
         ],
         [
