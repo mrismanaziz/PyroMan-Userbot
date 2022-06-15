@@ -7,7 +7,6 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-import asyncio
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -127,11 +126,7 @@ async def approvepm(client: Client, message: Message):
 
     try:
         approve(uid)
-        msg = await message.edit(
-            f"**Menerima Pesan Dari** [{name0}](tg://user?id={uid})!"
-        )
-        await asyncio.sleep(5)
-        await msg.delete()
+        await message.edit(f"**Menerima Pesan Dari** [{name0}](tg://user?id={uid})!")
     except IntegrityError:
         await message.edit(
             f"[{name0}](tg://user?id={uid}) mungkin sudah disetujui untuk PM."
