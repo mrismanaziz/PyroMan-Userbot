@@ -1283,13 +1283,11 @@ add_command_help(
         [f"{cmd}kontol", "Untuk menampilkan art kontol."],
         [f"{cmd}penis", "Untuk menampilkan art penis dengan emoji."],
         [f"{cmd}tembak", "Untuk menampilkan art nembak."],
-        [f"{cmd}bundir", "Untuk menampilkan art bundir."][
-            f"{cmd}helikopter", "Untuk menampilkan art helikopter."
-        ],
+        [f"{cmd}bundir", "Untuk menampilkan art bundir."],
+        [f"{cmd}helikopter", "Untuk menampilkan art helikopter."],
         [f"{cmd}y", "Untuk menampilkan art y sj."],
-        [f"{cmd}awk", "Untuk menampilkan art awkowkowk."][
-            f"{cmd}nah", "Untuk menampilkan art love."
-        ],
+        [f"{cmd}awk", "Untuk menampilkan art awkowkowk."],
+        [f"{cmd}nah", "Untuk menampilkan art love."],
         [f"{cmd}ajg", "Untuk menampilkan art anjing."],
         [f"{cmd}babi", "Untuk menampilkan art babi."],
         [f"{cmd}hug", "To get A Hug Gifs anime."],
