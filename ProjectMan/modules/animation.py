@@ -538,14 +538,760 @@ async def titid(client: Client, message: Message):
     await message.edit(titid)
 
 
+@Client.on_message(filters.command("dino", cmd) & filters.me)
+async def adadino(client: Client, message: Message):
+    typew = await edit_or_reply(message, "`DIN DINNN.....`")
+    await asyncio.sleep(1)
+    await typew.edit("`DINOOOOSAURUSSSSS!!`")
+    await asyncio.sleep(1)
+    await typew.edit("`🏃                        🦖`")
+    await typew.edit("`🏃                       🦖`")
+    await typew.edit("`🏃                      🦖`")
+    await typew.edit("`🏃                     🦖`")
+    await typew.edit("`🏃   `LARII`          🦖`")
+    await typew.edit("`🏃                   🦖`")
+    await typew.edit("`🏃                  🦖`")
+    await typew.edit("`🏃                 🦖`")
+    await typew.edit("`🏃                🦖`")
+    await typew.edit("`🏃               🦖`")
+    await typew.edit("`🏃              🦖`")
+    await typew.edit("`🏃             🦖`")
+    await typew.edit("`🏃            🦖`")
+    await typew.edit("`🏃           🦖`")
+    await typew.edit("`🏃WOARGH!   🦖`")
+    await typew.edit("`🏃           🦖`")
+    await typew.edit("`🏃            🦖`")
+    await typew.edit("`🏃             🦖`")
+    await typew.edit("`🏃              🦖`")
+    await typew.edit("`🏃               🦖`")
+    await typew.edit("`🏃                🦖`")
+    await typew.edit("`🏃                 🦖`")
+    await typew.edit("`🏃                  🦖`")
+    await typew.edit("`🏃                   🦖`")
+    await typew.edit("`🏃                    🦖`")
+    await typew.edit("`🏃                     🦖`")
+    await typew.edit("`🏃  Huh-Huh           🦖`")
+    await typew.edit("`🏃                   🦖`")
+    await typew.edit("`🏃                  🦖`")
+    await typew.edit("`🏃                 🦖`")
+    await typew.edit("`🏃                🦖`")
+    await typew.edit("`🏃               🦖`")
+    await typew.edit("`🏃              🦖`")
+    await typew.edit("`🏃             🦖`")
+    await typew.edit("`🏃            🦖`")
+    await typew.edit("`🏃           🦖`")
+    await typew.edit("`🏃          🦖`")
+    await typew.edit("`🏃         🦖`")
+    await typew.edit("`DIA SEMAKIN MENDEKAT!!!`")
+    await asyncio.sleep(1)
+    await typew.edit("`🏃       🦖`")
+    await typew.edit("`🏃      🦖`")
+    await typew.edit("`🏃     🦖`")
+    await typew.edit("`🏃    🦖`")
+    await typew.edit("`Dahlah Pasrah Aja`")
+    await asyncio.sleep(1)
+    await typew.edit("`🧎🦖`")
+    await asyncio.sleep(2)
+    await typew.edit("`-TAMAT-`")
+
+
+@Client.on_message(filters.command(["sayang", "syg"], cmd) & filters.me)
+async def zeyenk(client: Client, message: Message):
+    e = await edit_or_reply(message, "I LOVEE YOUUU 💕")
+    await e.edit("💝💘💓💗")
+    await e.edit("💞💕💗💘")
+    await e.edit("💝💘💓💗")
+    await e.edit("💞💕💗💘")
+    await e.edit("💘💞💗💕")
+    await e.edit("💘💞💕💗")
+    await e.edit("SAYANG KAMU 💝💖💘")
+    await e.edit("💝💘💓💗")
+    await e.edit("💞💕💗💘")
+    await e.edit("💘💞💕💗")
+    await e.edit("SAYANG")
+    await e.edit("KAMU")
+    await e.edit("SELAMANYA 💕")
+    await e.edit("💘💘💘💘")
+    await e.edit("SAYANG")
+    await e.edit("KAMU")
+    await e.edit("SAYANG")
+    await e.edit("KAMU")
+    await e.edit("I LOVE YOUUUU")
+    await e.edit("MY BABY")
+    await e.edit("💕💞💘💝")
+    await e.edit("💘💕💞💝")
+    await e.edit("SAYANG KAMU💞")
+
+
+@Client.on_message(filters.command("gabut", cmd) & filters.me)
+async def menggabut(client: Client, message: Message):
+    e = await edit_or_reply(message, "`PERNAAHHHHH KAHHH KAUUU MENGIRA`")
+    await e.edit("`SEPEEERTIIIII APAAAA BENTUKKKKKKK CINTAAAA`")
+    await e.edit("`RAMBUUUT WARNAAA WARNII`")
+    await e.edit("`BAGAI GULALI`")
+    await e.edit("`IMUUUTTTTT LUCUUU`")
+    await e.edit("`WALAAUUUU TAK TERLALU TINGGI`")
+    await e.edit("`GW GABUUTTTT`")
+    await e.edit("`EMMMM BACOTNYA`")
+    await e.edit("`GABUTTTT WOI GABUT`")
+    await e.edit("🙈🙈🙈🙈")
+    await e.edit("🙉🙉🙉🙉")
+    await e.edit("🙈🙈🙈🙈")
+    await e.edit("🙉🙉🙉🙉")
+    await e.edit("`CILUUUKKK BAAAAA`")
+    await e.edit("🙉🙉🙉🙉")
+    await e.edit("🐢                       🚶")
+    await e.edit("🐢                      🚶")
+    await e.edit("🐢                     🚶")
+    await e.edit("🐢                    🚶")
+    await e.edit("🐢                   🚶")
+    await e.edit("🐢                  🚶")
+    await e.edit("🐢                 🚶")
+    await e.edit("🐢                🚶")
+    await e.edit("🐢               🚶")
+    await e.edit("🐢              🚶")
+    await e.edit("🐢             🚶")
+    await e.edit("🐢            🚶")
+    await e.edit("🐢           🚶")
+    await e.edit("🐢          🚶")
+    await e.edit("🐢         🚶")
+    await e.edit("🐢        🚶")
+    await e.edit("🐢       🚶")
+    await e.edit("🐢      🚶")
+    await e.edit("🐢     🚶")
+    await e.edit("🐢    🚶")
+    await e.edit("🐢   🚶")
+    await e.edit("🐢  🚶")
+    await e.edit("🐢 🚶")
+    await e.edit("🐢🚶")
+    await asyncio.sleep(1)
+    await e.edit("🚶🐢")
+    await e.edit("🚶 🐢")
+    await e.edit("🚶  🐢")
+    await e.edit("🚶   🐢")
+    await e.edit("🚶    🐢")
+    await e.edit("🚶     🐢")
+    await e.edit("🚶      🐢")
+    await e.edit("🚶       🐢")
+    await e.edit("🚶        🐢")
+    await e.edit("🚶         🐢")
+    await e.edit("🚶          🐢")
+    await e.edit("🚶           🐢")
+    await e.edit("🚶            🐢")
+    await e.edit("🚶             🐢")
+    await e.edit("🚶              🐢")
+    await e.edit("🚶               🐢")
+    await e.edit("🚶                🐢")
+    await e.edit("🚶                 🐢")
+    await e.edit("🚶                  🐢")
+    await e.edit("🚶                   🐢")
+    await e.edit("🚶                    🐢")
+    await e.edit("🚶                     🐢")
+    await e.edit("🚶                      🐢")
+    await e.edit("🚶                       🐢")
+    await e.edit("🚶                        🐢")
+    await e.edit("🚶                         🐢")
+    await e.edit("🚶                          🐢")
+    await e.edit("🚶                           🐢")
+    await e.edit("🚶                            🐢")
+    await e.edit("🚶                             🐢")
+    await e.edit("🚶                              🐢")
+    await e.edit("🚶                               🐢")
+    await e.edit("🚶                                🐢")
+    await e.edit("🚶                                 🐢")
+    await e.edit("`AHHH MANTAP`")
+    await e.edit("🙉")
+    await e.edit("🙈")
+    await e.edit("🙉")
+    await e.edit("🙈")
+    await e.edit("🙉")
+    await e.edit("😂")
+    await e.edit("🐢                       🚶")
+    await e.edit("🐢                      🚶")
+    await e.edit("🐢                     🚶")
+    await e.edit("🐢                    🚶")
+    await e.edit("🐢                   🚶")
+    await e.edit("🐢                  🚶")
+    await e.edit("🐢                 🚶")
+    await e.edit("🐢                🚶")
+    await e.edit("🐢               🚶")
+    await e.edit("🐢              🚶")
+    await e.edit("🐢             🚶")
+    await e.edit("🐢            🚶")
+    await e.edit("🐢           🚶")
+    await e.edit("🐢          🚶")
+    await e.edit("🐢         🚶")
+    await e.edit("🐢        🚶")
+    await e.edit("🐢       🚶")
+    await e.edit("🐢      🚶")
+    await e.edit("🐢     🚶")
+    await e.edit("🐢    🚶")
+    await e.edit("🐢   🚶")
+    await e.edit("🐢  🚶")
+    await e.edit("🐢 🚶")
+    await e.edit("🐢🚶")
+    await asyncio.sleep(1)
+    await e.edit("🚶🐢")
+    await e.edit("🚶 🐢")
+    await e.edit("🚶  🐢")
+    await e.edit("🚶   🐢")
+    await e.edit("🚶    🐢")
+    await e.edit("🚶     🐢")
+    await e.edit("🚶      🐢")
+    await e.edit("🚶       🐢")
+    await e.edit("🚶        🐢")
+    await e.edit("🚶         🐢")
+    await e.edit("🚶          🐢")
+    await e.edit("🚶           🐢")
+    await e.edit("🚶            🐢")
+    await e.edit("🚶             🐢")
+    await e.edit("🚶              🐢")
+    await e.edit("🚶               🐢")
+    await e.edit("🚶                🐢")
+    await e.edit("🚶                 🐢")
+    await e.edit("🚶                  🐢")
+    await e.edit("🚶                   🐢")
+    await e.edit("🚶                    🐢")
+    await e.edit("🚶                     🐢")
+    await e.edit("🚶                      🐢")
+    await e.edit("🚶                       🐢")
+    await e.edit("🚶                        🐢")
+    await e.edit("🚶                         🐢")
+    await e.edit("🚶                          🐢")
+    await e.edit("🚶                           🐢")
+    await e.edit("🚶                            🐢")
+    await e.edit("🚶                             🐢")
+    await e.edit("🚶                              🐢")
+    await e.edit("🚶                               🐢")
+    await e.edit("🚶                                🐢")
+    await asyncio.sleep(1)
+    await e.edit("🐢                       🚶")
+    await e.edit("🐢                      🚶")
+    await e.edit("🐢                     🚶")
+    await e.edit("🐢                    🚶")
+    await e.edit("🐢                   🚶")
+    await e.edit("🐢                  🚶")
+    await e.edit("🐢                 🚶")
+    await e.edit("🐢                🚶")
+    await e.edit("🐢               🚶")
+    await e.edit("🐢              🚶")
+    await e.edit("🐢             🚶")
+    await e.edit("🐢            🚶")
+    await e.edit("🐢           🚶")
+    await e.edit("🐢          🚶")
+    await e.edit("🐢         🚶")
+    await e.edit("🐢        🚶")
+    await e.edit("🐢       🚶")
+    await e.edit("🐢      🚶")
+    await e.edit("🐢     🚶")
+    await e.edit("🐢    🚶")
+    await e.edit("🐢   🚶")
+    await e.edit("🐢  🚶")
+    await e.edit("🐢 🚶")
+    await e.edit("🐢🚶")
+    await asyncio.sleep(1)
+    await e.edit("🚶🐢")
+    await e.edit("🚶 🐢")
+    await e.edit("🚶  🐢")
+    await e.edit("🚶   🐢")
+    await e.edit("🚶    🐢")
+    await e.edit("🚶     🐢")
+    await e.edit("🚶      🐢")
+    await e.edit("🚶       🐢")
+    await e.edit("🚶        🐢")
+    await e.edit("🚶         🐢")
+    await e.edit("🚶          🐢")
+    await e.edit("🚶           🐢")
+    await e.edit("🚶            🐢")
+    await e.edit("🚶             🐢")
+    await e.edit("🚶              🐢")
+    await e.edit("🚶               🐢")
+    await e.edit("🚶                🐢")
+    await e.edit("🚶                 🐢")
+    await e.edit("🚶                  🐢")
+    await e.edit("🚶                   🐢")
+    await e.edit("🚶                    🐢")
+    await e.edit("🚶                     🐢")
+    await e.edit("🚶                      🐢")
+    await e.edit("🚶                       🐢")
+    await e.edit("🚶                        🐢")
+    await e.edit("🚶                         🐢")
+    await e.edit("🚶                          🐢")
+    await e.edit("🚶                           🐢")
+    await e.edit("🚶                            🐢")
+    await e.edit("🚶                             🐢")
+    await e.edit("🚶                              🐢")
+    await e.edit("🚶                               🐢")
+    await e.edit("🚶                                🐢")
+    await e.edit("`GABUT`")
+
+
+@Client.on_message(filters.command(["helikopter", "heli"], cmd) & filters.me)
+async def helikopter(client: Client, message: Message):
+    await edit_or_reply(
+        message,
+        "▬▬▬.◙.▬▬▬ \n"
+        "═▂▄▄▓▄▄▂ \n"
+        "◢◤ █▀▀████▄▄▄▄◢◤ \n"
+        "█▄ █ █▄ ███▀▀▀▀▀▀▀╬ \n"
+        "◥█████◤ \n"
+        "══╩══╩══ \n"
+        "╬═╬ \n"
+        "╬═╬ \n"
+        "╬═╬ \n"
+        "╬═╬ \n"
+        "╬═╬ \n"
+        "╬═╬ \n"
+        "╬═╬ Hallo Semuanya :) \n"
+        "╬═╬☻/ \n"
+        "╬═╬/▌ \n"
+        "╬═╬/ \\ \n",
+    )
+
+
+@Client.on_message(filters.command("tembak", cmd) & filters.me)
+async def dornembak(client: Client, message: Message):
+    await edit_or_reply(
+        message,
+        "_/﹋\\_\n" "(҂`_´)\n" "<,︻╦╤─ ҉\n" r"_/﹋\_" "\n**Mau Jadi Pacarku Gak?!**",
+    )
+
+
+@Client.on_message(filters.command("bundir", cmd) & filters.me)
+async def ngebundir(client: Client, message: Message):
+    await edit_or_reply(
+        message,
+        "`Dadah Semuanya...`          \n　　　　　|"
+        "\n　　　　　| \n"
+        "　　　　　| \n"
+        "　　　　　| \n"
+        "　　　　　| \n"
+        "　　　　　| \n"
+        "　　　　　| \n"
+        "　　　　　| \n"
+        "　／￣￣＼| \n"
+        "＜ ´･ 　　 |＼ \n"
+        "　|　３　 | 丶＼ \n"
+        "＜ 、･　　|　　＼ \n"
+        "　＼＿＿／∪ _ ∪) \n"
+        "　　　　　 Ｕ Ｕ\n",
+    )
+
+
+@Client.on_message(filters.command(["awk", "awikwok"], cmd) & filters.me)
+async def awikwok(client: Client, message: Message):
+    await edit_or_reply(
+        message,
+        "────██──────▀▀▀██\n"
+        "──▄▀█▄▄▄─────▄▀█▄▄▄\n"
+        "▄▀──█▄▄──────█─█▄▄\n"
+        "─▄▄▄▀──▀▄───▄▄▄▀──▀▄\n"
+        "─▀───────▀▀─▀───────▀▀\n`Awkwokwokwok..`",
+    )
+
+
+@Client.on_message(filters.command("y", cmd) & filters.me)
+async def ysaja(client: Client, message: Message):
+    await edit_or_reply(
+        message,
+        "‡‡‡‡‡‡‡‡‡‡‡‡▄▄▄▄\n"
+        "‡‡‡‡‡‡‡‡‡‡‡█‡‡‡‡█\n"
+        "‡‡‡‡‡‡‡‡‡‡‡█‡‡‡‡█\n"
+        "‡‡‡‡‡‡‡‡‡‡█‡‡‡‡‡█\n"
+        "‡‡‡‡‡‡‡‡‡█‡‡‡‡‡‡█\n"
+        "██████▄▄█‡‡‡‡‡‡████████▄\n"
+        "▓▓▓▓▓▓█‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡█\n"
+        "▓▓▓▓▓▓█‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡█\n"
+        "▓▓▓▓▓▓█‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡█\n"
+        "▓▓▓▓▓▓█‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡█\n"
+        "▓▓▓▓▓▓█‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡█\n"
+        "▓▓▓▓▓▓█████‡‡‡‡‡‡‡‡‡‡‡‡██\n"
+        "█████‡‡‡‡‡‡‡██████████\n",
+    )
+
+
+@Client.on_message(filters.command("tank", cmd) & filters.me)
+async def tank(client: Client, message: Message):
+    await edit_or_reply(
+        message,
+        "█۞███████]▄▄▄▄▄▄▄▄▄▄▃ \n"
+        "▂▄▅█████████▅▄▃▂…\n"
+        "[███████████████████]\n"
+        "◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤\n",
+    )
+
+
+@Client.on_message(filters.command("babi", cmd) & filters.me)
+async def babi(client: Client, message: Message):
+    await edit_or_reply(
+        message,
+        "┈┈┏━╮╭━┓┈╭━━━━╮\n"
+        "┈┈┃┏┗┛┓┃╭┫Ngok ┃\n"
+        "┈┈╰┓▋▋┏╯╯╰━━━━╯\n"
+        "┈╭━┻╮╲┗━━━━╮╭╮┈\n"
+        "┈┃▎▎┃╲╲╲╲╲╲┣━╯┈\n"
+        "┈╰━┳┻▅╯╲╲╲╲┃┈┈┈\n"
+        "┈┈┈╰━┳┓┏┳┓┏╯┈┈┈\n"
+        "┈┈┈┈┈┗┻┛┗┻┛┈┈┈┈\n",
+    )
+
+
+@Client.on_message(filters.command(["ajg", "anjg"], cmd) & filters.me)
+async def anjg(client: Client, message: Message):
+    await edit_or_reply(
+        message,
+        "╥━━━━━━━━╭━━╮━━┳\n"
+        "╢╭╮╭━━━━━┫┃▋▋━▅┣\n"
+        "╢┃╰┫┈┈┈┈┈┃┃┈┈╰┫┣\n"
+        "╢╰━┫┈┈┈┈┈╰╯╰┳━╯┣\n"
+        "╢┊┊┃┏┳┳━━┓┏┳┫┊┊┣\n"
+        "╨━━┗┛┗┛━━┗┛┗┛━━┻\n",
+    )
+
+
+@Client.on_message(filters.command("nah", cmd) & filters.me)
+async def nahlove(client: Client, message: Message):
+    typew = await edit_or_reply(
+        message, "`\n(\\_/)`" "`\n(●_●)`" "`\n />💖 *Ini Buat Kamu`"
+    )
+    await asyncio.sleep(2)
+    await typew.edit("`\n(\\_/)`" "`\n(●_●)`" "`\n💖<\\  *Tapi Bo'ong`")
+
+
+@Client.on_message(filters.command("santet", cmd) & filters.me)
+async def santet(client: Client, message: Message):
+    typew = await edit_or_reply(message, "`Mengaktifkan Perintah Santet Online....`")
+    await asyncio.sleep(2)
+    await typew.edit("`Mencari Nama Orang Ini...`")
+    await asyncio.sleep(1)
+    await typew.edit("`Santet Online Segera Dilakukan`")
+    await asyncio.sleep(1)
+    await typew.edit("0%")
+    number = 1
+    await typew.edit(str(number) + "%   ▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   █████████████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ██████████████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████████▊")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ███████████████▉")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████████")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████████▎")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████████▍")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████████▌")
+    number += 1
+    await asyncio.sleep(0.03)
+    await typew.edit(str(number) + "%   ████████████████▌")
+    await asyncio.sleep(1)
+    await typew.edit("**Target Berhasil Tersantet Online 🥴**")
+
+
 add_command_help(
     "animation",
     [
+        [f"{cmd}dino", "Untuk menampilkan animasi dikejar dino."],
+        [f"{cmd}santet", "Untuk menampilkan animasi menyantet onlen."],
+        [f"{cmd}gabut", "Untuk menampilkan animasi gabut."],
+        [f"{cmd}sayang", "Untuk menampilkan animasi sayang."],
+        [f"{cmd}hack", "Untuk menampilkan animasi ngehek palsu."],
+        [f"{cmd}bomb", "Untuk menampilkan animasi Bomb."],
+        [f"{cmd}brain", "Untuk menampilkan animasi  Brain 🧠."],
         [f"{cmd}kontol", "Untuk menampilkan art kontol."],
         [f"{cmd}penis", "Untuk menampilkan art penis dengan emoji."],
-        [f"{cmd}hack", "To hack Someone Data #fake."],
-        [f"{cmd}bomb", "Animation Bomb."],
-        [f"{cmd}brain", "Animation Brain 🧠."],
+        [f"{cmd}tembak", "Untuk menampilkan art nembak."],
+        [f"{cmd}bundir", "Untuk menampilkan art bundir."][
+            f"{cmd}helikopter", "Untuk menampilkan art helikopter."
+        ],
+        [f"{cmd}y", "Untuk menampilkan art y sj."],
+        [f"{cmd}awk", "Untuk menampilkan art awkowkowk."][
+            f"{cmd}nah", "Untuk menampilkan art love."
+        ],
+        [f"{cmd}ajg", "Untuk menampilkan art anjing."],
+        [f"{cmd}babi", "Untuk menampilkan art babi."],
         [f"{cmd}hug", "To get A Hug Gifs anime."],
         [f"{cmd}hmm", "Get Random Hmmm."],
         [f"{cmd}wink", "To Get A Winking Gifs."],
