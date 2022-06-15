@@ -14,12 +14,17 @@
       "description": "Dapatkan String Session Pyrogram di Grup » https://t.me/SharingUserbot » Lalu ketik #string",
       "required": true
     },
+    "BOTLOG_CHATID": {
+      "description": "Buatlah grup telegram publik lalu masukan @MissRose_bot ketik /id, masukan id grup nya disini. contoh: -1001473548xxx",
+      "value": "0",
+      "required": false
+    },
     "HEROKU_API_KEY": {
-      "description": "Ambil Heroku API KEY mu disini » https://dashboard.heroku.com/account〔 Bila Tidak tau bisa di /skip 〕",
+      "description": "Ambil Heroku API KEY mu disini » https://dashboard.heroku.com/account",
       "required": false
     },
     "HEROKU_APP_NAME": {
-      "description": "Masukan Nama App heroku, Nama App yang paling pertama di isi〔 Bila Tidak tau bisa di /skip 〕",
+      "description": "Masukan Nama App heroku, Nama App yang paling pertama di isi (liat paling atas)",
       "required": false
     }
   },
