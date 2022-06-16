@@ -60,7 +60,7 @@ async def jwbsalamlngkp(client: Client, message: Message):
 @Client.on_message(filters.command("a", cmd) & filters.me)
 async def salken(client: Client, message: Message):
     xx = await edit_or_reply(message, f"**Haii Salken Saya {client.me.first_name}**")
-    sleep(2)
+    await sleep(2)
     await xx.edit("Assalamualaikum")
 
 
@@ -74,14 +74,14 @@ async def salamarab(client: Client, message: Message):
 @Client.on_message(filters.command("j", cmd) & filters.me)
 async def jakasem(client: Client, message: Message):
     xx = await edit_or_reply(message, "**JAKA SEMBUNG BAWA GOLOK**")
-    sleep(3)
+    await sleep(3)
     await xx.edit("**NIMBRUNG GOBLOKK!!!🔥**")
 
 
 @Client.on_message(filters.command("k", cmd) & filters.me)
 async def ngegas(client: Client, message: Message):
     xx = await edit_or_reply(message, f"**Hallo KIMAAKK SAYA {client.me.first_name}**")
-    sleep(2)
+    await sleep(2)
     await xx.edit("**LU SEMUA NGENTOT 🔥**")
 
 
