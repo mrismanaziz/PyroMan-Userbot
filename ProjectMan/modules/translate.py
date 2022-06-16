@@ -17,7 +17,7 @@ from ProjectMan.helpers.basic import edit_or_reply
 from .help import add_command_help
 
 
-@Client.on_message(filters.me & filters.command("tr", cmd))
+@Client.on_message(filters.me & filters.command(["tr", "trt", "translate"], cmd))
 async def translate(client: Client, message: Message):
     trl = Translator()
     if message.reply_to_message and (
@@ -63,7 +63,7 @@ async def translate(client: Client, message: Message):
             return
     await edit_or_reply(
         message,
-        f"**Translated:**\n```{tekstr.text}```\n\n**Detected Language:** `{(await trl.detect(text))}`",
+        f"**Diterjemahkan ke:** `{target}`\n```{tekstr.text}```\n\n**Bahasa yang Terdeteksi:** `{(await trl.detect(text))}`",
         parse_mode="Markdown",
     )
 
