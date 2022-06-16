@@ -67,7 +67,7 @@ async def salken(client: Client, message: Message):
 @Client.on_message(filters.command("ass", cmd) & filters.me)
 async def salamarab(client: Client, message: Message):
     xx = await edit_or_reply(message, "Salam Dulu Biar Sopan")
-    sleep(2)
+    await sleep(2)
     await xx.edit("السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ")
 
 
