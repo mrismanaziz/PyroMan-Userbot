@@ -90,10 +90,10 @@ add_command_help(
     [
         [f"{cmd}p", "Assalamualaikum."],
         [f"{cmd}pe", "Assalamualaikum Warahmatullahi Wabarakatuh."],
-        [f"{cmd}l`", "Wa'alaikumsalam."],
-        [f"{cmd}ass`", "Assalamualaikum Bahas arab."],
-        [f"{cmd}a`", "Salam Kenal dan salam."],
-        [f"{cmd}l`", "Wa'alaikumsalam."],
-        [f"{cmd}el`", "Wa'alaikumsalam Warahmatullahi Wabarakatuh."],
+        [f"{cmd}l", "Wa'alaikumsalam."],
+        [f"{cmd}ass", "Assalamualaikum Bahas arab."],
+        [f"{cmd}a", "Salam Kenal dan salam."],
+        [f"{cmd}l", "Wa'alaikumsalam."],
+        [f"{cmd}el", "Wa'alaikumsalam Warahmatullahi Wabarakatuh."],
     ],
 )
