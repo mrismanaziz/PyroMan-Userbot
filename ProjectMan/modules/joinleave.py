@@ -32,7 +32,7 @@ async def leave(client: Client, message: Message):
     Man = message.command[1] if len(message.command) > 1 else message.chat.id
     xxnx = await edit_or_reply(message, "`Processing...`")
     try:
-        await xxnx.edit_text(f"{client.me} has left this group, bye!!")
+        await xxnx.edit_text(f"{client.me.first_name} has left this group, bye!!")
         await client.leave_chat(Man)
     except Exception as ex:
         await xxnx.edit_text(f"**ERROR:** \n\n{str(ex)}")
