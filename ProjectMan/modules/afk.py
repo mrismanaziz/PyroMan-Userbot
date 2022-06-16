@@ -15,11 +15,10 @@ from pyrogram.types import Message
 from config import CMD_HANDLER as cmd
 from ProjectMan import BOTLOG_CHATID
 from ProjectMan.helpers.msg_types import Types, get_message_type
-from ProjectMan.helpers.parser import escape_markdown
+from ProjectMan.helpers.parser import escape_markdown, mention_markdown
 from ProjectMan.helpers.SQL.afk_db import get_afk, set_afk
 from ProjectMan.modules.help import add_command_help
 
-Owner = BOTLOG_CHATID
 # Set priority to 11 and 12
 MENTIONED = []
 AFK_RESTIRECT = {}
@@ -28,14 +27,22 @@ DELAY_TIME = 3  # seconds
 
 @Client.on_message(filters.me & filters.command("afk", cmd))
 async def afk(client: Client, message: Message):
-    karena = message.text.split(None, 1)[1] if len(message.command) != 1 else ""
-    set_afk(True, karena)
-    text = (
-        "❏ {} **Telah AFK**!\n└ **Karena:** `{}`".format(client.me.mention, karena)
-        if karena
-        else "✘ {} **Telah AFK** ✘".format(client.me.mention)
-    )
-    await message.edit_text(text)
+    if len(message.text.split()) >= 2:
+        set_afk(True, message.text.split(None, 1)[1])
+        await message.edit(
+            "❏ {} **Telah AFK**!\n└ **Karena:** `{}`".format(
+                mention_markdown(message.from_user.id, message.from_user.first_name),
+                message.text.split(None, 1)[1],
+            )
+        )
+    else:
+        set_afk(True, "")
+        await message.edit(
+            "✘ {} **Telah AFK** ✘".format(
+                mention_markdown(message.from_user.id, message.from_user.first_name)
+            )
+        )
+    await message.stop_propagation()
 
 
 @Client.on_message(filters.mentioned & ~filters.bot, group=11)
@@ -59,7 +66,7 @@ async def afk_mentioned(client: Client, message: Message):
                 )
             )
         else:
-            await message.reply(f"**Maaf** {client.me.mention} **Sedang AFK!**")
+            await message.reply(f"**Maaf** {client.me.first_name} **Sedang AFK!**")
 
         _, message_type = get_message_type(message)
         if message_type == Types.TEXT:
@@ -81,7 +88,7 @@ async def afk_mentioned(client: Client, message: Message):
             }
         )
         await client.send_message(
-            Owner,
+            BOTLOG_CHATID,
             "**#MENTION**\n • **Dari :** {}\n • **Grup :** `{}`\n • **Pesan :** `{}`".format(
                 message.from_user.mention,
                 message.chat.title,
@@ -95,7 +102,7 @@ async def no_longer_afk(client: Client, message: Message):
     global MENTIONED
     get = get_afk()
     if get and get["afk"]:
-        await client.send_message(Owner, "Anda sudah tidak lagi AFK!")
+        await client.send_message(BOTLOG_CHATID, "Anda sudah tidak lagi AFK!")
         set_afk(False, "")
         text = "**Total {} Mention Saat Sedang AFK**\n".format(len(MENTIONED))
         for x in MENTIONED:
@@ -109,7 +116,7 @@ async def no_longer_afk(client: Client, message: Message):
                 x["chat"],
                 msg_text,
             )
-        await client.send_message(Owner, text)
+        await client.send_message(BOTLOG_CHATID, text)
         MENTIONED = []
 
 
