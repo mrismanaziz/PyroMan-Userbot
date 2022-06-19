@@ -63,6 +63,7 @@ async def gcast_cmd(client: Client, message: Message):
                 except FloodWait as e:
                     await asyncio.sleep(e.value)
                     await client.send_message(chat, text)
+                    done += 1
                 except Exception:
                     error += 1
     await Man.edit_text(
@@ -98,6 +99,7 @@ async def gucast_cmd(client: Client, message: Message):
                 except FloodWait as e:
                     await asyncio.sleep(e.value)
                     await client.send_message(chat, text)
+                    done += 1
                 except Exception:
                     error += 1
     await Man.edit_text(
