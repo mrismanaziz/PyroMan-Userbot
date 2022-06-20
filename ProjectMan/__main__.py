@@ -13,7 +13,7 @@ from pyrogram import idle
 from uvloop import install
 
 from config import *
-from ProjectMan import BOTLOG_CHATID, LOGGER, LOOP, bots
+from ProjectMan import BOTLOG_CHATID, LOGGER, LOOP, aiosession, bots
 from ProjectMan.helpers.misc import git, heroku
 from ProjectMan.modules import ALL_MODULES
 
@@ -39,6 +39,7 @@ async def main():
         except Exception as a:
             LOGGER("main").warning(a)
     await idle()
+    await aiosession.close()
 
 
 if __name__ == "__main__":
