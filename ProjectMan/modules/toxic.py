@@ -12,8 +12,9 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+from config import BLACKLIST_CHAT
 from config import CMD_HANDLER as cmd
-from ProjectMan.helpers.adminHelpers import BLACKLIST_CHAT, DEVS
+from ProjectMan.helpers.adminHelpers import DEVS
 from ProjectMan.helpers.basic import edit_or_reply
 from ProjectMan.helpers.PyroHelpers import ReplyCheck
 from ProjectMan.utils import extract_user
