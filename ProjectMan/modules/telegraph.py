@@ -29,7 +29,9 @@ async def uptotelegraph(client: Client, message: Message):
     Man = await edit_or_reply(message, "`Processing...`")
     # if not replied
     if not reply:
-        await Man.edit("`Please reply to media / text...`")
+        await Man.edit(
+            "**Mohon Balas Ke Pesan, Untuk Mendapatkan Link dari Telegraph.**"
+        )
     # replied to text
     elif reply.text:
         if len(reply.text) <= 4096:
@@ -55,7 +57,6 @@ async def uptotelegraph(client: Client, message: Message):
             or reply.document
             and reply.document.file_size <= filesize
         ):
-            await Man.edit("`Processing...`")
             if reply.animation or reply.sticker:
                 loc = await client.download_media(reply, file_name=f"telegraph.png")
             else:
