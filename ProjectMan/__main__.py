@@ -10,6 +10,7 @@
 import importlib
 
 from pyrogram import idle
+from uvloop import install
 
 from config import *
 from ProjectMan import BOTLOG_CHATID, LOGGER, LOOP, bots
@@ -43,6 +44,7 @@ async def main():
 if __name__ == "__main__":
     LOGGER("ProjectMan").info("Starting PyroMan-UserBot")
     LOGGER("ProjectMan").info(f"Total Clients = {len(bots)} Users")
+    install()
     git()
     heroku()
     LOGGER("ProjectMan").info(f"PyroMan-UserBot v{BOT_VER} [🔥 BERHASIL DIAKTIFKAN! 🔥]")
