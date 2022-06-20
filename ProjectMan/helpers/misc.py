@@ -110,7 +110,8 @@ def heroku():
                 Heroku = heroku3.from_key(HEROKU_API_KEY)
                 HAPP = Heroku.app(HEROKU_APP_NAME)
                 LOGGER("ProjectMan").info(f"Heroku App Configured")
-            except BaseException:
-                LOGGER("ProjectMan").warning(
+            except BaseException as e:
+                LOGGER("Heroku").error(e)
+                LOGGER("Heroku").info(
                     f"Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku."
                 )
