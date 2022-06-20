@@ -20,6 +20,7 @@ from config import CMD_HANDLER as cmd
 from config import *
 from ProjectMan import *
 from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.helpers.PyroHelpers import ReplyCheck
 from ProjectMan.utils import get_readable_time
 
 from .help import add_command_help
@@ -46,7 +47,15 @@ async def alive(client: Client, message: Message):
         f"{emoji} **Bot Uptime :** `{uptime}` \n\n"
         f"    **[𝗦𝘂𝗽𝗽𝗼𝗿𝘁](https://t.me/{GROUP})** | **[𝗖𝗵𝗮𝗻𝗻𝗲𝗹](https://t.me/{CHANNEL})** | **[𝗢𝘄𝗻𝗲𝗿](tg://user?id={client.me.id})**"
     )
-    await asyncio.gather(xx.delete(), apa(message.chat.id, ALIVE_LOGO, caption=capt))
+    await asyncio.gather(
+        xx.delete(),
+        apa(
+            message.chat.id,
+            ALIVE_LOGO,
+            caption=capt,
+            reply_to_message_id=ReplyCheck(message),
+        ),
+    )
 
 
 add_command_help(
