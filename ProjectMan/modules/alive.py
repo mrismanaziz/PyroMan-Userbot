@@ -31,10 +31,10 @@ alive_text = ALIVE_TEKS_CUSTOM
 
 @Client.on_message(filters.command(["alive", "awake"], cmd) & filters.me)
 async def alive(client: Client, message: Message):
-    uptime = await get_readable_time((time.time() - StartTime))
     xx = await edit_or_reply(message, "⚡️")
-    await asyncio.sleep(2)
-    output = (
+    apa = client.send_video if ALIVE_LOGO.endswith(".mp4") else client.send_photo
+    uptime = await get_readable_time((time.time() - StartTime))
+    capt = (
         f"**[PyroMan-Userbot](https://github.com/mrismanaziz/PyroMan-Userbot) is Up and Running.**\n\n"
         f"**{alive_text}**\n\n"
         f"{emoji} **Master :** {client.me.mention} \n"
@@ -45,8 +45,7 @@ async def alive(client: Client, message: Message):
         f"{emoji} **Bot Uptime :** `{uptime}` \n\n"
         f"    **[𝗦𝘂𝗽𝗽𝗼𝗿𝘁](https://t.me/{GROUP})** | **[𝗖𝗵𝗮𝗻𝗻𝗲𝗹](https://t.me/{CHANNEL})** | **[𝗢𝘄𝗻𝗲𝗿](tg://user?id={client.me.id})**"
     )
-    await client.send_photo(message.chat.id, photo=ALIVE_LOGO, caption=output)
-    await xx.delete()
+    await asyncio.gather(xx.delete(), apa(message.chat.id, ALIVE_LOGO, caption=capt))
 
 
 add_command_help(
