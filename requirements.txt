@@ -32,6 +32,7 @@ textblob
 tgcrypto
 tracemoepy
 urllib3
+uvloop
 wget==3.2
 yourls
 youtube-search-python
