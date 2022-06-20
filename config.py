@@ -21,7 +21,6 @@ ALIVE_LOGO = getenv("ALIVE_LOGO", "https://telegra.ph/file/9dc4e335feaaf6a214818
 ALIVE_TEKS_CUSTOM = getenv("ALIVE_TEKS_CUSTOM", "Hey, I am alive.")
 API_HASH = getenv("API_HASH")
 API_ID = int(getenv("API_ID", ""))
-BLACKLIST_CHAT = [-1001473548283]
 BOTLOG_CHATID = int(getenv("BOTLOG_CHATID") or 0)
 BOT_VER = "0.1.0@main"
 BRANCH = "main"
