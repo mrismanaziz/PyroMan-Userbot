@@ -22,7 +22,18 @@ from pyrogram import Client
 from pyrogram.types import *
 from pytgcalls import GroupCallFactory
 
-from config import *
+from config import (
+    API_HASH,
+    API_ID,
+    BOTLOG_CHATID,
+    DB_URL,
+    STRING_SESSION1,
+    STRING_SESSION2,
+    STRING_SESSION3,
+    STRING_SESSION4,
+    STRING_SESSION5,
+    SUDO_USERS,
+)
 
 LOOP = asyncio.get_event_loop_policy().get_event_loop()
 trl = Translator()
@@ -46,6 +57,7 @@ logging.basicConfig(
     ],
 )
 logging.getLogger("asyncio").setLevel(logging.CRITICAL)
+logging.getLogger("pytgcalls").setLevel(logging.WARNING)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 logging.getLogger("pyrogram.client").setLevel(logging.WARNING)
 logging.getLogger("pyrogram.syncer").setLevel(logging.CRITICAL)
@@ -62,7 +74,6 @@ API_ID = API_ID
 API_HASH = API_HASH
 SUDO_USERS = SUDO_USERS
 DB_URL = DB_URL
-
 
 if not STRING_SESSION1:
     LOGGER(__name__).error("No String Session Found! Exiting!")
