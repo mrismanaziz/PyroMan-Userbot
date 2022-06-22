@@ -10,7 +10,7 @@
 from pyrogram import idle
 from uvloop import install
 
-from config import *
+from config import BOT_VER, CMD_HANDLER
 from ProjectMan import BOTLOG_CHATID, LOGGER, LOOP, aiosession, bots
 from ProjectMan.helpers.misc import git, heroku
 
