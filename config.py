@@ -26,7 +26,7 @@ if not BLACKLIST_CHAT:
     BLACKLIST_CHAT = [-1001473548283]
 BOTLOG_CHATID = int(getenv("BOTLOG_CHATID") or 0)
 BOT_VER = "0.1.0@main"
-BRANCH = "main"
+BRANCH = getenv("BRANCH", "main")
 CHANNEL = getenv("CHANNEL", "Lunatic0de")
 CMD_HANDLER = getenv("CMD_HANDLER", ".")
 DB_URL = getenv("DATABASE_URL", "")

@@ -70,12 +70,12 @@ add_command_help(
     "invite",
     [
         [
-            f"{cmd}invitelink",
+            "invitelink",
             "Untuk Mendapatkan Link invite ke grup Obrolan Anda. [Need Admin]",
         ],
-        [f"{cmd}invite @username", "Untuk Mengundang Anggota ke grup Anda."],
+        ["invite @username", "Untuk Mengundang Anggota ke grup Anda."],
         [
-            f"{cmd}inviteall @usernamegc",
+            "inviteall @usernamegc",
             "Untuk Mengundang Anggota dari obrolan grup lain ke obrolan grup Anda.",
         ],
     ],

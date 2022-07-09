@@ -111,11 +111,11 @@ add_command_help(
     "broadcast",
     [
         [
-            f"{cmd}gcast <text/reply>",
+            "gcast <text/reply>",
             "Mengirim Global Broadcast pesan ke Seluruh Grup yang kamu masuk.",
         ],
         [
-            f"{cmd}gucast <text/reply>",
+            "gucast <text/reply>",
             "Mengirim Global Broadcast pesan ke Seluruh Private Massage / PC yang masuk.",
         ],
     ],

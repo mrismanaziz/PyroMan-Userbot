@@ -209,15 +209,15 @@ async def usange_heroku(client: Client, message: Message):
 add_command_help(
     "heroku",
     [
-        [f"{CMD_HANDLER}setvar", "Untuk mengatur variabel config userbot."],
-        [f"{CMD_HANDLER}delvar", "Untuk menghapus variabel config userbot."],
-        [f"{CMD_HANDLER}getvar", "Untuk melihat variabel config userbot."],
+        ["setvar", "Untuk mengatur variabel config userbot."],
+        ["delvar", "Untuk menghapus variabel config userbot."],
+        ["getvar", "Untuk melihat variabel config userbot."],
         [
-            f"{CMD_HANDLER}usage atau {CMD_HANDLER}dyno",
+            "usage atau {CMD_HANDLER}dyno",
             "Untuk mengecheck kouta dyno heroku.",
         ],
         [
-            f"{CMD_HANDLER}usange",
+            "usange",
             "Fake Usage Kouta Dyno Heroku jadi 1000jam Untuk menipu temanmu wkwk.",
         ],
     ],

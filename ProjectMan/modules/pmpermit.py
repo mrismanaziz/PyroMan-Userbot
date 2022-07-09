@@ -269,35 +269,35 @@ add_command_help(
     "pmpermit",
     [
         [
-            f"{cmd}ok atau {cmd}setuju",
+            f"ok atau {cmd}setuju",
             "Menerima pesan seseorang dengan cara balas pesannya atau tag dan juga untuk dilakukan di pm",
         ],
         [
-            f"{cmd}tolak atau {cmd}nopm",
+            f"tolak atau {cmd}nopm",
             "Menolak pesan seseorang dengan cara balas pesannya atau tag dan juga untuk dilakukan di pm",
         ],
         [
-            f"{cmd}pmlimit <angka>",
+            "pmlimit <angka>",
             "Untuk mengcustom pesan limit auto block pesan",
         ],
         [
-            f"{cmd}setpmpermit <balas ke pesan>",
+            "setpmpermit <balas ke pesan>",
             "Untuk mengcustom pesan PMPERMIT untuk orang yang pesannya belum diterima.",
         ],
         [
-            f"{cmd}getpmpermit",
+            "getpmpermit",
             "Untuk melihat pesan PMPERMIT.",
         ],
         [
-            f"{cmd}resetpmpermit",
+            "resetpmpermit",
             "Untuk Mereset Pesan PMPERMIT menjadi DEFAULT",
         ],
         [
-            f"{cmd}setvar PM_AUTO_BAN True",
+            "setvar PM_AUTO_BAN True",
             "Perintah untuk mengaktifkan PMPERMIT",
         ],
         [
-            f"{cmd}setvar PM_AUTO_BAN False",
+            "setvar PM_AUTO_BAN False",
             "Perintah untuk mennonaktifkan PMPERMIT",
         ],
     ],

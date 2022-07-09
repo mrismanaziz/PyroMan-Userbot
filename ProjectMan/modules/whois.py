@@ -153,7 +153,7 @@ add_command_help(
     "whois",
     [
         [
-            f"{cmd}whois",
+            "whois",
             "Finds out who the person is. Reply to message sent by the person"
             "you want information from and send the command. Without the dot also works.",
         ]

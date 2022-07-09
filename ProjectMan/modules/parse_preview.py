@@ -81,7 +81,7 @@ add_command_help(
     "parse",
     [
         [
-            f"{cmd}parse",
+            "parse",
             "Parse a web_page(link) preview",
         ]
     ],

@@ -82,7 +82,7 @@ add_command_help(
     "telegraph",
     [
         [
-            f"{cmd}telegraph atau {cmd}tg",
+            f"telegraph atau {cmd}tg",
             "Balas ke Pesan Teks atau Media untuk mengunggahnya ke telegraph.",
         ],
     ],

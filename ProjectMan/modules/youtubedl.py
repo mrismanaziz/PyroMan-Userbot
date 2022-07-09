@@ -243,9 +243,9 @@ Music Downloaded And Uploaded By King Userbot"""
 add_command_help(
     "youtubedl",
     [
-        [f"{cmd}song", "Download Audio From YouTube."],
+        ["song", "Download Audio From YouTube."],
         [
-            f"{cmd}video",
+            "video",
             "Download Video from YouTube ",
         ],
     ],
@@ -254,9 +254,9 @@ add_command_help(
 add_command_help(
     "song",
     [
-        [f"{cmd}deezer", "Download From Deezer."],
+        ["deezer", "Download From Deezer."],
         [
-            f"{cmd}saavn",
+            "saavn",
             "Download From Saavn",
         ],
     ],

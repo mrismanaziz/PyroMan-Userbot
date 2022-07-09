@@ -62,7 +62,7 @@ async def view_pfp(client: Client, message: Message):
 add_command_help(
     "usertools",
     [
-        ["{cmd}setpfp", "Reply to any photo to set as pfp."],
-        ["{cmd}vpfp", "View current pfp of user."],
+        ["setpfp", "Reply to any photo to set as pfp."],
+        ["vpfp", "View current pfp of user."],
     ],
 )

@@ -98,12 +98,12 @@ async def ngegas(client: Client, message: Message):
 add_command_help(
     "salam",
     [
-        [f"{cmd}p", "Assalamualaikum."],
-        [f"{cmd}pe", "Assalamualaikum Warahmatullahi Wabarakatuh."],
-        [f"{cmd}l", "Wa'alaikumsalam."],
-        [f"{cmd}ass", "Assalamualaikum Bahas arab."],
-        [f"{cmd}a", "Salam Kenal dan salam."],
-        [f"{cmd}l", "Wa'alaikumsalam."],
-        [f"{cmd}el", "Wa'alaikumsalam Warahmatullahi Wabarakatuh."],
+        ["p", "Assalamualaikum."],
+        ["pe", "Assalamualaikum Warahmatullahi Wabarakatuh."],
+        ["l", "Wa'alaikumsalam."],
+        ["ass", "Assalamualaikum Bahas arab."],
+        ["a", "Salam Kenal dan salam."],
+        ["l", "Wa'alaikumsalam."],
+        ["el", "Wa'alaikumsalam Warahmatullahi Wabarakatuh."],
     ],
 )

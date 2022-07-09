@@ -71,44 +71,44 @@ async def fakeactions_handler(client: Client, message: Message):
 add_command_help(
     "fakeaction",
     [
-        [f"{cmd}ftyping [detik]", "Menampilkan Pengetikan Palsu dalam obrolan."],
-        [f"{cmd}fgame [detik]", "Menampilkan sedang bermain game Palsu dalam obrolan."],
+        ["ftyping [detik]", "Menampilkan Pengetikan Palsu dalam obrolan."],
+        ["fgame [detik]", "Menampilkan sedang bermain game Palsu dalam obrolan."],
         [
-            f"{cmd}faudio [detik]",
+            "faudio [detik]",
             "Menampilkan tindakan merekam suara palsu dalam obrolan.",
         ],
         [
-            f"{cmd}fvideo [detik]",
+            "fvideo [detik]",
             "Menampilkan tindakan merekam video palsu dalam obrolan.",
         ],
         [
-            f"{cmd}fround [detik]",
+            "fround [detik]",
             "Menampilkan tindakan merekam video palsu dalam obrolan.",
         ],
         [
-            f"{cmd}fphoto [detik]",
+            "fphoto [detik]",
             "Menampilkan tindakan mengirim foto palsu dalam obrolan.",
         ],
         [
-            f"{cmd}fsticker [detik]",
+            "fsticker [detik]",
             "Menampilkan tindakan memilih Sticker palsu dalam obrolan.",
         ],
         [
-            f"{cmd}fcontact [detik]",
+            "fcontact [detik]",
             "Menampilkan tindakan Share Contact palsu dalam obrolan.",
         ],
         [
-            f"{cmd}flocation [detik]",
+            "flocation [detik]",
             "Menampilkan tindakan Share Lokasi palsu dalam obrolan.",
         ],
         [
-            f"{cmd}fdocument [detik]",
+            "fdocument [detik]",
             "Menampilkan tindakan tengirim Document/File palsu dalam obrolan.",
         ],
         [
-            f"{cmd}fscreen [jumlah]",
+            "fscreen [jumlah]",
             "Menampilkan tindakan screenshot palsu. (Gunakan di Obrolan Pribadi)",
         ],
-        [f"{cmd}fstop", "Memberhentikan tindakan palsu dalam obrolan."],
+        ["fstop", "Memberhentikan tindakan palsu dalam obrolan."],
     ],
 )

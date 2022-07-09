@@ -229,17 +229,17 @@ add_command_help(
     "sticker",
     [
         [
-            f"{cmd}kang atau {cmd}tikel",
+            f"kang atau {cmd}tikel",
             f"Balas {cmd}kang Ke Sticker Atau Gambar Untuk Menambahkan Ke Sticker Pack.",
         ],
         [
-            f"{cmd}kang [emoji] atau {cmd}tikel [emoji]",
+            f"kang [emoji] atau {cmd}tikel [emoji]",
             f"Untuk Menambahkan dan costum emoji sticker Ke Sticker Pack Mu.\n\n`  •  **NOTE:** Untuk Membuat Sticker Pack baru Gunakan angka dibelakang {cmd}kang\n  •  **CONTOH:** {cmd}kang 2 untuk membuat dan menyimpan ke sticker pack ke 2`",
         ],
         [
-            f"{cmd}packinfo atau {cmd}stickerinfo",
+            f"packinfo atau {cmd}stickerinfo",
             "Untuk Mendapatkan Informasi Sticker Pack.",
         ],
-        [f"{cmd}get", "Balas ke sticker untuk mendapatkan foto sticker."],
+        ["get", "Balas ke sticker untuk mendapatkan foto sticker."],
     ],
 )

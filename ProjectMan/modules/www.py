@@ -147,19 +147,19 @@ async def shorten(client: Client, message: Message):
 add_command_help(
     "www",
     [
-        [f"{cmd}ping", "Calculates ping time between you and Telegram."],
-        [f"{cmd}dc", "Get's your Telegram DC."],
+        ["ping", "Calculates ping time between you and Telegram."],
+        ["dc", "Get's your Telegram DC."],
         [
-            f"{cmd}speedtest `or` {cmd}speed",
+            f"speedtest `or` {cmd}speed",
             "Runs a speedtest on the server this userbot is hosted.. Flex on them haters. With an in "
             "Telegram Speedtest of your server..",
         ],
         [
-            f"{cmd}expand",
+            "expand",
             "Expands a shortened url. Works for replied to message, photo caption or .expand url",
         ],
         [
-            f"{cmd}shorten",
+            "shorten",
             "Shortens a url. Works for replied to message, photo caption or .shorten url keyword",
         ],
     ],

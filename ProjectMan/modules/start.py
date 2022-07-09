@@ -150,10 +150,10 @@ async def get_id(client: Client, message: Message):
 add_command_help(
     "start",
     [
-        [f"{cmd}alive", "Check if the bot is alive or not."],
-        [f"{cmd}repo", "Display the repo of this userbot."],
-        [f"{cmd}creator", "Show the creator of this userbot."],
-        [f"{cmd}id", "Send id of what you replied to."],
-        [f"{cmd}up `or` {cmd}uptime", "Check bot's current uptime."],
+        ["alive", "Check if the bot is alive or not."],
+        ["repo", "Display the repo of this userbot."],
+        ["creator", "Show the creator of this userbot."],
+        ["id", "Send id of what you replied to."],
+        [f"up `or` {cmd}uptime", "Check bot's current uptime."],
     ],
 )

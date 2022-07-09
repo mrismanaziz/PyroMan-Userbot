@@ -141,9 +141,9 @@ async def locktypes(client: Client, message: Message):
 add_command_help(
     "locks",
     [
-        [f"{cmd}lock <all atau jenis lock>", "Mengunci izin di grup."],
+        ["lock <all atau jenis lock>", "Mengunci izin di grup."],
         [
-            f"{cmd}unlock <all atau jenis unlock>",
+            "unlock <all atau jenis unlock>",
             "Membuka izin di grup\n\nSupported Locks / Unlocks:` `msg` | `media` | `stickers` | `polls` | `info`  | `invite` | `webprev` |`pin` | `all`.",
         ],
     ],

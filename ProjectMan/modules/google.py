@@ -76,7 +76,7 @@ add_command_help(
     "google",
     [
         [
-            f"{cmd}google",
+            "google",
             "Featch Details on Google.",
         ],
     ],

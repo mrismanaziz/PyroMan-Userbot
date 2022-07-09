@@ -56,7 +56,7 @@ add_command_help(
     "quotly",
     [
         [
-            f"{cmd}q atau {cmd}quotly",
+            f"q atau {cmd}quotly",
             "To Make a Quote",
         ],
     ],

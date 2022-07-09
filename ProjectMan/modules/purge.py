@@ -99,8 +99,8 @@ async def purgeme(client: Client, message: Message):
 add_command_help(
     "purge",
     [
-        [f"{cmd}del", "Menghapus pesan, balas ke pesan."],
-        [f"{cmd}purge", "Menghapus pesan, balas ke pesan."],
-        [f"{cmd}purgeme <angka>", "Menghapus jumlah pesan anda, yang mau anda hapus."],
+        ["del", "Menghapus pesan, balas ke pesan."],
+        ["purge", "Menghapus pesan, balas ke pesan."],
+        ["purgeme <angka>", "Menghapus jumlah pesan anda, yang mau anda hapus."],
     ],
 )

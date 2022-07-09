@@ -68,9 +68,9 @@ async def set_bio(client, message):
 add_command_help(
     "profile",
     [
-        [f"{cmd}bio", "Your Bio Message."],
-        [f"{cmd}pfp", "To set Your Profile Pic"],
-        [f"{cmd}setpfp", "Reply to any photo to set as pfp."],
-        [f"{cmd}vpfp", "View current pfp of user."],
+        ["bio", "Your Bio Message."],
+        ["pfp", "To set Your Profile Pic"],
+        ["setpfp", "Reply to any photo to set as pfp."],
+        ["vpfp", "View current pfp of user."],
     ],
 )

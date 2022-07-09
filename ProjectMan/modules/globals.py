@@ -282,10 +282,10 @@ add_command_help(
     "globals",
     [
         [
-            f"{cmd}gban <reply/username/userid>",
+            "gban <reply/username/userid>",
             "Melakukan Global Banned Ke Semua Grup Dimana anda Sebagai Admin.",
         ],
-        [f"{cmd}ungban <reply/username/userid>", "Membatalkan Global Banned."],
-        [f"{cmd}listgban", "Menampilkan List Global Banned."],
+        ["ungban <reply/username/userid>", "Membatalkan Global Banned."],
+        ["listgban", "Menampilkan List Global Banned."],
     ],
 )

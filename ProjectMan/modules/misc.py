@@ -147,14 +147,14 @@ async def open_file(client: Client, m: Message):
 add_command_help(
     "misc",
     [
-        [f"{cmd}limit", "Check Limit telegram from @SpamBot."],
+        ["limit", "Check Limit telegram from @SpamBot."],
         [
-            f"{cmd}dm <username> <text>",
+            "dm <username> <text>",
             "Untuk mengirim chat dengan menggunakan userbot.",
         ],
-        [f"{cmd}duck", "Untuk mendapatkan Link dari DuckDuckGo."],
+        ["duck", "Untuk mendapatkan Link dari DuckDuckGo."],
         [
-            f"{cmd}open",
+            "open",
             "Untuk melihat isi File menjadi text yang dikirim menjadi pesan telegram.",
         ],
     ],
@@ -164,6 +164,6 @@ add_command_help(
 add_command_help(
     "webshot",
     [
-        [f"{cmd}webshot", "screenshot the given webpage ."],
+        ["webshot", "screenshot the given webpage ."],
     ],
 )

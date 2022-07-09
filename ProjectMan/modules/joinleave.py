@@ -60,11 +60,11 @@ add_command_help(
     "joinleave",
     [
         [
-            f"{cmd}kickme",
+            "kickme",
             "Keluar dari grup dengan menampilkan pesan has left this group, bye!!.",
         ],
-        [f"{cmd}leaveall", "Keluar dari semua grup telegram yang anda gabung."],
-        [f"{cmd}join <UsernameGC>", "Untuk Bergabung dengan Obrolan Melalui username."],
-        [f"{cmd}leave <UsernameGC>", "Untuk keluar dari grup Melalui username."],
+        ["leaveall", "Keluar dari semua grup telegram yang anda gabung."],
+        ["join <UsernameGC>", "Untuk Bergabung dengan Obrolan Melalui username."],
+        ["leave <UsernameGC>", "Untuk keluar dari grup Melalui username."],
     ],
 )

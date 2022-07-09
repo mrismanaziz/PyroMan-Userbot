@@ -107,26 +107,28 @@ async def joinvc(client: Client, message: Message):
 )
 @Client.on_message(filters.command("leavevc", cmd) & filters.me)
 async def leavevc(client: Client, message: Message):
+    chat_id = message.command[1] if len(message.command) > 1 else message.chat.id
     try:
         await client.group_call.stop()
     except Exception as e:
         return await edit_or_reply(message, f"**ERROR:** `{e}`")
-    await edit_or_reply(
-        message, f"❏ **Berhasil Turun dari Obrolan Suara**\n└ **Chat ID:** `{chat_id}`"
-    )
+    msg = "❏ **Berhasil Turun dari Obrolan Suara**"
+    if chat_id:
+        msg += f"└ **Chat ID:** `{chat_id}`"
+    await edit_or_reply(msg)
 
 
 add_command_help(
     "vctools",
     [
-        [f"{cmd}startvc", "Untuk Memulai voice chat group."],
-        [f"{cmd}stopvc", "Untuk Memberhentikan voice chat group."],
+        ["startvc", "Untuk Memulai voice chat group."],
+        ["stopvc", "Untuk Memberhentikan voice chat group."],
         [
-            f"{cmd}joinvc atau {cmd}joinvc <chatid/username gc>",
+            f"joinvc atau {cmd}joinvc <chatid/username gc>",
             "Untuk Bergabung ke voice chat group.",
         ],
         [
-            f"{cmd}leavevc atau {cmd}leavevc <chatid/username gc>",
+            f"leavevc atau {cmd}leavevc <chatid/username gc>",
             "Untuk Turun dari voice chat group.",
         ],
     ],

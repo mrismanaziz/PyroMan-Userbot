@@ -266,7 +266,7 @@ async def updaterman(client: Client, message: Message):
 add_command_help(
     "update",
     [
-        [f"{cmd}update", "Untuk melihat list pembaruan terbaru dari PyroMan-Userbot."],
-        [f"{cmd}update deploy", "Untuk mengupdate userbot."],
+        ["update", "Untuk melihat list pembaruan terbaru dari PyroMan-Userbot."],
+        ["update deploy", "Untuk mengupdate userbot."],
     ],
 )

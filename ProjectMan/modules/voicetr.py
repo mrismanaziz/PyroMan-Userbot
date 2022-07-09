@@ -71,7 +71,7 @@ async def voicelang(client: Client, message: Message):
 add_command_help(
     "voice",
     [
-        [f"{cmd}voice atau {cmd}tts(text)", "Convert text to voice by google."],
+        [f"voice atau {cmd}tts(text)", "Convert text to voice by google."],
         [
             ".voicelang (lang_id) ",
             "Set language of your voice\n\nSome Available Voice lang:"

@@ -49,6 +49,6 @@ async def sg(client: Client, message: Message):
 add_command_help(
     "sangmata",
     [
-        [f"{cmd}sg", "Reply to a user to find name history."],
+        ["sg", "Reply to a user to find name history."],
     ],
 )

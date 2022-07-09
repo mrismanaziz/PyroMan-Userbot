@@ -134,10 +134,10 @@ async def spam_stick(client: Client, message: Message):
 add_command_help(
     "spam",
     [
-        [f"{cmd}delspam", "It will Spam then delete it's spam automatically."],
-        [f"{cmd}spam", "Spam Your Custom Message  (Sudo User also)."],
-        [f"{cmd}sspam", "Sticker Spam  (Sudo Users also)."],
-        [f"{cmd}delayspam", "Spam Slowly (Sudo User also)."],
-        [f"{cmd}fastspam", "Spam Your message fastly  (Sudo User also)."],
+        ["delspam", "It will Spam then delete it's spam automatically."],
+        ["spam", "Spam Your Custom Message  (Sudo User also)."],
+        ["sspam", "Sticker Spam  (Sudo Users also)."],
+        ["delayspam", "Spam Slowly (Sudo User also)."],
+        ["fastspam", "Spam Your message fastly  (Sudo User also)."],
     ],
 )

@@ -16,9 +16,10 @@ from pyrogram import __version__ as versipyro
 from pyrogram import filters
 from pyrogram.types import Message
 
+from config import ALIVE_EMOJI, ALIVE_LOGO, ALIVE_TEKS_CUSTOM, BOT_VER, CHANNEL
 from config import CMD_HANDLER as cmd
-from config import *
-from ProjectMan import *
+from config import GROUP
+from ProjectMan import CMD_HELP, StartTime
 from ProjectMan.helpers.basic import edit_or_reply
 from ProjectMan.helpers.PyroHelpers import ReplyCheck
 from ProjectMan.utils import get_readable_time
@@ -38,13 +39,13 @@ async def alive(client: Client, message: Message):
     uptime = await get_readable_time((time.time() - StartTime))
     capt = (
         f"**[PyroMan-Userbot](https://github.com/mrismanaziz/PyroMan-Userbot) is Up and Running.**\n\n"
-        f"**{alive_text}**\n\n"
-        f"{emoji} **Master :** {client.me.mention} \n"
-        f"{emoji} **Modules :** `{len(modules)} Modules` \n"
-        f"{emoji} **Bot Version :** `{BOT_VER}` \n"
-        f"{emoji} **Python Version :** `{python_version()}` \n"
-        f"{emoji} **Pyrogram Version :** `{versipyro}` \n"
-        f"{emoji} **Bot Uptime :** `{uptime}` \n\n"
+        f"<b>{alive_text}</b>\n\n"
+        f"{emoji} <b>Master :</b> {client.me.mention} \n"
+        f"{emoji} <b>Modules :</b> <code>{len(modules)} Modules</code> \n"
+        f"{emoji} <b>Bot Version :</b> <code>{BOT_VER}</code> \n"
+        f"{emoji} <b>Python Version :</b> <code>{python_version()}</code> \n"
+        f"{emoji} <b>Pyrogram Version :</b> <code>{versipyro}</code> \n"
+        f"{emoji} <b>Bot Uptime :</b> <code>{uptime}</code> \n\n"
         f"    **[𝗦𝘂𝗽𝗽𝗼𝗿𝘁](https://t.me/{GROUP})** | **[𝗖𝗵𝗮𝗻𝗻𝗲𝗹](https://t.me/{CHANNEL})** | **[𝗢𝘄𝗻𝗲𝗿](tg://user?id={client.me.id})**"
     )
     await asyncio.gather(
@@ -62,7 +63,7 @@ add_command_help(
     "alive",
     [
         [
-            f"{cmd}alive",
+            "alive",
             "Perintah ini untuk memeriksa userbot anda berfungsi atau tidak",
         ]
     ],

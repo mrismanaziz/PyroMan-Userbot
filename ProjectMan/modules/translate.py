@@ -72,7 +72,7 @@ add_command_help(
     "translate",
     [
         [
-            f"{cmd}tr <kode bahasa> <text/reply>",
+            "tr <kode bahasa> <text/reply>",
             "Menerjemahkan teks ke bahasa yang disetel. (Default kode bahasa indonesia)",
         ],
     ],
