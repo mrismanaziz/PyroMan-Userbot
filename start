@@ -8,4 +8,10 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
+# Attemp to Terminate and Remove previous session
+if [ ! -d .git ]; then
+    rm -rf .git
+fi
+
+# start
 python3 -m ProjectMan
