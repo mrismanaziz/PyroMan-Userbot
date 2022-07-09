@@ -108,6 +108,12 @@ async def joinvc(client: Client, message: Message):
 @Client.on_message(filters.command("leavevc", cmd) & filters.me)
 async def leavevc(client: Client, message: Message):
     chat_id = message.command[1] if len(message.command) > 1 else message.chat.id
+    if message.from_user.id != client.me.id:
+        Man = await message.reply("`Processing...`")
+    else:
+        Man = await message.edit("`Processing....`")
+    with suppress(ValueError):
+        chat_id = int(chat_id)
     try:
         await client.group_call.stop()
     except Exception as e:
@@ -115,7 +121,7 @@ async def leavevc(client: Client, message: Message):
     msg = "❏ **Berhasil Turun dari Obrolan Suara**"
     if chat_id:
         msg += f"└ **Chat ID:** `{chat_id}`"
-    await edit_or_reply(msg)
+    await Man.edit(msg)
 
 
 add_command_help(
