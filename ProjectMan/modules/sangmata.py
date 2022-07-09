@@ -16,39 +16,51 @@ from pyrogram.types import *
 
 from config import CMD_HANDLER as cmd
 from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.helpers.PyroHelpers import ReplyCheck
+from ProjectMan.utils import extract_user
 
-from .help import *
+from .help import add_command_help
 
 
 @Client.on_message(filters.command(["sg", "sa", "sangmata"], cmd) & filters.me)
 async def sg(client: Client, message: Message):
-    lol = await edit_or_reply(message, "Processing please wait")
-    if not message.reply_to_message:
-        await lol.edit("reply to any message")
-    reply = message.reply_to_message
-    if not reply.text:
-        await lol.edit("reply to any text message")
-    chat = message.chat.id
+    args = await extract_user(message)
+    lol = await edit_or_reply(message, "`Processing...`")
+    if args:
+        try:
+            user = await client.get_users(args)
+        except Exception:
+            return await lol.edit(f"`Please specify a valid user!`")
     try:
-        await client.send_message("@SangMataInfo_bot", "/start")
+        await client.send_message("@SangMataInfo_bot", f"/search_id {user.id}")
     except RPCError:
-        await lol.edit("Please unblock @SangMataInfo_bot and try again")
-        return
-    await reply.forward("@SangMataInfo_bot")
-    await asyncio.sleep(2)
+        await client.unblock_user("SangMataInfo_bot")
+    await asyncio.sleep(1)
+    await client.send_message("@SangMataInfo_bot", f"/search_id {user.id}")
+    await asyncio.sleep(1)
     async for opt in client.iter_history("@SangMataInfo_bot", limit=2):
         hmm = opt.text
         if hmm.startswith("Forward"):
-            await lol.edit("Can you kindly disable your privacy settings for good")
+            await lol.edit(
+                "Bisakah Anda menonaktifkan pengaturan privasi Anda untuk selamanya?"
+            )
             return
+            await client.read_history("@SangMataInfo_bot")
+        if hmm.startswith("No records found"):
+            await lol.edit("**Orang Ini Belum Pernah Mengganti Namanya**")
+            return
+            await client.read_history("@SangMataInfo_bot")
         else:
             await lol.delete()
-            await opt.copy(chat)
+            await opt.copy(message.chat.id, reply_to_message_id=ReplyCheck(message))
 
 
 add_command_help(
     "sangmata",
     [
-        ["sg", "Reply to a user to find name history."],
+        [
+            f"{cmd}sg <reply/userid/username>",
+            "Untuk Mendapatkan Riwayat Nama Pengguna selama di telegram.",
+        ],
     ],
 )
