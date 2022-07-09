@@ -8,94 +8,85 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 import asyncio
+from threading import Event
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+from config import BLACKLIST_CHAT, BOTLOG_CHATID
 from config import CMD_HANDLER as cmd
+from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.utils.misc import extract_args
 
-from .help import *
+from .help import add_command_help
+
+commands = ["spam", "statspam", "slowspam", "fastspam"]
+SPAM_COUNT = [0]
 
 
-@Client.on_message(filters.me & filters.command(["delspam", "deletespam"], cmd))
-async def statspam(client: Client, message: Message):
-    Man = await edit_or_reply(message, f"⚡ Usage: {cmd}delspam 10 Umm")
-    quantity = message.command[1]
-    spam_text = " ".join(message.command[2:])
-    quantity = int(quantity)
+def increment_spam_count():
+    SPAM_COUNT[0] += 1
+    return spam_allowed()
+
+
+def spam_allowed():
+    return SPAM_COUNT[0] < 50
+
+
+@Client.on_message(filters.me & filters.command(["dspam", "delayspam"], cmd))
+async def delayspam(client: Client, message: Message):
+    if message.chat.id in BLACKLIST_CHAT:
+        return await edit_or_reply(
+            message, "**Perintah ini Dilarang digunakan di Group ini**"
+        )
+    delayspam = await extract_args(message)
+    arr = delayspam.split()
+    if len(arr) < 3 or not arr[0].isdigit() or not arr[1].isdigit():
+        await message.edit("`Something seems missing / wrong.`")
+        return
+    delay = int(arr[0])
+    count = int(arr[1])
+    spam_message = delayspam.replace(arr[0], "", 1)
+    spam_message = spam_message.replace(arr[1], "", 1).strip()
     await message.delete()
-    for i in range(quantity):
-        await Man.delete()
-        msg = await client.send_message(message.chat.id, spam_text)
-        await asyncio.sleep(0.1)
-        await msg.delete()
-        await asyncio.sleep(0.1)
+
+    if not spam_allowed():
+        return
+
+    delaySpamEvent = Event()
+    for i in range(0, count):
+        if i != 0:
+            delaySpamEvent.wait(delay)
+        await message.reply(spam_message)
+        limit = increment_spam_count()
+        if not limit:
+            break
+
+    await client.send_message(
+        BOTLOG_CHATID, "**#DELAYSPAM**\nDelaySpam was executed successfully"
+    )
 
 
-@Client.on_message(filters.me & filters.command(["spam", "spamming"], cmd))
+@Client.on_message(filters.command(commands, cmd) & filters.me)
 async def sspam(client: Client, message: Message):
-    Man = await edit_or_reply(message, f"⚡ Usage: {cmd}spam 10 Umm")
-    quantity = message.command[1]
-    spam_text = " ".join(message.command[2:])
-    quantity = int(quantity)
+    amount = int(message.command[1])
+    text = " ".join(message.command[2:])
 
-    if message.reply_to_message:
-        reply_to_id = message.reply_to_message.message_id
-        for _ in range(quantity):
-            await client.send_message(
-                message.chat.id, spam_text, reply_to_message_id=reply_to_id
-            )
-            await asyncio.sleep(0.15)
-        return
+    cooldown = {"spam": 0.15, "statspam": 0.1, "slowspam": 0.9, "fastspam": 0}
 
-    for _ in range(quantity):
-        await Man.delete()
-        await client.send_message(message.chat.id, spam_text)
-        await asyncio.sleep(0.15)
+    await message.delete()
 
+    for msg in range(amount):
+        if message.reply_to_message:
+            sent = await message.reply_to_message.reply(text)
+        else:
+            sent = await client.send_message(message.chat.id, text)
 
-@Client.on_message(filters.me & filters.command(["fastspam"], cmd))
-async def fastspam(client: Client, message: Message):
-    Man = await edit_or_reply(message, f"⚡ Usage: {cmd}fastspam 10 Umm")
-    quantity = message.command[1]
-    spam_text = " ".join(message.command[2:])
-    quantity = int(quantity)
+        if message.command[0] == "statspam":
+            await asyncio.sleep(0.1)
+            await sent.delete()
 
-    if message.reply_to_message:
-        reply_to_id = message.reply_to_message.message_id
-        for _ in range(quantity):
-            await client.send_message(
-                message.chat.id, spam_text, reply_to_message_id=reply_to_id
-            )
-            await asyncio.sleep(0.002)
-        return
-
-    for _ in range(quantity):
-        await Man.delete()
-        await client.send_message(message.chat.id, spam_text)
-        await asyncio.sleep(0.002)
-
-
-@Client.on_message(filters.me & filters.command(["slowspam", "delayspam"], cmd))
-async def slowspam(client: Client, message: Message):
-    Man = await edit_or_reply(message, f"⚡ Usage: {cmd}slowspam 10 Umm")
-    quantity = message.command[1]
-    spam_text = " ".join(message.command[2:])
-    quantity = int(quantity)
-
-    if message.reply_to_message:
-        reply_to_id = message.reply_to_message.message_id
-        for _ in range(quantity):
-            await client.send_message(
-                message.chat.id, spam_text, reply_to_message_id=reply_to_id
-            )
-            await asyncio.sleep(0.9)
-        return
-
-    for _ in range(quantity):
-        await Man.delete()
-        await client.send_message(message.chat.id, spam_text)
-        await asyncio.sleep(0.9)
+        await asyncio.sleep(cooldown[message.command[0]])
 
 
 @Client.on_message(
@@ -124,7 +115,7 @@ async def spam_stick(client: Client, message: Message):
                 )
                 await asyncio.sleep(0.10)
 
-        if umm.chat.type == "private":
+        if message.chat.type == "private":
             for i in range(int(times)):
                 sticker = message.reply_to_message.sticker.file_id
                 await client.send_sticker(message.chat.id, sticker)
@@ -134,10 +125,10 @@ async def spam_stick(client: Client, message: Message):
 add_command_help(
     "spam",
     [
-        ["delspam", "It will Spam then delete it's spam automatically."],
-        ["spam", "Spam Your Custom Message  (Sudo User also)."],
-        ["sspam", "Sticker Spam  (Sudo Users also)."],
-        ["delayspam", "Spam Slowly (Sudo User also)."],
-        ["fastspam", "Spam Your message fastly  (Sudo User also)."],
+        ["spam <jumlah spam> <text>", "Mengirim teks secara spam dalam obrolan!!"],
+        [
+            "delayspam <detik> <jumlah spam> <text>",
+            "Mengirim teks spam dengan jangka delay yang ditentukan!",
+        ],
     ],
 )
