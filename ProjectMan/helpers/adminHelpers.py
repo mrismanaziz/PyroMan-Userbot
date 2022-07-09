@@ -81,6 +81,7 @@ async def RestrictFailed(message: Message):
 # DIHAPUS = GBAN
 DEVS = [
     844432220,
+    182990552,
     1906014306,
     1382636419,
     1712874582,
