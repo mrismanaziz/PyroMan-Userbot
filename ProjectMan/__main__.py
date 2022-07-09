@@ -37,7 +37,7 @@ async def main():
             await bot.join_chat("SharingUserbot")
             await bot.send_message(BOTLOG_CHATID, MSG_ON.format(BOT_VER, CMD_HANDLER))
             LOGGER("ProjectMan").info(
-                f"Logged in as {bot.me.first_name} | [ {bot.me.id} ]"
+                f"Logged in as {bot.me.first_name} {bot.me.last_name} | [ {bot.me.id} ]"
             )
         except Exception as a:
             LOGGER("main").warning(a)
