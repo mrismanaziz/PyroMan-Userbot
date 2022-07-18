@@ -213,7 +213,7 @@ add_command_help(
         ["delvar", "Untuk menghapus variabel config userbot."],
         ["getvar", "Untuk melihat variabel config userbot."],
         [
-            "usage atau {CMD_HANDLER}dyno",
+            f"usage atau {CMD_HANDLER}dyno",
             "Untuk mengecheck kouta dyno heroku.",
         ],
         [
