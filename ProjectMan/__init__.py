@@ -75,10 +75,6 @@ API_HASH = API_HASH
 SUDO_USERS = SUDO_USERS
 DB_URL = DB_URL
 
-if not STRING_SESSION1:
-    LOGGER(__name__).error("No String Session Found! Exiting!")
-    sys.exit()
-
 if not API_ID:
     LOGGER(__name__).error("No API_ID Found! Exiting!")
     sys.exit()
