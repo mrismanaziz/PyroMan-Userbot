@@ -104,8 +104,8 @@ async def no_longer_afk(client: Client, message: Message):
     global MENTIONED
     get = get_afk()
     if get and get["afk"]:
-        await client.send_message(BOTLOG_CHATID, "Anda sudah tidak lagi AFK!")
         set_afk(False, "")
+        await client.send_message(BOTLOG_CHATID, "Anda sudah tidak lagi AFK!")
         text = "<b>Total {} Mention Saat Sedang AFK<b>\n".format(len(MENTIONED))
         for x in MENTIONED:
             msg_text = x["text"]
