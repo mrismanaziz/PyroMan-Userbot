@@ -91,14 +91,17 @@ async def afk_mentioned(client: Client, message: Message):
                 "message_id": message.message_id,
             }
         )
-        await client.send_message(
-            BOTLOG_CHATID,
-            "<b>#MENTION\n • Dari :</b> {}\n • <b>Grup :</b> <code>{}</code>\n • <b>Pesan :</b> <code>{}</code>".format(
-                message.from_user.mention,
-                message.chat.title,
-                text[:3500],
-            ),
-        )
+        try:
+            await client.send_message(
+                BOTLOG_CHATID,
+                "<b>#MENTION\n • Dari :</b> {}\n • <b>Grup :</b> <code>{}</code>\n • <b>Pesan :</b> <code>{}</code>".format(
+                    message.from_user.mention,
+                    message.chat.title,
+                    text[:3500],
+                ),
+            )
+        except BaseException:
+            pass
 
 
 @Client.on_message(filters.me & filters.group, group=12)
@@ -107,7 +110,10 @@ async def no_longer_afk(client: Client, message: Message):
     get = get_afk()
     if get and get["afk"]:
         set_afk(False, "")
-        await client.send_message(BOTLOG_CHATID, "Anda sudah tidak lagi AFK!")
+        try:
+            await client.send_message(BOTLOG_CHATID, "Anda sudah tidak lagi AFK!")
+        except BaseException:
+            pass
         text = "<b>Total {} Mention Saat Sedang AFK<b>\n".format(len(MENTIONED))
         for x in MENTIONED:
             msg_text = x["text"]
@@ -120,7 +126,10 @@ async def no_longer_afk(client: Client, message: Message):
                 x["chat"],
                 msg_text,
             )
-        await client.send_message(BOTLOG_CHATID, text)
+        try:
+            await client.send_message(BOTLOG_CHATID, text)
+        except BaseException:
+            pass
         MENTIONED = []
 
 
