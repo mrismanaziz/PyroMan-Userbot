@@ -45,7 +45,9 @@ async def afk(client: Client, message: Message):
     await message.stop_propagation()
 
 
-@Client.on_message((filters.mentioned | filters.private) & filters.incoming & ~filters.bot, group=11)
+@Client.on_message(
+    (filters.mentioned | filters.private) & filters.incoming & ~filters.bot, group=11
+)
 async def afk_mentioned(client: Client, message: Message):
     global MENTIONED
     get = get_afk()
