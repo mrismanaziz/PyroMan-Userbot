@@ -105,7 +105,8 @@ async def auto_accept(client, message):
             approve(message.chat.id)
             await client.send_message(
                 message.chat.id,
-                f"**Menerima Pesan!!!**\n{message.from_user.mention} **Terdeteksi Developer PyroMan-Userbot**",
+                f"<b>Menerima Pesan!!!</b>\n{message.from_user.mention} <b>Terdeteksi Developer PyroMan-Userbot</b>",
+                parse_mode=enums.ParseMode.HTML,
             )
         except IntegrityError:
             pass
