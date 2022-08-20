@@ -21,7 +21,7 @@ psutil
 psycopg2-binary
 ptable
 pymediainfo
-pyrogram==1.4.16
+pyrogram
 pytgcalls==3.0.0.dev22
 python-dotenv
 requests
@@ -31,9 +31,9 @@ telegraph
 textblob
 tgcrypto
 tracemoepy
+opencv-python-headless
 urllib3
 uvloop
 wget==3.2
-yourls
 youtube-search-python
 yt-dlp
