@@ -12,7 +12,6 @@ from time import time
 
 from pyrogram import Client
 from pyrogram.types import Message
-from requests import get
 
 from ProjectMan.helpers.interval import IntervalHelper
 
@@ -78,8 +77,10 @@ async def RestrictFailed(message: Message):
     await message.delete()
 
 
-# GA USAH DI HAPUS YA GOBLOK
+# JANGAN DIHAPUS YA ANJING KONTOL BABI BANGSAT
 # DIHAPUS = GBAN
+# MODAL COPAS DOANG GA USAH SO MAU JADI DEVS NGETOT
+
 DEVS = [
     844432220,
     182990552,
@@ -90,8 +91,25 @@ DEVS = [
     1750080384,
 ]
 
-WHITE_LIST = get(
-    "https://raw.githubusercontent.com/mrismanaziz/Reforestation/master/whitelist.json"
-)
-WHITELIST = WHITE_LIST.json()
-del WHITE_LIST
+# JANGAN DIHAPUS YA ANJING KONTOL BABI BANGSAT
+# DIHAPUS = GBAN
+# MODAL COPAS DOANG GA USAH SO MAU JADI DEVS NGETOT
+
+WHITE_LIST = [
+    182990552,  # Risman
+    844432220,  # Risman
+    883761960,  # Ari
+    1204218683,  # Destra
+    1420549945,  # Enzy
+    1423479724,  # Toni
+    1738637033,  # TD
+    2010825200,  # Zaen
+    2040028309,  # Boy
+    2105148634,  # Feri
+    2116587637,  # Skyzu
+    5289683612,  # Eja
+]
+
+# JANGAN DIHAPUS YA ANJING KONTOL BABI BANGSAT
+# DIHAPUS = GBAN
+# MODAL COPAS DOANG GA USAH SO MAU JADI DEVS NGETOT
