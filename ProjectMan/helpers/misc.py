@@ -105,17 +105,16 @@ def is_heroku():
 
 def heroku():
     global HAPP
-    if is_heroku:
-        if HEROKU_API_KEY and HEROKU_APP_NAME:
-            try:
-                Heroku = heroku3.from_key(HEROKU_API_KEY)
-                HAPP = Heroku.app(HEROKU_APP_NAME)
-                LOGGER("ProjectMan").info("Heroku App Configured")
-            except BaseException as e:
-                LOGGER("Heroku").error(e)
-                LOGGER("Heroku").info(
-                    "Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku."
-                )
+    if is_heroku and HEROKU_API_KEY and HEROKU_APP_NAME:
+        try:
+            Heroku = heroku3.from_key(HEROKU_API_KEY)
+            HAPP = Heroku.app(HEROKU_APP_NAME)
+            LOGGER("ProjectMan").info("Heroku App Configured")
+        except BaseException as e:
+            LOGGER("Heroku").error(e)
+            LOGGER("Heroku").info(
+                "Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku."
+            )
 
 
 async def in_heroku():
