@@ -3,7 +3,7 @@ try:
 except ImportError:
     raise AttributeError
 from sqlalchemy import Column
-from sqlalchemy.sql.sqltypes import Integer
+from sqlalchemy.sql.sqltypes import BigInteger
 
 from config import PM_LIMIT
 
@@ -12,8 +12,8 @@ warns = PM_LIMIT  # max number of warning for a user
 
 class User(BASE):
     __tablename__ = "permitted"
-    user_id = Column(Integer, primary_key=True, nullable=False)
-    warning = Column(Integer, primary_key=True, default=0)
+    user_id = Column(BigInteger, primary_key=True, nullable=False)
+    warning = Column(BigInteger, primary_key=True, default=0)
 
     def __init__(self, variable):
         self.user_id = variable

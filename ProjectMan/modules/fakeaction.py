@@ -9,27 +9,27 @@
 
 from asyncio import sleep
 
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.raw import functions
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
-from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.helpers.PyroHelpers import ReplyCheck
 
 from .help import add_command_help
 
 commands = {
-    "ftyping": "typing",
-    "fvideo": "record_video",
-    "faudio": "record_audio",
-    "fround": "record_video_note",
-    "fphoto": "upload_photo",
-    "fsticker": "choose_sticker",
-    "fdocument": "upload_document",
-    "flocation": "find_location",
-    "fgame": "playing",
-    "fcontact": "choose_contact",
-    "fstop": "cancel",
+    "ftyping": enums.ChatAction.TYPING,
+    "fvideo": enums.ChatAction.RECORD_VIDEO,
+    "faudio": enums.ChatAction.RECORD_AUDIO,
+    "fround": enums.ChatAction.RECORD_VIDEO_NOTE,
+    "fphoto": enums.ChatAction.UPLOAD_PHOTO,
+    "fsticker": enums.ChatAction.CHOOSE_STICKER,
+    "fdocument": enums.ChatAction.UPLOAD_DOCUMENT,
+    "flocation": enums.ChatAction.FIND_LOCATION,
+    "fgame": enums.ChatAction.PLAYING,
+    "fcontact": enums.ChatAction.CHOOSE_CONTACT,
+    "fstop": enums.ChatAction.CANCEL,
     "fscreen": "screenshot",
 }
 
@@ -47,7 +47,7 @@ async def fakeactions_handler(client: Client, message: Message):
     action = commands[cmd]
     try:
         if action != "screenshot":
-            if sec and action != "cancel":
+            if sec and action != enums.ChatAction.CANCEL:
                 await client.send_chat_action(chat_id=message.chat.id, action=action)
                 await sleep(sec)
             else:
@@ -65,7 +65,11 @@ async def fakeactions_handler(client: Client, message: Message):
                 )
                 await sleep(0.1)
     except Exception as e:
-        return await edit_or_reply(message, f"**ERROR:** `{e}`")
+        return await client.send_message(
+            message.chat.id,
+            f"**ERROR:** `{e}`",
+            reply_to_message_id=ReplyCheck(message),
+        )
 
 
 add_command_help(

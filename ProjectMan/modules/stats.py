@@ -9,7 +9,7 @@
 
 from datetime import datetime
 
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
@@ -29,19 +29,22 @@ async def stats(client: Client, message: Message):
     b = 0
     a_chat = 0
     Meh = await client.get_me()
-    async for dialog in client.iter_dialogs():
-        if dialog.chat.type == "private":
+    async for dialog in client.get_dialogs():
+        if dialog.chat.type == enums.ChatType.PRIVATE:
             u += 1
-        elif dialog.chat.type == "bot":
+        elif dialog.chat.type == enums.ChatType.BOT:
             b += 1
-        elif dialog.chat.type == "group":
+        elif dialog.chat.type == enums.ChatType.GROUP:
             g += 1
-        elif dialog.chat.type == "supergroup":
+        elif dialog.chat.type == enums.ChatType.SUPERGROUP:
             sg += 1
             user_s = await dialog.chat.get_member(int(Meh.id))
-            if user_s.status in ("creator", "administrator"):
+            if user_s.status in (
+                enums.ChatMemberStatus.OWNER,
+                enums.ChatMemberStatus.ADMINISTRATOR,
+            ):
                 a_chat += 1
-        elif dialog.chat.type == "channel":
+        elif dialog.chat.type == enums.ChatType.CHANNEL:
             c += 1
 
     end = datetime.now()

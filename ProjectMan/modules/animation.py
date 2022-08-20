@@ -109,17 +109,17 @@ async def phase4(message):
         await asyncio.sleep(SLEEP)
 
 
-@Client.on_message(filters.command(["hearts", "magic", "love"], cmd) & filters.me)
+@Client.on_message(filters.command(["heart", "love"], cmd) & filters.me)
 async def hearts(client: Client, message: Message):
     await phase1(message)
     await asyncio.sleep(SLEEP * 3)
-    await message.edit("**❤️ I**")
+    await message.edit("❤️ I")
     await asyncio.sleep(0.5)
-    await message.edit("**❤️ I love**")
+    await message.edit("❤️ I Love")
     await asyncio.sleep(0.5)
-    await message.edit("**❤️ I love you**")
+    await message.edit("❤️ I Love You")
     await asyncio.sleep(3)
-    await message.edit("**❤️ I love you <3**")
+    await message.edit("❤️ I Love You <3")
 
 
 @Client.on_message(
@@ -459,6 +459,36 @@ async def kocok(client: Client, message: Message):
     await e.edit("8==✊=D💦💦💦💦💦💦💦💦💦💦")
     await e.edit("8=✊==D Lah Kok Habis?")
     await e.edit("😭😭😭😭")
+
+
+@Client.on_message(filters.command(["fuck", "fucek"], cmd) & filters.me)
+async def ngefuck(client: Client, message: Message):
+    e = await edit_or_reply(message, ".                       /¯ )")
+    await e.edit(".                       /¯ )\n                      /¯  /")
+    await e.edit(
+        ".                       /¯ )\n                      /¯  /\n                    /    /"
+    )
+    await e.edit(
+        ".                       /¯ )\n                      /¯  /\n                    /    /\n              /´¯/'   '/´¯¯`•¸"
+    )
+    await e.edit(
+        ".                       /¯ )\n                      /¯  /\n                    /    /\n              /´¯/'   '/´¯¯`•¸\n          /'/   /    /       /¨¯\\ "
+    )
+    await e.edit(
+        ".                       /¯ )\n                      /¯  /\n                    /    /\n              /´¯/'   '/´¯¯`•¸\n          /'/   /    /       /¨¯\\ \n        ('(   (   (   (  ¯~/'  ')"
+    )
+    await e.edit(
+        ".                       /¯ )\n                      /¯  /\n                    /    /\n              /´¯/'   '/´¯¯`•¸\n          /'/   /    /       /¨¯\\ \n        ('(   (   (   (  ¯~/'  ')\n         \\                        /"
+    )
+    await e.edit(
+        ".                       /¯ )\n                      /¯  /\n                    /    /\n              /´¯/'   '/´¯¯`•¸\n          /'/   /    /       /¨¯\\ \n        ('(   (   (   (  ¯~/'  ')\n         \\                        /\n          \\                _.•´"
+    )
+    await e.edit(
+        ".                       /¯ )\n                      /¯  /\n                    /    /\n              /´¯/'   '/´¯¯`•¸\n          /'/   /    /       /¨¯\\ \n        ('(   (   (   (  ¯~/'  ')\n         \\                        /\n          \\                _.•´\n            \\              ("
+    )
+    await e.edit(
+        ".                       /¯ )\n                      /¯  /\n                    /    /\n              /´¯/'   '/´¯¯`•¸\n          /'/   /    /       /¨¯\\ \n        ('(   (   (   (  ¯~/'  ')\n         \\                        /\n          \\                _.•´\n            \\              (\n              \\  "
+    )
 
 
 @Client.on_message(filters.command("hack", cmd) & filters.me)
@@ -1273,6 +1303,7 @@ async def santet(client: Client, message: Message):
 add_command_help(
     "animation",
     [
+        ["fuck", "Untuk menampilkan animasi jari tengah."],
         ["dino", "Untuk menampilkan animasi dikejar dino."],
         ["santet", "Untuk menampilkan animasi menyantet onlen."],
         ["gabut", "Untuk menampilkan animasi gabut."],

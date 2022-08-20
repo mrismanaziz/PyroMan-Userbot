@@ -10,12 +10,13 @@
 import asyncio
 import os
 
-from pyrogram import Client, filters, raw
+from pyrogram import Client, enums, filters, raw
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
 from ProjectMan import *
 from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.helpers.PyroHelpers import ReplyCheck
 from ProjectMan.utils import s_paste
 
 from .help import *
@@ -32,14 +33,14 @@ async def spamban(client: Client, m: Message):
             start_param="start",
         )
     )
-    wait_msg = await edit_or_reply(m, "`Processing...`")
+    wait_msg = await edit_or_reply(m, "`Processing . . .`")
     await asyncio.sleep(1)
     spambot_msg = response.updates[1].message.id + 1
     status = await client.get_messages(chat_id="SpamBot", message_ids=spambot_msg)
     await wait_msg.edit_text(f"~ {status.text}")
 
 
-@Client.on_message(filters.command("webshot" "ss", cmd) & filters.me)
+@Client.on_message(filters.command(["webshot", "ss"], cmd) & filters.me)
 async def webshot(client: Client, message: Message):
     Man = await edit_or_reply(message, "`Processing...`")
     try:
@@ -92,7 +93,7 @@ async def deem(client: Client, message: Message):
     quantity = int(quantity)
 
     if message.reply_to_message:
-        reply_to_id = message.reply_to_message.message_id
+        reply_to_id = message.reply_to_message.id
         for _ in range(quantity):
             await Man.edit("Message Sended Successfully ✅")
             await client.send_message(
@@ -140,8 +141,38 @@ async def open_file(client: Client, m: Message):
         else:
             await xd.edit(f"**Output:**\n```{_error_}```")
     else:
-        await edit_or_reply(m, "Reply to a File to open it!")
+        await edit_or_reply(m, "Balas ke File untuk membukanya!")
         os.remove(f)
+
+
+@Client.on_message(filters.command(["tt", "tiktok", "ig", "sosmed"], cmd) & filters.me)
+async def sosmed(client: Client, message: Message):
+    Man = await message.edit("`Processing . . .`")
+    link = get_arg(message)
+    bot = "thisvidbot"
+    if link:
+        try:
+            xnxx = await client.send_message(bot, link)
+            await asyncio.sleep(5)
+            await xnxx.delete()
+        except YouBlockedUser:
+            await client.unblock_user(bot)
+            xnxx = await client.send_message(bot, link)
+            await asyncio.sleep(5)
+            await xnxx.delete()
+    async for sosmed in client.search_messages(
+        bot, filter=enums.MessagesFilter.VIDEO, limit=1
+    ):
+        await asyncio.gather(
+            Man.delete(),
+            client.send_video(
+                message.chat.id,
+                sosmed,
+                caption=f"**Upload by:** {client.me.mention}",
+                reply_to_message_id=ReplyCheck(message),
+            ),
+        )
+        await client.delete_messages(bot, 2)
 
 
 add_command_help(
@@ -164,6 +195,20 @@ add_command_help(
 add_command_help(
     "webshot",
     [
-        ["webshot", "screenshot the given webpage ."],
+        [
+            f"webshot <link> `atau` {cmd}ss <link>",
+            "Untuk Mengscreenshot halaman web yang diberikan.",
+        ],
+    ],
+)
+
+
+add_command_help(
+    "sosmed",
+    [
+        [
+            f"sosmed <link>",
+            "Untuk Mendownload Media Dari Facebook / Tiktok / Instagram / Twitter / YouTube.",
+        ],
     ],
 )

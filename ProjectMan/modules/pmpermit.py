@@ -8,15 +8,18 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 from sqlalchemy.exc import IntegrityError
 
 from config import CMD_HANDLER as cmd
-from config import PM_AUTO_BAN
 from ProjectMan import TEMP_SETTINGS
+from ProjectMan.helpers.adminHelpers import DEVS
+from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.helpers.SQL.globals import addgvar, gvarstatus
+from ProjectMan.helpers.tools import get_arg
 
-from .help import *
+from .help import add_command_help
 
 DEF_UNAPPROVED_MSG = (
     "╔════════════════════╗\n"
@@ -35,64 +38,103 @@ DEF_UNAPPROVED_MSG = (
     ~filters.me & filters.private & ~filters.bot & filters.incoming, group=69
 )
 async def incomingpm(client: Client, message: Message):
-    if not PM_AUTO_BAN:
+    try:
+        from ProjectMan.helpers.SQL.globals import gvarstatus
+        from ProjectMan.helpers.SQL.pm_permit_sql import is_approved
+    except BaseException:
+        pass
+
+    if gvarstatus("PMPERMIT") and gvarstatus("PMPERMIT") == "false":
+        return
+    if await auto_accept(client, message) or message.from_user.is_self:
         message.continue_propagation()
-    else:
-        if message.chat.id != 777000:
-            try:
-                from ProjectMan.helpers.SQL.globals import gvarstatus
-                from ProjectMan.helpers.SQL.pm_permit_sql import is_approved
-            except BaseException:
-                pass
+    if message.chat.id != 777000:
+        PM_LIMIT = gvarstatus("PM_LIMIT") or 5
+        getmsg = gvarstatus("unapproved_msg")
+        if getmsg is not None:
+            UNAPPROVED_MSG = getmsg
+        else:
+            UNAPPROVED_MSG = DEF_UNAPPROVED_MSG
 
-            PM_LIMIT = gvarstatus("PM_LIMIT") or 5
-            getmsg = gvarstatus("unapproved_msg")
-            if getmsg is not None:
-                UNAPPROVED_MSG = getmsg
-            else:
-                UNAPPROVED_MSG = DEF_UNAPPROVED_MSG
-
-            apprv = is_approved(message.chat.id)
-            if not apprv and message.text != UNAPPROVED_MSG:
-                if message.chat.id in TEMP_SETTINGS["PM_LAST_MSG"]:
-                    prevmsg = TEMP_SETTINGS["PM_LAST_MSG"][message.chat.id]
-                    if message.text != prevmsg:
-                        async for message in client.search_messages(
-                            message.chat.id,
-                            from_user="me",
-                            limit=10,
-                            query=UNAPPROVED_MSG,
-                        ):
-                            await message.delete()
-                        if TEMP_SETTINGS["PM_COUNT"][message.chat.id] < (
-                            int(PM_LIMIT) - 1
-                        ):
-                            ret = await message.reply_text(UNAPPROVED_MSG)
-                            TEMP_SETTINGS["PM_LAST_MSG"][message.chat.id] = ret.text
-                else:
-                    ret = await message.reply_text(UNAPPROVED_MSG)
-                    if ret.text:
+        apprv = is_approved(message.chat.id)
+        if not apprv and message.text != UNAPPROVED_MSG:
+            if message.chat.id in TEMP_SETTINGS["PM_LAST_MSG"]:
+                prevmsg = TEMP_SETTINGS["PM_LAST_MSG"][message.chat.id]
+                if message.text != prevmsg:
+                    async for message in client.search_messages(
+                        message.chat.id,
+                        from_user="me",
+                        limit=10,
+                        query=UNAPPROVED_MSG,
+                    ):
+                        await message.delete()
+                    if TEMP_SETTINGS["PM_COUNT"][message.chat.id] < (int(PM_LIMIT) - 1):
+                        ret = await message.reply_text(UNAPPROVED_MSG)
                         TEMP_SETTINGS["PM_LAST_MSG"][message.chat.id] = ret.text
+            else:
+                ret = await message.reply_text(UNAPPROVED_MSG)
+                if ret.text:
+                    TEMP_SETTINGS["PM_LAST_MSG"][message.chat.id] = ret.text
+            if message.chat.id not in TEMP_SETTINGS["PM_COUNT"]:
+                TEMP_SETTINGS["PM_COUNT"][message.chat.id] = 1
+            else:
+                TEMP_SETTINGS["PM_COUNT"][message.chat.id] = (
+                    TEMP_SETTINGS["PM_COUNT"][message.chat.id] + 1
+                )
+            if TEMP_SETTINGS["PM_COUNT"][message.chat.id] > (int(PM_LIMIT) - 1):
+                await message.reply("**Maaf anda Telah Di Blokir Karna Spam Chat**")
+                try:
+                    del TEMP_SETTINGS["PM_COUNT"][message.chat.id]
+                    del TEMP_SETTINGS["PM_LAST_MSG"][message.chat.id]
+                except BaseException:
+                    pass
 
-                if message.chat.id not in TEMP_SETTINGS["PM_COUNT"]:
-                    TEMP_SETTINGS["PM_COUNT"][message.chat.id] = 1
-                else:
-                    TEMP_SETTINGS["PM_COUNT"][message.chat.id] = (
-                        TEMP_SETTINGS["PM_COUNT"][message.chat.id] + 1
-                    )
-
-                if TEMP_SETTINGS["PM_COUNT"][message.chat.id] > (int(PM_LIMIT) - 1):
-                    await message.reply("**Maaf anda Telah Di Blokir Karna Spam Chat**")
-
-                    try:
-                        del TEMP_SETTINGS["PM_COUNT"][message.chat.id]
-                        del TEMP_SETTINGS["PM_LAST_MSG"][message.chat.id]
-                    except BaseException:
-                        pass
-
-                    await client.block_user(message.chat.id)
+                await client.block_user(message.chat.id)
 
     message.continue_propagation()
+
+
+async def auto_accept(client, message):
+    try:
+        from ProjectMan.helpers.SQL.pm_permit_sql import approve, is_approved
+    except BaseException:
+        pass
+
+    if message.chat.id in DEVS:
+        try:
+            approve(message.chat.id)
+            await client.send_message(
+                message.chat.id,
+                f"**Menerima Pesan!!!**\n{message.from_user.mention} **Terdeteksi Developer PyroMan-Userbot**",
+            )
+        except IntegrityError:
+            pass
+    if message.chat.id not in [client.me.id, 777000]:
+        if is_approved(message.chat.id):
+            return True
+
+        async for msg in client.get_chat_history(message.chat.id, limit=1):
+            if msg.from_user.id == client.me.id:
+                try:
+                    del TEMP_SETTINGS["PM_COUNT"][message.chat.id]
+                    del TEMP_SETTINGS["PM_LAST_MSG"][message.chat.id]
+                except BaseException:
+                    pass
+
+                try:
+                    approve(chat.id)
+                    async for message in client.search_messages(
+                        message.chat.id,
+                        from_user="me",
+                        limit=10,
+                        query=UNAPPROVED_MSG,
+                    ):
+                        await message.delete()
+                    return True
+                except BaseException:
+                    pass
+
+    return False
 
 
 @Client.on_message(
@@ -116,7 +158,7 @@ async def approvepm(client: Client, message: Message):
         uid = replied_user.id
     else:
         aname = message.chat
-        if not aname.type == "private":
+        if not aname.type == enums.ChatType.PRIVATE:
             await message.edit(
                 "Saat ini Anda tidak sedang dalam PM dan Anda belum membalas pesan seseorang."
             )
@@ -155,7 +197,7 @@ async def disapprovepm(client: Client, message: Message):
         uid = replied_user.id
     else:
         aname = message.chat
-        if not aname.type == "private":
+        if not aname.type == enums.ChatType.PRIVATE:
             await message.edit(
                 "Saat ini Anda tidak sedang dalam PM dan Anda belum membalas pesan seseorang."
             )
@@ -172,7 +214,7 @@ async def disapprovepm(client: Client, message: Message):
 
 @Client.on_message(filters.command("pmlimit", cmd) & filters.me)
 async def setpm_limit(client: Client, cust_msg: Message):
-    if not PM_AUTO_BAN:
+    if gvarstatus("PMPERMIT") and gvarstatus("PMPERMIT") == "false":
         return await cust_msg.edit(
             f"**Anda Harus Menyetel Var** `PM_AUTO_BAN` **Ke** `True`\n\n**Bila ingin Mengaktifkan PMPERMIT Silahkan Ketik:** `{cmd}setvar PM_AUTO_BAN True`"
         )
@@ -198,10 +240,34 @@ async def setpm_limit(client: Client, cust_msg: Message):
     await Man.edit(f"**Set PM limit to** `{input_str}`")
 
 
+@Client.on_message(filters.command(["pmpermit", "pmguard"], cmd) & filters.me)
+async def onoff_pmpermit(client: Client, message: Message):
+    input_str = get_arg(message)
+    if input_str == "off":
+        h_type = False
+    elif input_str == "on":
+        h_type = True
+    if gvarstatus("PMPERMIT") and gvarstatus("PMPERMIT") == "false":
+        PMPERMIT = False
+    else:
+        PMPERMIT = True
+    if PMPERMIT:
+        if h_type:
+            await edit_or_reply(message, "**PMPERMIT Sudah Diaktifkan**")
+        else:
+            addgvar("PMPERMIT", h_type)
+            await edit_or_reply(message, "**PMPERMIT Berhasil Dimatikan**")
+    elif h_type:
+        addgvar("PMPERMIT", h_type)
+        await edit_or_reply(message, "**PMPERMIT Berhasil Diaktifkan**")
+    else:
+        await edit_or_reply(message, "**PMPERMIT Sudah Dimatikan**")
+
+
 @Client.on_message(filters.command("setpmpermit", cmd) & filters.me)
 async def setpmpermit(client: Client, cust_msg: Message):
     """Set your own Unapproved message"""
-    if not PM_AUTO_BAN:
+    if gvarstatus("PMPERMIT") and gvarstatus("PMPERMIT") == "false":
         return await cust_msg.edit(
             "**Anda Harus Menyetel Var** `PM_AUTO_BAN` **Ke** `True`\n\n**Bila ingin Mengaktifkan PMPERMIT Silahkan Ketik:** `.setvar PM_AUTO_BAN True`"
         )
@@ -224,7 +290,7 @@ async def setpmpermit(client: Client, cust_msg: Message):
 
 @Client.on_message(filters.command("getpmpermit", cmd) & filters.me)
 async def get_pmermit(client: Client, cust_msg: Message):
-    if not PM_AUTO_BAN:
+    if gvarstatus("PMPERMIT") and gvarstatus("PMPERMIT") == "false":
         return await cust_msg.edit(
             "**Anda Harus Menyetel Var** `PM_AUTO_BAN` **Ke** `True`\n\n**Bila ingin Mengaktifkan PMPERMIT Silahkan Ketik:** `.setvar PM_AUTO_BAN True`"
         )
@@ -246,7 +312,7 @@ async def get_pmermit(client: Client, cust_msg: Message):
 
 @Client.on_message(filters.command("resetpmpermit", cmd) & filters.me)
 async def reset_pmpermit(client: Client, cust_msg: Message):
-    if not PM_AUTO_BAN:
+    if gvarstatus("PMPERMIT") and gvarstatus("PMPERMIT") == "false":
         return await cust_msg.edit(
             f"**Anda Harus Menyetel Var** `PM_AUTO_BAN` **Ke** `True`\n\n**Bila ingin Mengaktifkan PMPERMIT Silahkan Ketik:** `{cmd}setvar PM_AUTO_BAN True`"
         )
@@ -293,12 +359,8 @@ add_command_help(
             "Untuk Mereset Pesan PMPERMIT menjadi DEFAULT",
         ],
         [
-            "setvar PM_AUTO_BAN True",
-            "Perintah untuk mengaktifkan PMPERMIT",
-        ],
-        [
-            "setvar PM_AUTO_BAN False",
-            "Perintah untuk mennonaktifkan PMPERMIT",
+            "pmpermit on/off",
+            "Untuk mengaktifkan atau menonaktifkan PMPERMIT",
         ],
     ],
 )

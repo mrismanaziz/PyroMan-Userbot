@@ -7,10 +7,11 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
+import asyncio
 import os
 
 from gtts import gTTS
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
@@ -35,20 +36,22 @@ async def voice(client: Client, message):
             "**Balas ke pesan atau kirim argumen teks untuk mengonversi ke suara**",
         )
         return
-    await client.send_chat_action(message.chat.id, "record_audio")
+    await client.send_chat_action(message.chat.id, enums.ChatAction.RECORD_AUDIO)
     # noinspection PyUnboundLocalVariable
     tts = gTTS(v_text, lang=lang)
     tts.save("voice.mp3")
-    await message.delete()
     if message.reply_to_message:
-        await client.send_voice(
-            message.chat.id,
-            voice="voice.mp3",
-            reply_to_message_id=message.reply_to_message.message_id,
+        await asyncio.gather(
+            message.delete(),
+            client.send_voice(
+                message.chat.id,
+                voice="voice.mp3",
+                reply_to_message_id=message.reply_to_message.id,
+            ),
         )
     else:
-        await client.send_voice(message.chat.id, voice="voice.mp3")
-    await client.send_chat_action(message.chat.id, action="cancel")
+        await client.send_voice(message.chat.id, enums.ChatAction.RECORD_AUDIO)
+    await client.send_chat_action(message.chat.id, enums.ChatAction.CANCEL)
     os.remove("voice.mp3")
 
 
@@ -71,10 +74,10 @@ async def voicelang(client: Client, message: Message):
 add_command_help(
     "voice",
     [
-        [f"voice atau {cmd}tts(text)", "Convert text to voice by google."],
+        [f"voice atau {cmd}tts [text/reply]", "Ubah teks menjadi suara oleh google."],
         [
-            ".voicelang (lang_id) ",
-            "Set language of your voice\n\nSome Available Voice lang:"
+            f"{cmd}voicelang (lang_id) ",
+            "Setel bahasa suara anda\n\nBeberapa Bahasa Suara yang Tersedia:"
             "\nID| Language  | ID| Language\n"
             "af: Afrikaans | ar: Arabic\n"
             "cs: Czech     | de: German\n"

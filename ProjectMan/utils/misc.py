@@ -7,12 +7,18 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
+import os
+import sys
 from re import sub
 from time import time
 
-from pyrogram import Client
+from pyrogram import Client, enums
 
 admins_in_chat = {}
+
+
+def restart():
+    os.execvp(sys.executable, [sys.executable, "-m", "ProjectMan"])
 
 
 async def list_admins(client: Client, chat_id: int):
@@ -26,8 +32,8 @@ async def list_admins(client: Client, chat_id: int):
         "last_updated_at": time(),
         "data": [
             member.user.id
-            async for member in client.iter_chat_members(
-                chat_id, filter="administrators"
+            async for member in client.get_chat_members(
+                chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS
             )
         ],
     }

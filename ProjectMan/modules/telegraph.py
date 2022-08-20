@@ -7,12 +7,13 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from telegraph import Telegraph, upload_file
+from telegraph import Telegraph, exceptions, upload_file
 
 from config import CMD_HANDLER as cmd
-from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.helpers.basic import edit_or_reply, get_text
 from ProjectMan.helpers.tools import *
 
 from .help import *
@@ -24,58 +25,39 @@ auth_url = r["auth_url"]
 
 @Client.on_message(filters.command(["tg", "telegraph"], cmd) & filters.me)
 async def uptotelegraph(client: Client, message: Message):
-    reply = message.reply_to_message
-    filesize = 5242880
-    Man = await edit_or_reply(message, "`Processing...`")
-    # if not replied
-    if not reply:
+    Man = await edit_or_reply(message, "`Processing . . .`")
+    if not message.reply_to_message:
         await Man.edit(
             "**Mohon Balas Ke Pesan, Untuk Mendapatkan Link dari Telegraph.**"
         )
-    # replied to text
-    elif reply.text:
-        if len(reply.text) <= 4096:
-            link = telegraph.create_page(
-                client.me.first_name,
-                html_content=(reply.text.html).replace("\n", "<br>"),
-            )
-            await Man.edit(
-                f"**Berhasil diupload ke [Telegraph](https://telegra.ph/{link.get('path')})**"
-            )
+        return
+    if message.reply_to_message.media:
+        if message.reply_to_message.sticker:
+            m_d = await convert_to_image(message, client)
         else:
-            await Man.edit("The length text exceeds 4096 characters")
-    elif reply.media:
-        if (
-            reply.photo
-            and reply.photo.file_size <= filesize
-            or reply.video
-            and reply.video.file_size <= filesize
-            or reply.animation
-            and reply.animation.file_size <= filesize
-            or reply.sticker
-            and reply.sticker.file_size <= filesize
-            or reply.document
-            and reply.document.file_size <= filesize
-        ):
-            if reply.animation or reply.sticker:
-                loc = await client.download_media(reply, file_name=f"telegraph.png")
-            else:
-                loc = await client.download_media(reply)
-            try:
-                response = upload_file(loc)
-            except Exception as e:
-                return await Man.edit(f"**ERROR:** `{e}`")
-            await Man.edit(
-                f"**Berhasil diupload ke [Telegraph](https://telegra.ph{response[0]})**"
-            )
-            if os.path.exists(loc):
-                os.remove(loc)
-        else:
-            await Man.edit(
-                "Please check the file format or file size , it must be less than 5 mb . . ."
-            )
-    else:
-        await Man.edit("Sorry, The File is not supported !")
+            m_d = await message.reply_to_message.download()
+        try:
+            media_url = upload_file(m_d)
+        except exceptions.TelegraphException as exc:
+            await Man.edit(f"**ERROR:** `{exc}`")
+            os.remove(m_d)
+            return
+        U_done = (
+            f"**Berhasil diupload ke** [Telegraph](https://telegra.ph/{media_url[0]})"
+        )
+        await Man.edit(U_done)
+        os.remove(m_d)
+    elif message.reply_to_message.text:
+        page_title = get_text(message) if get_text(message) else client.me.first_name
+        page_text = message.reply_to_message.text
+        page_text = page_text.replace("\n", "<br>")
+        try:
+            response = telegraph.create_page(page_title, html_content=page_text)
+        except exceptions.TelegraphException as exc:
+            await Man.edit(f"**ERROR:** `{exc}`")
+            return
+        wow_graph = f"**Berhasil diupload ke** [Telegraph](https://telegra.ph/{response['path']})"
+        await Man.edit(wow_graph)
 
 
 add_command_help(

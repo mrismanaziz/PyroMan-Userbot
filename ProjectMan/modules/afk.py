@@ -88,7 +88,7 @@ async def afk_mentioned(client: Client, message: Message):
                 "chat": message.chat.title,
                 "chat_id": cid,
                 "text": text,
-                "message_id": message.message_id,
+                "message_id": message.id,
             }
         )
         try:

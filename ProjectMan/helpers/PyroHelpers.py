@@ -7,17 +7,21 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-from pyrogram import Client
+from pyrogram import Client, enums
 from pyrogram.types import Message, User
 
 
 async def get_ub_chats(
     client: Client,
-    chat_types: list = ["channel", "group", "supergroup"],
+    chat_types: list = [
+        enums.ChatType.GROUP,
+        enums.ChatType.SUPERGROUP,
+        enums.ChatType.CHANNEL,
+    ],
     is_id_only=True,
 ):
     ub_chats = []
-    async for dialog in client.iter_dialogs():
+    async for dialog in client.get_dialogs():
         if dialog.chat.type in chat_types:
             if is_id_only:
                 ub_chats.append(dialog.chat.id)
@@ -32,10 +36,10 @@ def ReplyCheck(message: Message):
     reply_id = None
 
     if message.reply_to_message:
-        reply_id = message.reply_to_message.message_id
+        reply_id = message.reply_to_message.id
 
     elif not message.from_user.is_self:
-        reply_id = message.message_id
+        reply_id = message.id
 
     return reply_id
 

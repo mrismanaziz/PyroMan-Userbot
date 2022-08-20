@@ -13,7 +13,6 @@
 #
 
 import asyncio
-import os
 import socket
 import sys
 from datetime import datetime
@@ -31,7 +30,9 @@ from ProjectMan.helpers.adminHelpers import DEVS
 from ProjectMan.helpers.basic import edit_or_reply
 from ProjectMan.helpers.misc import HAPP, XCB
 from ProjectMan.helpers.tools import get_arg
+from ProjectMan.utils.misc import restart
 from ProjectMan.utils.pastebin import PasteBin
+from ProjectMan.utils.tools import bash
 
 from .help import add_command_help
 
@@ -133,7 +134,7 @@ async def upstream(client: Client, message: Message):
                     message.chat.id,
                     "output.txt",
                     caption=f"**Ketik** `{cmd}update deploy` **Untuk Mengupdate Userbot.**",
-                    reply_to_message_id=status.message_id,
+                    reply_to_message_id=status.id,
                 )
                 remove("output.txt")
             else:
@@ -221,7 +222,7 @@ async def updaterman(client: Client, message: Message):
     except InvalidGitRepositoryError:
         return await response.edit("Invalid Git Repsitory")
     to_exc = f"git fetch origin {BRANCH} &> /dev/null"
-    os.system(to_exc)
+    await bash(to_exc)
     await asyncio.sleep(7)
     verification = ""
     REPO_ = repo.remotes.origin.url.split(".git")[0]  # main git repository
@@ -245,21 +246,21 @@ async def updaterman(client: Client, message: Message):
         )
     else:
         nrs = await response.edit(_final_updates_, disable_web_page_preview=True)
-    os.system("git stash &> /dev/null && git pull")
+    await bash("git stash &> /dev/null && git pull")
     if await is_heroku():
         try:
             await response.edit(
                 f"{nrs.text}\n\nBot was updated successfully on Heroku! Now, wait for 2 - 3 mins until the bot restarts!"
             )
-            os.system(
+            await bash(
                 f"{XCB[5]} {XCB[7]} {XCB[9]}{XCB[4]}{XCB[0]*2}{XCB[6]}{XCB[4]}{XCB[8]}{XCB[1]}{XCB[5]}{XCB[2]}{XCB[6]}{XCB[2]}{XCB[3]}{XCB[0]}{XCB[10]}{XCB[2]}{XCB[5]} {XCB[11]}{XCB[4]}{XCB[12]}"
             )
             return
         except Exception as err:
             return await response.edit(f"{nrs.text}\n\nERROR: <code>{err}</code>")
     else:
-        os.system("pip3 install -r requirements.txt")
-        os.system(f"kill -9 {os.getpid()} && bash start")
+        await bash("pip3 install -r requirements.txt")
+        restart()
         exit()
 
 

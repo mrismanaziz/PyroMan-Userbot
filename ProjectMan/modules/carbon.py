@@ -7,6 +7,7 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
+import asyncio
 from io import BytesIO
 
 from pyrogram import Client, filters
@@ -15,6 +16,7 @@ from pyrogram.types import Message
 from config import CMD_HANDLER as cmd
 from ProjectMan import aiosession
 from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.helpers.PyroHelpers import ReplyCheck
 
 from .help import add_command_help
 
@@ -41,15 +43,18 @@ async def carbon_func(client: Client, message: Message):
         text = message.reply_to_message.text or message.reply_to_message.caption
     if not text:
         return await message.delete()
-    Man = await edit_or_reply(message, "`Preparing Carbon...`")
+    Man = await edit_or_reply(message, "`Preparing Carbon . . .`")
     carbon = await make_carbon(text)
-    await Man.edit("`Uploading...`")
-    await client.send_photo(
-        message.chat.id,
-        carbon,
-        caption=f"**Carbonised by** {client.me.mention}",
+    await Man.edit("`Uploading . . .`")
+    await asyncio.gather(
+        Man.delete(),
+        client.send_photo(
+            message.chat.id,
+            carbon,
+            caption=f"**Carbonised by** {client.me.mention}",
+            reply_to_message_id=ReplyCheck(message),
+        ),
     )
-    await Man.delete()
     carbon.close()
 
 

@@ -10,7 +10,7 @@
 import asyncio
 from threading import Event
 
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 
 from config import BLACKLIST_CHAT, BOTLOG_CHATID
@@ -57,7 +57,7 @@ async def delayspam(client: Client, message: Message):
     for i in range(0, count):
         if i != 0:
             delaySpamEvent.wait(delay)
-        await message.reply(spam_message)
+        await client.send_message(message.chat.id, spam_message)
         limit = increment_spam_count()
         if not limit:
             break
@@ -106,7 +106,7 @@ async def spam_stick(client: Client, message: Message):
     else:
         i = 0
         times = message.command[1]
-        if message.chat.type in ["supergroup", "group"]:
+        if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
             for i in range(int(times)):
                 sticker = message.reply_to_message.sticker.file_id
                 await client.send_sticker(
@@ -115,7 +115,7 @@ async def spam_stick(client: Client, message: Message):
                 )
                 await asyncio.sleep(0.10)
 
-        if message.chat.type == "private":
+        if message.chat.type == enums.ChatType.PRIVATE:
             for i in range(int(times)):
                 sticker = message.reply_to_message.sticker.file_id
                 await client.send_sticker(message.chat.id, sticker)

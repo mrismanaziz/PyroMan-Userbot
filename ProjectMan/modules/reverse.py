@@ -17,7 +17,7 @@ from typing import Optional, Tuple
 import requests
 import tracemoepy
 from bs4 import BeautifulSoup
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
@@ -110,7 +110,9 @@ async def google_rs(client: Client, message: Message):
 <b>Possible Related Search</b>: <a href="{prs_url}">{prs_text}</a>
 <b>More Info</b>: Open this <a href="{the_location}">Link</a>
 """
-    await message.edit(out_str, parse_mode="HTML", disable_web_page_preview=True)
+    await message.edit(
+        out_str, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True
+    )
 
 
 @Client.on_message(filters.me & filters.command(["areverse"], cmd))

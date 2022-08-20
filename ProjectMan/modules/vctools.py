@@ -12,7 +12,7 @@ from contextlib import suppress
 from random import randint
 from typing import Optional
 
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.raw.functions.channels import GetFullChannel
 from pyrogram.raw.functions.messages import GetFullChat
 from pyrogram.raw.functions.phone import CreateGroupCall, DiscardGroupCall
@@ -22,6 +22,7 @@ from pyrogram.types import Message
 from config import CMD_HANDLER as cmd
 from ProjectMan.helpers.adminHelpers import DEVS
 from ProjectMan.helpers.basic import edit_or_reply
+from ProjectMan.helpers.tools import get_arg
 
 from .help import add_command_help
 
@@ -49,19 +50,31 @@ async def get_group_call(
 @Client.on_message(filters.command(["startvc"], cmd) & filters.me)
 async def opengc(client: Client, message: Message):
     flags = " ".join(message.command[1:])
-    Man = await edit_or_reply(message, "`Processing...`")
-    if flags == "channel":
+    Man = await edit_or_reply(message, "`Processing . . .`")
+    vctitle = get_arg(message)
+    if flags == enums.ChatType.CHANNEL:
         chat_id = message.chat.title
     else:
         chat_id = message.chat.id
+    args = f"**Started Group Call\n • **Chat ID** : `{chat_id}`"
     try:
-        await client.send(
-            CreateGroupCall(
-                peer=(await client.resolve_peer(chat_id)),
-                random_id=randint(10000, 999999999),
+        if not vctitle:
+            await client.invoke(
+                CreateGroupCall(
+                    peer=(await client.resolve_peer(chat_id)),
+                    random_id=randint(10000, 999999999),
+                )
             )
-        )
-        await Man.edit(f"Started group call in **Chat ID** : `{chat_id}`")
+        else:
+            args += f"\n • **Title:** `{vctitle}`"
+            await client.invoke(
+                CreateGroupCall(
+                    peer=(await client.resolve_peer(chat_id)),
+                    random_id=randint(10000, 999999999),
+                    title=vctitle,
+                )
+            )
+        await Man.edit(args)
     except Exception as e:
         await Man.edit(f"**INFO:** `{e}`")
 

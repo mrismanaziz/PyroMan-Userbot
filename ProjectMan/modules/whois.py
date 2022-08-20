@@ -7,155 +7,154 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-from datetime import datetime
+from asyncio import gather
+from os import remove
 
 from pyrogram import Client, filters
-from pyrogram.errors import PeerIdInvalid
-from pyrogram.raw import functions
-from pyrogram.types import Message, User
+from pyrogram.enums import ChatType
+from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
 from ProjectMan.helpers.basic import edit_or_reply
 from ProjectMan.helpers.PyroHelpers import ReplyCheck
+from ProjectMan.utils import extract_user
 
 from .help import add_command_help
 
-WHOIS = (
-    "**WHO IS {full_name}?**\n"
-    "[Link to profile](tg://user?id={user_id})\n"
-    "━━━━━━━━━━━━━━━━\n"
-    "**UserID:** `{user_id}`\n"
-    "**First Name:** `{first_name}`\n"
-    "**Last Name:** `{last_name}`\n"
-    "**Username:** `{username}`\n"
-    "**Last Online:** `{last_online}`\n"
-    "**Common Groups:** `{common_groups}`\n"
-    "━━━━━━━━━━━━━━━━\n"
-    "**Bio:** {bio}"
-)
-
-WHOIS_PIC = (
-    "**WHO IS {full_name} ?**\n"
-    "[Link to profile](tg://user?id={user_id})\n"
-    "━━━━━━━━━━━━━━━━\n"
-    "**UserID:** `{user_id}`\n"
-    "**First Name:** `{first_name}`\n"
-    "**Last Name:** `{last_name}`\n"
-    "**Username:** `{username}`\n"
-    "**Last Online:** `{last_online}`\n"
-    "**Common Groups:** `{common_groups}`\n"
-    "━━━━━━━━━━━━━━━━\n"
-    "**Profile Pics:** `{profile_pics}`\n"
-    "**Last Updated:** `{profile_pic_update}`\n"
-    "━━━━━━━━━━━━━━━━\n"
-    "**Bio:** {bio}"
-)
-
-
-def LastOnline(user: User):
-    if user.is_bot:
-        return ""
-    elif user.status == "recently":
-        return "Recently"
-    elif user.status == "within_week":
-        return "Within the last week"
-    elif user.status == "within_month":
-        return "Within the last month"
-    elif user.status == "long_time_ago":
-        return "A long time ago :("
-    elif user.status == "online":
-        return "Currently Online"
-    elif user.status == "offline":
-        return datetime.fromtimestamp(user.last_online_date).strftime(
-            "%a, %d %b %Y, %H:%M:%S"
-        )
-
-
-async def GetCommon(bot: Client, get_user):
-    common = await bot.send(
-        functions.messages.GetCommonChats(
-            user_id=await bot.resolve_peer(get_user), max_id=0, limit=0
-        )
-    )
-    return common
-
-
-def FullName(user: User):
-    return user.first_name + " " + user.last_name if user.last_name else user.first_name
-
-
-def ProfilePicUpdate(user_pic):
-    return datetime.fromtimestamp(user_pic[0].date).strftime("%d.%m.%Y, %H:%M:%S")
-
 
 @Client.on_message(filters.command(["whois", "info"], cmd) & filters.me)
-async def who_is(bot: Client, message: Message):
-    cmd = message.command
-    Man = await edit_or_reply(message, "`Processing...`")
-    if not message.reply_to_message and len(cmd) == 1:
-        get_user = message.from_user.id
-    elif message.reply_to_message and len(cmd) == 1:
-        get_user = message.reply_to_message.from_user.id
-    elif len(cmd) > 1:
-        get_user = cmd[1]
-        try:
-            get_user = int(cmd[1])
-        except ValueError:
-            pass
+async def who_is(client: Client, message: Message):
+    user_id = await extract_user(message)
+    Man = await edit_or_reply(message, "`Processing . . .`")
+    if not user_id:
+        return await Man.edit(
+            "**Berikan userid/username/reply untuk mendapatkan info pengguna tersebut.**"
+        )
     try:
-        user = await bot.get_users(get_user)
-    except PeerIdInvalid:
-        return await edit_or_reply(message, "I don't know that User.")
-
-    user_details = await bot.get_chat(get_user)
-    bio = user_details.bio
-    user_pic = await bot.get_profile_photos(user.id)
-    pic_count = await bot.get_profile_photos_count(user.id)
-    common = await GetCommon(bot, user.id)
-
-    if not user.photo:
-        await message.edit(
-            WHOIS.format(
-                full_name=FullName(user),
-                user_id=user.id,
-                first_name=user.first_name,
-                last_name=user.last_name if user.last_name else "",
-                username=user.username if user.username else "",
-                last_online=LastOnline(user),
-                common_groups=len(common.chats),
-                bio=bio if bio else "`No bio set up.`",
-            ),
-            disable_web_page_preview=True,
+        user = await client.get_users(user_id)
+        username = f"@{user.username}" if user.username else "-"
+        first_name = f"{user.first_name}" if user.first_name else "-"
+        last_name = f"{user.last_name}" if user.last_name else "-"
+        fullname = (
+            f"{user.first_name} {user.last_name}" if user.last_name else user.first_name
         )
-    elif user.photo:
-        await bot.send_photo(
-            message.chat.id,
-            user_pic[0].file_id,
-            caption=WHOIS_PIC.format(
-                full_name=FullName(user),
-                user_id=user.id,
-                first_name=user.first_name,
-                last_name=user.last_name if user.last_name else "",
-                username=user.username if user.username else "",
-                last_online=LastOnline(user),
-                profile_pics=pic_count,
-                common_groups=len(common.chats),
-                bio=bio if bio else "`No bio set up.`",
-                profile_pic_update=ProfilePicUpdate(user_pic),
-            ),
-            reply_to_message_id=ReplyCheck(message),
-        )
+        user_details = (await client.get_chat(user.id)).bio
+        bio = f"{user_details}" if user_details else "-"
+        h = f"{user.status}"
+        if h.startswith("UserStatus"):
+            y = h.replace("UserStatus.", "")
+            status = y.capitalize()
+        else:
+            status = "-"
+        dc_id = f"{user.dc_id}" if user.dc_id else "-"
+        common = await client.get_common_chats(user.id)
+        out_str = f"""<b>USER INFORMATION:</b>
 
-        await Man.delete()
+🆔 <b>User ID:</b> <code>{user.id}</code>
+👤 <b>First Name:</b> {first_name}
+🗣️ <b>Last Name:</b> {last_name}
+🌐 <b>Username:</b> {username}
+🏛️ <b>DC ID:</b> <code>{dc_id}</code>
+🤖 <b>Is Bot:</b> <code>{user.is_bot}</code>
+🚷 <b>Is Scam:</b> <code>{user.is_scam}</code>
+🚫 <b>Restricted:</b> <code>{user.is_restricted}</code>
+✅ <b>Verified:</b> <code>{user.is_verified}</code>
+⭐ <b>Premium:</b> <code>{user.is_premium}</code>
+📝 <b>User Bio:</b> {bio}
+
+👀 <b>Same groups seen:</b> {len(common)}
+👁️ <b>Last Seen:</b> <code>{status}</code>
+🔗 <b>User permanent link:</b> <a href='tg://user?id={user.id}'>{fullname}</a>
+"""
+        photo_id = user.photo.big_file_id if user.photo else None
+        if photo_id:
+            photo = await client.download_media(photo_id)
+            await gather(
+                Man.delete(),
+                client.send_photo(
+                    message.chat.id,
+                    photo,
+                    caption=out_str,
+                    reply_to_message_id=ReplyCheck(message),
+                ),
+            )
+            remove(photo)
+        else:
+            await Man.edit(out_str, disable_web_page_preview=True)
+    except Exception as e:
+        return await Man.edit(f"**INFO:** `{e}`")
+
+
+@Client.on_message(filters.command(["chatinfo", "cinfo", "ginfo"], cmd) & filters.me)
+async def chatinfo_handler(client: Client, message: Message):
+    Man = await edit_or_reply(message, "`Processing...`")
+    try:
+        if len(message.command) > 1:
+            chat_u = message.command[1]
+            chat = await client.get_chat(chat_u)
+        else:
+            if message.chat.type == ChatType.PRIVATE:
+                return await message.edit(
+                    f"Gunakan perintah ini di dalam grup atau gunakan `{cmd}chatinfo [group username atau id]`"
+                )
+            else:
+                chatid = message.chat.id
+                chat = await client.get_chat(chatid)
+        h = f"{chat.type}"
+        if h.startswith("ChatType"):
+            y = h.replace("ChatType.", "")
+            type = y.capitalize()
+        else:
+            type = "Private"
+        username = f"@{chat.username}" if chat.username else "-"
+        description = f"{chat.description}" if chat.description else "-"
+        dc_id = f"{chat.dc_id}" if chat.dc_id else "-"
+        out_str = f"""<b>CHAT INFORMATION:</b>
+
+🆔 <b>Chat ID:</b> <code>{chat.id}</code>
+👥 <b>Title:</b> {chat.title}
+👥 <b>Username:</b> {username}
+📩 <b>Type:</b> <code>{type}</code>
+🏛️ <b>DC ID:</b> <code>{dc_id}</code>
+🗣️ <b>Is Scam:</b> <code>{chat.is_scam}</code>
+🎭 <b>Is Fake:</b> <code>{chat.is_fake}</code>
+✅ <b>Verified:</b> <code>{chat.is_verified}</code>
+🚫 <b>Restricted:</b> <code>{chat.is_restricted}</code>
+🔰 <b>Protected:</b> <code>{chat.has_protected_content}</code>
+
+🚻 <b>Total members:</b> <code>{chat.members_count}</code>
+📝 <b>Description:</b>
+<code>{description}</code>
+"""
+        photo_id = chat.photo.big_file_id if chat.photo else None
+        if photo_id:
+            photo = await client.download_media(photo_id)
+            await gather(
+                Man.delete(),
+                client.send_photo(
+                    message.chat.id,
+                    photo,
+                    caption=out_str,
+                    reply_to_message_id=ReplyCheck(message),
+                ),
+            )
+            remove(photo)
+        else:
+            await Man.edit(out_str, disable_web_page_preview=True)
+    except Exception as e:
+        return await Man.edit(f"**INFO:** `{e}`")
 
 
 add_command_help(
-    "whois",
+    "info",
     [
         [
-            "whois",
-            "Finds out who the person is. Reply to message sent by the person"
-            "you want information from and send the command. Without the dot also works.",
-        ]
+            "info <username/userid/reply>",
+            "dapatkan info pengguna telegram dengan deskripsi lengkap.",
+        ],
+        [
+            "chatinfo <username/chatid/reply>",
+            "dapatkan info group dengan deskripsi lengkap.",
+        ],
     ],
 )

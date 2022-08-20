@@ -12,7 +12,7 @@ from pyrogram.types import ChatPermissions, Message
 
 from config import CMD_HANDLER as cmd
 from ProjectMan import *
-from ProjectMan.helpers.adminHelpers import DEVS
+from ProjectMan.helpers.adminHelpers import DEVS, WHITELIST
 from ProjectMan.helpers.basic import edit_or_reply
 from ProjectMan.helpers.PyroHelpers import get_ub_chats
 from ProjectMan.utils import extract_user, extract_user_and_reason
@@ -48,16 +48,20 @@ async def gban_user(client: Client, message: Message):
     else:
         Man = await message.edit("`Gbanning....`")
     if not user_id:
-        return await Man.edit("I can't find that user.")
+        return await Man.edit("Saya tidak dapat menemukan pengguna itu.")
     if user_id == client.me.id:
-        return await Man.edit("I can't gban myself.")
+        return await Man.edit("**Ngapain NgeGban diri sendiri Goblok 🐽**")
     if user_id in DEVS:
-        return await Man.edit("I can't gban my developer!")
+        return await Man.edit("**Gagal GBAN karena dia adalah Pembuat saya 🗿**")
+    if user_id in WHITELIST:
+        return await Man.edit(
+            "**Gagal GBAN karena dia adalah admin @SharingUserbot 🗿**"
+        )
     if user_id:
         try:
             user = await client.get_users(user_id)
         except Exception:
-            return await Man.edit("`Please specify a valid user!`")
+            return await Man.edit("`Harap tentukan pengguna yang valid!`")
 
     if sql.is_gbanned(user.id):
         return await Man.edit(
@@ -97,16 +101,12 @@ async def ungban_user(client: Client, message: Message):
     else:
         Man = await message.edit("`UnGbanning....`")
     if not user_id:
-        return await Man.edit("I can't find that user.")
-    if user_id == client.me.id:
-        return await Man.edit("I can't gban myself.")
-    if user_id in DEVS:
-        return await Man.edit("I can't gban my developer!")
+        return await Man.edit("Saya tidak dapat menemukan pengguna itu.")
     if user_id:
         try:
             user = await client.get_users(user_id)
         except Exception:
-            return await Man.edit("`Please specify a valid user!`")
+            return await Man.edit("`Harap tentukan pengguna yang valid!`")
 
     try:
         if not sql.is_gbanned(user.id):
@@ -142,7 +142,7 @@ async def gbanlist(client: Client, message: Message):
     users = sql.gbanned_users()
     Man = await edit_or_reply(message, "`Processing...`")
     if not users:
-        return await Man.edit("The list is empty!")
+        return await Man.edit("Belum ada Pengguna yang Di-Gban")
     gban_list = "**GBanned Users:**\n"
     count = 0
     for i in users:
@@ -168,7 +168,14 @@ async def gmute_user(client: Client, message: Message):
     else:
         await Man.edit(f"`Please specify a valid user!`")
         return
-
+    if user.id == client.me.id:
+        return await Man.edit("**Ngapain NgeGmute diri sendiri Goblok 🐽**")
+    if user.id in DEVS:
+        return await Man.edit("**Gagal GMUTE karena dia adalah Pembuat saya 🗿**")
+    if user.id in WHITELIST:
+        return await Man.edit(
+            "**Gagal GMUTE karena dia adalah admin @SharingUserbot 🗿**"
+        )
     try:
         replied_user = reply.from_user
         if replied_user.is_self:
@@ -240,7 +247,7 @@ async def gmutelist(client: Client, message: Message):
     users = sql2.gmuted_users()
     Man = await edit_or_reply(message, "`Processing...`")
     if not users:
-        return await Man.edit("listEmpty")
+        return await Man.edit("Belum ada Pengguna yang Di-Gmute")
     gmute_list = "**GMuted Users:**\n"
     count = 0
     for i in users:

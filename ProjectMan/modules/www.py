@@ -7,7 +7,6 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-import asyncio
 import time
 from datetime import datetime
 
@@ -20,9 +19,7 @@ from config import CMD_HANDLER as cmd
 from ProjectMan import StartTime
 from ProjectMan.helpers.basic import edit_or_reply
 from ProjectMan.helpers.constants import WWW
-from ProjectMan.helpers.expand import expand_url
 from ProjectMan.helpers.PyroHelpers import SpeedConvert
-from ProjectMan.helpers.shorten import shorten_url
 from ProjectMan.utils.tools import get_readable_time
 
 from .help import add_command_help
@@ -72,6 +69,26 @@ async def nearest_dc(client: Client, message: Message):
 async def pingme(client: Client, message: Message):
     uptime = await get_readable_time((time.time() - StartTime))
     start = datetime.now()
+    xx = await edit_or_reply(message, "**0% ▒▒▒▒▒▒▒▒▒▒**")
+    await xx.edit("**20% ██▒▒▒▒▒▒▒▒**")
+    await xx.edit("**40% ████▒▒▒▒▒▒**")
+    await xx.edit("**60% ██████▒▒▒▒**")
+    await xx.edit("**80% ████████▒▒**")
+    await xx.edit("**100% ██████████**")
+    end = datetime.now()
+    duration = (end - start).microseconds / 1000
+    await xx.edit(
+        f"❏ **PONG!!🏓**\n"
+        f"├• **Pinger** - `%sms`\n"
+        f"├• **Uptime -** `{uptime}` \n"
+        f"└• **Owner :** {client.me.mention}" % (duration)
+    )
+
+
+@Client.on_message(filters.command("kping", cmd) & filters.me)
+async def kping(client: Client, message: Message):
+    uptime = await get_readable_time((time.time() - StartTime))
+    start = datetime.now()
     xx = await edit_or_reply(message, "8✊===D")
     await xx.edit("8=✊==D")
     await xx.edit("8==✊=D")
@@ -86,81 +103,22 @@ async def pingme(client: Client, message: Message):
     )
 
 
-@Client.on_message(filters.command("expand", cmd) & filters.me)
-async def expand(client: Client, message: Message):
-    if message.reply_to_message:
-        url = message.reply_to_message.text or message.reply_to_message.caption
-    elif len(message.command) > 1:
-        url = message.command[1]
-    else:
-        url = None
-
-    if url:
-        expanded = await expand_url(url)
-        if expanded:
-            await message.edit(
-                f"<b>Shortened URL</b>: {url}\n<b>Expanded URL</b>: {expanded}",
-                disable_web_page_preview=True,
-            )
-        else:
-            await message.edit("No bro that's not what I do")
-    else:
-        await message.edit("Nothing to expand")
-
-
-@Client.on_message(filters.command("shorten", cmd) & filters.me)
-async def shorten(client: Client, message: Message):
-    keyword = None
-
-    if message.reply_to_message:
-        url = message.reply_to_message.text or message.reply_to_message.caption
-        if len(message.command) > 1:
-            keyword = message.command[1]
-    elif len(message.command) > 2:
-        url = message.command[1]
-        keyword = message.command[2]
-    elif len(message.command) > 1:
-        url = message.command[1]
-    else:
-        url = None
-
-    if url:
-        shortened = await shorten_url(url, keyword)
-        if shortened == "API ERROR":
-            txt = "API URL or API KEY not found! Add YOURLS details to config"
-        elif shortened == "INVALID URL":
-            txt = f"The provided URL: `{url}` is invalid"
-        elif shortened == "KEYWORD/URL Exists":
-            txt = "The URL or KEYWORD already exists!"
-        else:
-            txt = f"<b>Original URL</b>: {url}\n<b>Shortened URL</b>: {shortened}"
-            await message.edit(txt, disable_web_page_preview=True)
-            return
-    else:
-        txt = "Please provide a URL to shorten"
-
-    await message.edit(txt)
-    await asyncio.sleep(3)
-    await message.delete()
+add_command_help(
+    "speedtest",
+    [
+        ["dc", "Untuk melihat DC Telegram anda."],
+        [
+            f"speedtest `atau` {cmd}speed",
+            "Untuk megetes Kecepatan Server anda.",
+        ],
+    ],
+)
 
 
 add_command_help(
-    "www",
+    "ping",
     [
-        ["ping", "Calculates ping time between you and Telegram."],
-        ["dc", "Get's your Telegram DC."],
-        [
-            f"speedtest `or` {cmd}speed",
-            "Runs a speedtest on the server this userbot is hosted.. Flex on them haters. With an in "
-            "Telegram Speedtest of your server..",
-        ],
-        [
-            "expand",
-            "Expands a shortened url. Works for replied to message, photo caption or .expand url",
-        ],
-        [
-            "shorten",
-            "Shortens a url. Works for replied to message, photo caption or .shorten url keyword",
-        ],
+        ["ping", "Untuk Menunjukkan Ping Bot Anda."],
+        ["kping", "Untuk Menunjukkan Ping Bot Anda ( Beda animasi doang )."],
     ],
 )

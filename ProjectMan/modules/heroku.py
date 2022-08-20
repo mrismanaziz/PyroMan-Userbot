@@ -14,8 +14,6 @@
 
 import asyncio
 import math
-import os
-import socket
 
 import dotenv
 import heroku3
@@ -26,15 +24,12 @@ from pyrogram.types import Message
 
 from config import *
 from ProjectMan.helpers.basic import edit_or_reply
-from ProjectMan.helpers.misc import HAPP
+from ProjectMan.helpers.misc import HAPP, in_heroku
+from ProjectMan.utils.misc import restart
 
 from .help import add_command_help
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-
-async def is_heroku():
-    return "heroku" in socket.getfqdn()
 
 
 @Client.on_message(filters.command("setvar", CMD_HANDLER) & filters.me)
@@ -46,7 +41,7 @@ async def set_var(client: Client, message: Message):
     Man = await edit_or_reply(message, "`Processing...`")
     to_set = message.text.split(None, 2)[1].strip()
     value = message.text.split(None, 2)[2].strip()
-    if await is_heroku():
+    if await in_heroku():
         if HAPP is None:
             return await Man.edit(
                 "Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku"
@@ -66,7 +61,7 @@ async def set_var(client: Client, message: Message):
             await Man.edit(f"Berhasil Mengubah var {to_set} menjadi {value}")
         else:
             await Man.edit(f"Berhasil Menambahkan var {to_set} menjadi {value}")
-        os.system(f"kill -9 {os.getpid()} && bash start")
+        restart()
 
 
 @Client.on_message(filters.command("getvar", CMD_HANDLER) & filters.me)
@@ -77,7 +72,7 @@ async def varget_(client: Client, message: Message):
         )
     Man = await edit_or_reply(message, "`Processing...`")
     check_var = message.text.split(None, 2)[1]
-    if await is_heroku():
+    if await in_heroku():
         if HAPP is None:
             return await Man.edit(
                 "Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku"
@@ -106,7 +101,7 @@ async def vardel_(client: Client, message: Message):
         return await message.edit(f"<b>Usage:</b> {CMD_HANDLER}delvar [Var Name]")
     Man = await edit_or_reply(message, "`Processing...`")
     check_var = message.text.split(None, 2)[1]
-    if await is_heroku():
+    if await in_heroku():
         if HAPP is None:
             return await Man.edit(
                 "Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku"
@@ -126,13 +121,13 @@ async def vardel_(client: Client, message: Message):
             return await message.edit(f"Tidak dapat menemukan var {check_var}")
         else:
             await message.edit(f"Berhasil Menghapus var {check_var}")
-            os.system(f"kill -9 {os.getpid()} && bash start")
+        restart()
 
 
 @Client.on_message(filters.command("usage", CMD_HANDLER) & filters.me)
 async def usage_heroku(client: Client, message: Message):
     ### Credits CatUserbot
-    if await is_heroku():
+    if await in_heroku():
         if HAPP is None:
             return await message.edit(
                 "Pastikan HEROKU_API_KEY dan HEROKU_APP_NAME anda dikonfigurasi dengan benar di config vars heroku"

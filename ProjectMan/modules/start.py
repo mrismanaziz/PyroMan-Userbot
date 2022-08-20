@@ -129,7 +129,7 @@ async def get_id(client: Client, message: Message):
             user_detail = (
                 f"🙋‍♂️ **From User ID:** `{message.reply_to_message.from_user.id}`\n"
             )
-        user_detail += f"💬 **Message ID:** `{message.reply_to_message.message_id}`"
+        user_detail += f"💬 **Message ID:** `{message.reply_to_message.id}`"
         await message.edit(user_detail)
     elif file_id:
         if rep.forward_from:
@@ -138,7 +138,7 @@ async def get_id(client: Client, message: Message):
             user_detail = (
                 f"🙋‍♂️ **From User ID:** `{message.reply_to_message.from_user.id}`\n"
             )
-        user_detail += f"💬 **Message ID:** `{message.reply_to_message.message_id}`\n\n"
+        user_detail += f"💬 **Message ID:** `{message.reply_to_message.id}`\n\n"
         user_detail += file_id
         await edit_or_reply(message, user_detail)
 

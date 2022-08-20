@@ -11,24 +11,13 @@ import asyncio
 
 from pyrogram import Client, filters
 from pyrogram.errors import ChatAdminRequired
-from pyrogram.types import ChatPermissions, Message
+from pyrogram.types import ChatPermissions, ChatPrivileges, Message
 
 from config import CMD_HANDLER as cmd
 from ProjectMan.helpers.adminHelpers import DEVS
 from ProjectMan.helpers.basic import edit_or_reply
 from ProjectMan.modules.help import add_command_help
 from ProjectMan.utils.misc import extract_user, extract_user_and_reason, list_admins
-
-mute_permission = ChatPermissions(
-    can_send_messages=False,
-    can_send_media_messages=False,
-    can_send_other_messages=False,
-    can_send_polls=False,
-    can_add_web_page_previews=False,
-    can_change_info=False,
-    can_pin_messages=False,
-    can_invite_users=True,
-)
 
 unmute_permissions = ChatPermissions(
     can_send_messages=True,
@@ -44,8 +33,7 @@ unmute_permissions = ChatPermissions(
     filters.group & filters.command(["setchatphoto", "setgpic"], cmd) & filters.me
 )
 async def set_chat_photo(client: Client, message: Message):
-    chat_id = message.chat.id
-    zuzu = await client.get_chat_member(chat_id, "me")
+    zuzu = (await client.get_chat_member(message.chat.id, client.me.id)).privileges
     can_change_admin = zuzu.can_change_info
     can_change_member = message.chat.permissions.can_change_info
     if not (can_change_admin or can_change_member):
@@ -53,7 +41,7 @@ async def set_chat_photo(client: Client, message: Message):
     if message.reply_to_message:
         if message.reply_to_message.photo:
             await client.set_chat_photo(
-                chat_id, photo=message.reply_to_message.photo.file_id
+                message.chat.id, photo=message.reply_to_message.photo.file_id
             )
             return
     else:
@@ -67,7 +55,7 @@ async def set_chat_photo(client: Client, message: Message):
 async def member_ban(client: Client, message: Message):
     user_id, reason = await extract_user_and_reason(message, sender_chat=True)
     Man = await edit_or_reply(message, "`Processing...`")
-    bot = await client.get_chat_member(message.chat.id, client.me.id)
+    bot = (await client.get_chat_member(message.chat.id, client.me.id)).privileges
     if not bot.can_restrict_members:
         return await Man.edit("I don't have enough permissions")
     if not user_id:
@@ -103,7 +91,7 @@ async def member_ban(client: Client, message: Message):
 async def member_unban(client: Client, message: Message):
     reply = message.reply_to_message
     Man = await edit_or_reply(message, "`Processing...`")
-    bot = await client.get_chat_member(message.chat.id, client.me.id)
+    bot = (await client.get_chat_member(message.chat.id, client.me.id)).privileges
     if not bot.can_restrict_members:
         return await Man.edit("I don't have enough permissions")
     if reply and reply.sender_chat and reply.sender_chat != message.chat.id:
@@ -130,7 +118,7 @@ async def pin_message(client: Client, message):
     if not message.reply_to_message:
         return await edit_or_reply(message, "Reply to a message to pin/unpin it.")
     Man = await edit_or_reply(message, "`Processing...`")
-    bot = await client.get_chat_member(message.chat.id, client.me.id)
+    bot = (await client.get_chat_member(message.chat.id, client.me.id)).privileges
     if not bot.can_pin_messages:
         return await Man.edit("I don't have enough permissions")
     r = message.reply_to_message
@@ -152,7 +140,7 @@ async def pin_message(client: Client, message):
 async def mute(client: Client, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     Man = await edit_or_reply(message, "`Processing...`")
-    bot = await client.get_chat_member(message.chat.id, client.me.id)
+    bot = (await client.get_chat_member(message.chat.id, client.me.id)).privileges
     if not bot.can_restrict_members:
         return await Man.edit("I don't have enough permissions")
     if not user_id:
@@ -181,12 +169,12 @@ async def mute(client: Client, message: Message):
 async def unmute(client: Client, message: Message):
     user_id = await extract_user(message)
     Man = await edit_or_reply(message, "`Processing...`")
-    bot = await client.get_chat_member(message.chat.id, client.me.id)
+    bot = (await client.get_chat_member(message.chat.id, client.me.id)).privileges
     if not bot.can_restrict_members:
         return await Man.edit("I don't have enough permissions")
     if not user_id:
         return await Man.edit("I can't find that user.")
-    await message.chat.unban_member(user_id)
+    await message.chat.restrict_member(user_id, permissions=unmute_permissions)
     umention = (await client.get_users(user_id)).mention
     await Man.edit(f"Unmuted! {umention}")
 
@@ -198,7 +186,7 @@ async def unmute(client: Client, message: Message):
 async def kick_user(client: Client, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     Man = await edit_or_reply(message, "`Processing...`")
-    bot = await client.get_chat_member(message.chat.id, client.me.id)
+    bot = (await client.get_chat_member(message.chat.id, client.me.id)).privileges
     if not bot.can_restrict_members:
         return await Man.edit("I don't have enough permissions")
     if not user_id:
@@ -241,33 +229,37 @@ async def promotte(client: Client, message: Message):
     Man = await edit_or_reply(message, "`Processing...`")
     if not user_id:
         return await Man.edit("I can't find that user.")
-    bot = await client.get_chat_member(message.chat.id, client.me.id)
+    bot = (await client.get_chat_member(message.chat.id, client.me.id)).privileges
     if not bot.can_promote_members:
         return await Man.edit("I don't have enough permissions")
     if message.command[0][0] == "f":
         await message.chat.promote_member(
-            user_id=user_id,
-            can_change_info=bot.can_change_info,
-            can_invite_users=bot.can_invite_users,
-            can_delete_messages=bot.can_delete_messages,
-            can_restrict_members=bot.can_restrict_members,
-            can_pin_messages=bot.can_pin_messages,
-            can_promote_members=bot.can_promote_members,
-            can_manage_chat=bot.can_manage_chat,
-            can_manage_voice_chats=bot.can_manage_voice_chats,
+            user_id,
+            privileges=ChatPrivileges(
+                can_manage_chat=True,
+                can_delete_messages=True,
+                can_manage_video_chats=True,
+                can_restrict_members=True,
+                can_change_info=True,
+                can_invite_users=True,
+                can_pin_messages=True,
+                can_promote_members=True,
+            ),
         )
         return await Man.edit(f"Fully Promoted! {umention}")
 
     await message.chat.promote_member(
-        user_id=user_id,
-        can_change_info=False,
-        can_invite_users=bot.can_invite_users,
-        can_delete_messages=bot.can_delete_messages,
-        can_restrict_members=False,
-        can_pin_messages=False,
-        can_promote_members=False,
-        can_manage_chat=bot.can_manage_chat,
-        can_manage_voice_chats=bot.can_manage_voice_chats,
+        user_id,
+        privileges=ChatPrivileges(
+            can_manage_chat=True,
+            can_delete_messages=True,
+            can_manage_video_chats=True,
+            can_restrict_members=True,
+            can_change_info=True,
+            can_invite_users=True,
+            can_pin_messages=True,
+            can_promote_members=False,
+        ),
     )
     await Man.edit(f"Promoted! {umention}")
 
@@ -287,15 +279,17 @@ async def demote(client: Client, message: Message):
     if user_id == client.me.id:
         return await Man.edit("I can't demote myself.")
     await message.chat.promote_member(
-        user_id=user_id,
-        can_change_info=False,
-        can_invite_users=False,
-        can_delete_messages=False,
-        can_restrict_members=False,
-        can_pin_messages=False,
-        can_promote_members=False,
-        can_manage_chat=False,
-        can_manage_voice_chats=False,
+        user_id,
+        privileges=ChatPrivileges(
+            can_manage_chat=False,
+            can_delete_messages=False,
+            can_manage_video_chats=False,
+            can_restrict_members=False,
+            can_change_info=False,
+            can_invite_users=False,
+            can_pin_messages=False,
+            can_promote_members=False,
+        ),
     )
     umention = (await client.get_users(user_id)).mention
     await Man.edit(f"Demoted! {umention}")

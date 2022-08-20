@@ -9,7 +9,7 @@
 
 import html
 
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
@@ -29,24 +29,25 @@ async def adminlist(client: Client, message: Message):
         chat = message.chat.id
         grup = await client.get_chat(chat)
     if message.reply_to_message:
-        replyid = message.reply_to_message.message_id
-    alladmins = client.iter_chat_members(chat, filter="administrators")
+        replyid = message.reply_to_message.id
     creator = []
     admin = []
     badmin = []
-    async for a in alladmins:
+    async for a in client.get_chat_members(
+        message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS
+    ):
         try:
             nama = a.user.first_name + " " + a.user.last_name
         except:
             nama = a.user.first_name
         if nama is None:
             nama = "☠️ Deleted account"
-        if a.status == "administrator":
+        if a.status == enums.ChatMemberStatus.ADMINISTRATOR:
             if a.user.is_bot:
                 badmin.append(mention_markdown(a.user.id, nama))
             else:
                 admin.append(mention_markdown(a.user.id, nama))
-        elif a.status == "creator":
+        elif a.status == enums.ChatMemberStatus.OWNER:
             creator.append(mention_markdown(a.user.id, nama))
     admin.sort()
     badmin.sort()
@@ -102,10 +103,14 @@ async def report_admin(client: Client, message: Message):
     else:
         text = None
     grup = await client.get_chat(message.chat.id)
-    alladmins = client.iter_chat_members(message.chat.id, filter="administrators")
     admin = []
-    async for a in alladmins:
-        if a.status == "administrator" or a.status == "creator":
+    async for a in client.get_chat_members(
+        message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS
+    ):
+        if (
+            a.status == enums.ChatMemberStatus.ADMINISTRATOR
+            or a.status == enums.ChatMemberStatus.OWNER
+        ):
             if not a.user.is_bot:
                 admin.append(mention_html(a.user.id, "\u200b"))
     if message.reply_to_message:
@@ -128,11 +133,13 @@ async def report_admin(client: Client, message: Message):
         await client.send_message(
             message.chat.id,
             teks,
-            reply_to_message_id=message.reply_to_message.message_id,
-            parse_mode="html",
+            reply_to_message_id=message.reply_to_message.id,
+            parse_mode=enums.ParseMode.HTML,
         )
     else:
-        await client.send_message(message.chat.id, teks, parse_mode="html")
+        await client.send_message(
+            message.chat.id, teks, parse_mode=enums.ParseMode.HTML
+        )
 
 
 @Client.on_message(filters.me & filters.command(["everyone", "tagall"], cmd))
@@ -142,7 +149,7 @@ async def tag_all_users(client: Client, message: Message):
         text = message.text.split(None, 1)[1]
     else:
         text = "Hi all 🙃"
-    kek = client.iter_chat_members(message.chat.id)
+    kek = client.get_chat_members(message.chat.id)
     async for a in kek:
         if not a.user.is_bot:
             text += mention_html(a.user.id, "\u200b")
@@ -150,11 +157,13 @@ async def tag_all_users(client: Client, message: Message):
         await client.send_message(
             message.chat.id,
             text,
-            reply_to_message_id=message.reply_to_message.message_id,
-            parse_mode="html",
+            reply_to_message_id=message.reply_to_message.id,
+            parse_mode=enums.ParseMode.HTML,
         )
     else:
-        await client.send_message(message.chat.id, text, parse_mode="html")
+        await client.send_message(
+            message.chat.id, text, parse_mode=enums.ParseMode.HTML
+        )
 
 
 @Client.on_message(filters.me & filters.command(["botlist", "bots"], cmd))
@@ -167,8 +176,8 @@ async def get_list_bots(client: Client, message: Message):
         chat = message.chat.id
         grup = await client.get_chat(chat)
     if message.reply_to_message:
-        replyid = message.reply_to_message.message_id
-    getbots = client.iter_chat_members(chat)
+        replyid = message.reply_to_message.id
+    getbots = client.get_chat_members(chat)
     bots = []
     async for a in getbots:
         try:

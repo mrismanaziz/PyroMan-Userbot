@@ -8,7 +8,7 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 from gpytranslate import Translator
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
@@ -40,7 +40,9 @@ async def translate(client: Client, message: Message):
             tekstr = await trl(text, targetlang=target)
         except ValueError as err:
             await edit_or_reply(
-                message, f"**ERROR:** `{str(err)}`", parse_mode="Markdown"
+                message,
+                f"**ERROR:** `{str(err)}`",
+                parse_mode=enums.ParseMode.MARKDOWN,
             )
             return
     else:
@@ -58,13 +60,15 @@ async def translate(client: Client, message: Message):
             tekstr = await trl(text, targetlang=target)
         except ValueError as err:
             await edit_or_reply(
-                message, "**ERROR:** `{}`".format(str(err)), parse_mode="Markdown"
+                message,
+                "**ERROR:** `{}`".format(str(err)),
+                parse_mode=enums.ParseMode.MARKDOWN,
             )
             return
     await edit_or_reply(
         message,
         f"**Diterjemahkan ke:** `{target}`\n```{tekstr.text}```\n\n**Bahasa yang Terdeteksi:** `{(await trl.detect(text))}`",
-        parse_mode="Markdown",
+        parse_mode=enums.ParseMode.MARKDOWN,
     )
 
 

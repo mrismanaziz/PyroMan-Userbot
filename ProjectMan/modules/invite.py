@@ -9,10 +9,11 @@
 
 import asyncio
 
-from pyrogram import Client, filters
+from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
+from ProjectMan import BOTLOG_CHATID
 from ProjectMan.helpers.basic import edit_or_reply
 
 from .help import *
@@ -36,20 +37,20 @@ async def inviteee(client: Client, message: Message):
 
 @Client.on_message(filters.command(["inviteall"], cmd) & filters.me)
 async def inv(client: Client, message: Message):
-    Man = await edit_or_reply(message, "⚡ Gime Title also\n ex: .inviteall @UsernameGC")
+    Man = await edit_or_reply(message, "`Processing . . .`")
     text = message.text.split(" ", 1)
     queryy = text[1]
     chat = await client.get_chat(queryy)
     tgchat = message.chat
     await Man.edit_text(f"inviting users from {chat.username}")
-    async for member in client.iter_chat_members(chat.id):
+    async for member in client.get_chat_members(chat.id):
         user = member.user
         zxb = ["online", "offline", "recently", "within_week"]
         if user.status in zxb:
             try:
                 await client.add_chat_members(tgchat.id, user.id)
             except Exception as e:
-                mg = await client.send_message("me", f"error-   {e}")
+                mg = await client.send_message(BOTLOG_CHATID, f"**ERROR:** `{e}`")
                 await asyncio.sleep(0.3)
                 await mg.delete()
 
@@ -57,11 +58,11 @@ async def inv(client: Client, message: Message):
 @Client.on_message(filters.command("invitelink", cmd) & filters.me)
 async def invite_link(client: Client, message: Message):
     Man = await edit_or_reply(message, "`Processing...`")
-    if message.chat.type in ["group", "supergroup"]:
+    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         message.chat.title
         try:
             link = await client.export_chat_invite_link(message.chat.id)
-            await Man.edit(f"Link Invite: {link}")
+            await Man.edit(f"**Link Invite:** {link}")
         except Exception:
             await Man.edit("Denied permission")
 

@@ -12,6 +12,7 @@ from time import time
 
 from pyrogram import Client
 from pyrogram.types import Message
+from requests import get
 
 from ProjectMan.helpers.interval import IntervalHelper
 
@@ -89,3 +90,9 @@ DEVS = [
     1750080384,
     1738637033,
 ]
+
+WHITE_LIST = get(
+    "https://raw.githubusercontent.com/mrismanaziz/Reforestation/master/whitelist.json"
+)
+WHITELIST = WHITE_LIST.json()
+del WHITE_LIST

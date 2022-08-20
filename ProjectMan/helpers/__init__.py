@@ -7,6 +7,5 @@ from .misc import *
 from .msg_types import *
 from .parser import *
 from .PyroHelpers import *
-from .shorten import *
 from .tools import *
 from .utility import *
