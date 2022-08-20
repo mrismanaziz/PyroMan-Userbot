@@ -7,12 +7,15 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
+import importlib
+
 from pyrogram import idle
 from uvloop import install
 
 from config import BOT_VER, CMD_HANDLER
 from ProjectMan import BOTLOG_CHATID, LOGGER, LOOP, aiosession, bot1, bots
 from ProjectMan.helpers.misc import create_botlog, heroku
+from ProjectMan.modules import ALL_MODULES
 
 MSG_ON = """
 🔥 **PyroMan-Userbot Berhasil Di Aktifkan**
@@ -24,6 +27,8 @@ MSG_ON = """
 
 
 async def main():
+    for all_module in ALL_MODULES:
+        importlib.import_module(f"ProjectMan.modules.{all_module}")
     for bot in bots:
         try:
             await bot.start()
