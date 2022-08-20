@@ -84,7 +84,7 @@ async def kang(client: Client, message: Message):
         await Man.edit("**Silahkan Reply ke Media Foto/GIF/Sticker!**")
         return
     if media_:
-        args = get_text(message)
+        args = get_arg(message)
         pack = 1
         if len(args) == 2:
             emoji_, pack = args
