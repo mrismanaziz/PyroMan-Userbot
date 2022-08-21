@@ -9,7 +9,8 @@
 
 import asyncio
 
-from pyrogram import Client, enums, filters
+from pyrogram import Client, filters
+from pyrogram.enums import ChatType, UserStatus
 from pyrogram.types import Message
 
 from config import CMD_HANDLER as cmd
@@ -45,7 +46,12 @@ async def inv(client: Client, message: Message):
     await Man.edit_text(f"inviting users from {chat.username}")
     async for member in client.get_chat_members(chat.id):
         user = member.user
-        zxb = ["online", "offline", "recently", "within_week"]
+        zxb = [
+            UserStatus.ONLINE,
+            UserStatus.OFFLINE,
+            UserStatus.RECENTLY,
+            UserStatus.LAST_WEEK,
+        ]
         if user.status in zxb:
             try:
                 await client.add_chat_members(tgchat.id, user.id)
@@ -58,7 +64,7 @@ async def inv(client: Client, message: Message):
 @Client.on_message(filters.command("invitelink", cmd) & filters.me)
 async def invite_link(client: Client, message: Message):
     Man = await edit_or_reply(message, "`Processing...`")
-    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+    if message.chat.type in [ChatType.GROUP, ChatType.SUPERGROUP]:
         message.chat.title
         try:
             link = await client.export_chat_invite_link(message.chat.id)
