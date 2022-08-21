@@ -43,9 +43,11 @@ async def update_requirements(main , test):
     try:
         for i in a:
             await runcmd(f"pip install {i}")
-            print(f"» Installed Requirement: {i}")
+            print(f"Succesfully installed {i}")
     except Exception as e:
         print(f"Error installing requirments {str(e)}")
 
 
-asyncio.run(update_requirements(sys.argv[1] , sys.argv[2]))
+loop = asyncio.get_event_loop()
+loop.run_until_complete(update_requirements(sys.argv[1] , sys.argv[2]))
+loop.close()
