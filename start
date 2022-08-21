@@ -9,11 +9,11 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 _starter () {
-    echo "  Downloading source code"
+    echo "Downloading source code"
     git clone https://github.com/mrismanaziz/PyroMan-Userbot
     cd PyroMan-Userbot/
     python3 ../updater.py ../requirements.txt requirements.txt
-    echo "  Starting PyroMan-Userbot"
+    echo "Pyroman-Userbot v${BOT_VER}, Copyright (C) 2022 (Risman) <https://github.com/mrismanaziz>"
     python3 -m ProjectMan
 }
 
