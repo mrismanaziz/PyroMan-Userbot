@@ -8,4 +8,13 @@
 #
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-python3 -m ProjectMan
+_starter () {
+    echo "Downloading source code"
+    git clone https://github.com/mrismanaziz/PyroMan-Userbot
+    cd PyroMan-Userbot/ && rm -rf .git
+    python3 ../updater.py ../requirements.txt requirements.txt
+    echo "PyroMan-Userbot v0.2.0, Copyright © 2022 (Risman) <https://github.com/mrismanaziz>"
+    python3 -m ProjectMan
+}
+
+_starter
