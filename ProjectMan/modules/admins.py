@@ -204,7 +204,7 @@ async def kick_user(client: Client, message: Message):
     if message.command[0][0] == "d":
         await message.reply_to_message.delete()
     if reason:
-        msg += f"**Reason:** `{reason}`"
+        msg += f"\n**Reason:** `{reason}`"
     try:
         await message.chat.ban_member(user_id)
         await Man.edit(msg)
