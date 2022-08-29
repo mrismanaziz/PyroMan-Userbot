@@ -47,7 +47,7 @@ async def main():
         except Exception as a:
             LOGGER("main").warning(a)
     LOGGER("ProjectMan").info(f"PyroMan-UserBot v{BOT_VER} [🔥 BERHASIL DIAKTIFKAN! 🔥]")
-    if not str(BOTLOG_CHATID).startswith("-100"):
+    if bot1 and not str(BOTLOG_CHATID).startswith("-100"):
         await create_botlog(bot1)
     await idle()
     await aiosession.close()
