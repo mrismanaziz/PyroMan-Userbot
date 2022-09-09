@@ -168,7 +168,7 @@ async def sosmed(client: Client, message: Message):
             Man.delete(),
             client.send_video(
                 message.chat.id,
-                sosmed,
+                sosmed.video.file_id,
                 caption=f"**Upload by:** {client.me.mention}",
                 reply_to_message_id=ReplyCheck(message),
             ),
