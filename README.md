@@ -4,6 +4,10 @@ PyroMan-Userbot adalah userbot Telegram modular yang berjalan di Python3 dengan 
 
 Saya membuat repository ini untuk bersenang-senang sekaligus membantu anda mengelola grup secara efisien dan untuk membantu mengurangi kebosanan saat menggunakan telegram.
 
+<p align="center">
+  <img src="https://telegra.ph/file/f822b7697d9e33e867119.jpg">
+</p>
+
 ## ⚠️ Disclaimer
 
 ```
