@@ -9,7 +9,6 @@ gpytranslate
 gtts
 heroku3
 lottie
-motor
 prettytable
 psycopg2-binary
 pymediainfo
@@ -25,5 +24,4 @@ tracemoepy
 opencv-python-headless
 urllib3
 uvloop
-wget==3.2
 youtube-search-python
