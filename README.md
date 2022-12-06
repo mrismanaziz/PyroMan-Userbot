@@ -35,6 +35,7 @@ Ketika anda sudah memasang userbot ini, berarti anda sudah siap dengan resikonya
 -  [TheHamkerCat](https://github.com/TheHamkerCat/WilliamButcherBot) : WilliamButcherBot
 -  [TeamYukki](https://github.com/TeamYukki/YukkiMusicBot) : YukkiMusicBot
 -  [ITZ-ZAID](https://github.com/ITZ-ZAID) : Zaid-UserBot
+-  [Risman](https://github.com/mrismanaziz) : PyroMan-Userbot
 -  [Tofikdn](https://github.com/tofikdn) : Tede
 -  [Toni](https://github.com/Toni880) : Prime-UserBot
 
