@@ -1,4 +1,5 @@
 from asyncio import sleep
+
 from pyrogram import Client, filters
 
 from config import CMD_HANDLER as cmd
@@ -6,6 +7,7 @@ from ProjectMan import BOTLOG_CHATID
 from ProjectMan.helpers.SQL.notes_sql import add_note, get_note, get_notes, rm_note
 from ProjectMan.helpers.tools import get_arg
 from ProjectMan.modules.help import add_command_help
+
 
 @Client.on_message(filters.command("notes", cmd) & filters.me)
 async def list_notes(client, message):
@@ -56,6 +58,7 @@ async def panggil_notes(client, message):
         return await message.reply("Tidak ada catatan seperti itu.")
     msg_o = await client.get_messages(BOTLOG_CHATID, int(note.f_mesg_id))
     await msg_o.copy(message.chat.id)
+
 
 add_command_help(
     "notes",
