@@ -1,6 +1,8 @@
+try:
+    from ProjectMan.helpers.SQL import BASE, SESSION
+except ImportError:
+    raise AttributeError
 from sqlalchemy import Column, Numeric, String, UnicodeText
-
-from . import BASE, SESSION
 
 
 class Notes(BASE):
