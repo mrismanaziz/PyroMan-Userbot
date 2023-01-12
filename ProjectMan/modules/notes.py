@@ -24,10 +24,8 @@ async def remove_notes(client, message):
     notename = get_arg(message)
     user_id = message.from_user.id
     if rm_note(str(user_id), notename) is False:
-        return await message.reply(
-            "**Tidak dapat menemukan catatan:** `{}`".format(notename)
-        )
-    return await message.reply("**Berhasil Menghapus Catatan:** `{}`".format(notename))
+        return await message.reply(f"**Tidak dapat menemukan catatan:** `{notename}`")
+    return await message.reply(f"**Berhasil Menghapus Catatan:** `{notename}`")
 
 
 @Client.on_message(filters.command("save", cmd) & filters.me)
