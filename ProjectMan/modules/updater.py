@@ -175,7 +175,7 @@ async def upstream(client: Client, message: Message):
             repo.__del__()
             return
         await status.edit(
-            "`[HEROKU]: Update Deploy PyroMan-Userbot Sedang Dalam Proses...`"
+            "`[HEROKU]: Update Deploy Telegram-Userbot Sedang Dalam Proses...`"
         )
         ups_rem.fetch(ac_br)
         repo.git.reset("--hard", "FETCH_HEAD")
@@ -192,7 +192,7 @@ async def upstream(client: Client, message: Message):
         except GitCommandError:
             pass
         await status.edit(
-            "`PyroMan-Userbot Berhasil Diupdate! Userbot bisa di Gunakan Lagi.`"
+            "`Telegram-Userbot Berhasil Diupdate! Userbot bisa di Gunakan Lagi.`"
         )
     else:
         try:
@@ -201,7 +201,7 @@ async def upstream(client: Client, message: Message):
             repo.git.reset("--hard", "FETCH_HEAD")
         await updateme_requirements()
         await status.edit(
-            "`PyroMan-Userbot Berhasil Diupdate! Userbot bisa di Gunakan Lagi.`",
+            "`Telegram-Userbot Berhasil Diupdate! Userbot bisa di Gunakan Lagi.`",
         )
         args = [sys.executable, "-m", "ProjectMan"]
         execle(sys.executable, *args, environ)
@@ -270,7 +270,7 @@ async def updaterman(client: Client, message: Message):
 add_command_help(
     "update",
     [
-        ["update", "Untuk melihat list pembaruan terbaru dari PyroMan-Userbot."],
+        ["update", "Untuk melihat list pembaruan terbaru dari Telegram-Userbot."],
         ["update deploy", "Untuk mengupdate userbot."],
     ],
 )
