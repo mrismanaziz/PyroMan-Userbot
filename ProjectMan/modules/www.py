@@ -66,23 +66,41 @@ async def nearest_dc(client: Client, message: Message):
 
 
 @Client.on_message(filters.command("ping", cmd) & filters.me)
-async def _(ping):
+async def pingme(client: Client, message: Message):
     uptime = await get_readable_time((time.time() - StartTime))
     start = datetime.now()
-    xx = await edit_or_reply(ping, "**✣**")
-    await xx.edit("**✣✣**")
-    await xx.edit("**✣✣✣**")
-    await xx.edit("**✣✣✣✣**")
+    xx = await edit_or_reply(message, "**0% ▒▒▒▒▒▒▒▒▒▒**")
+    await xx.edit("**20% ██▒▒▒▒▒▒▒▒**")
+    await xx.edit("**40% ████▒▒▒▒▒▒**")
+    await xx.edit("**60% ██████▒▒▒▒**")
+    await xx.edit("**80% ████████▒▒**")
+    await xx.edit("**100% ██████████**")
     end = datetime.now()
     duration = (end - start).microseconds / 1000
-    user = await ping.client.get_me()
     await xx.edit(
-        f"**PONG!!🏓**\n"
-        f"✣ **Pinger** - `%sms`\n"
-        f"✣ **Uptime -** `{uptime}` \n"
-        f"**✦҈͜͡Owner :** [{user.first_name}](tg://user?id={user.id})" % (duration)
+        f"❏ **Spong!!🏓**\n"
+        f"├• **Pinger** - `%sms`\n"
+        f"├• **Uptime -** `{uptime}` \n"
+        f"└• **Owner :** {client.me.mention}" % (duration)
     )
 
+
+@Client.on_message(filters.command("kping", cmd) & filters.me)
+async def kping(client: Client, message: Message):
+    uptime = await get_readable_time((time.time() - StartTime))
+    start = datetime.now()
+    xx = await edit_or_reply(message, "8✊===D")
+    await xx.edit("8=✊==D")
+    await xx.edit("8==✊=D")
+    await xx.edit("8===✊D")
+    end = datetime.now()
+    duration = (end - start).microseconds / 1000
+    await xx.edit(
+        f"❏ **PONG!!🏓**\n"
+        f"├• **Pinger** - `%sms`\n"
+        f"├• **Uptime -** `{uptime}` \n"
+        f"└• **Owner :** {client.me.mention}" % (duration)
+    )
 
 
 add_command_help(
@@ -100,6 +118,7 @@ add_command_help(
 add_command_help(
     "ping",
     [
-        ["ping", "Untuk Menunjukkan Ping Bot Anda."],        
+        ["ping", "Untuk Menunjukkan Ping Bot Anda."],
+        ["kping", "Untuk Menunjukkan Ping Bot Anda ( Beda animasi doang )."],
     ],
 )
