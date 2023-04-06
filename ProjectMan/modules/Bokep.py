@@ -11,7 +11,7 @@ from ProjectMan.helpers.PyroHelpers import ReplyCheck
 from .help import add_command_help
 
 
-@Client.on_message(filters.command(["asupan", "ptl"], cmd) & filters.me)
+@Client.on_message(filters.command(["bokep", "ptl"], cmd) & filters.me)
 async def asupan_cmd(client: Client, message: Message):
     Man = await edit_or_reply(message, "`Tunggu Sebentar...`")
     await gather(
