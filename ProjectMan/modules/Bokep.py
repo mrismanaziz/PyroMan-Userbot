@@ -32,7 +32,7 @@ async def asupan_cmd(client: Client, message: Message):
 
 
 add_command_help(
-    "asupan",
+    "bokep",
     [
         [
             f"bokep atau {cmd}ptl",
