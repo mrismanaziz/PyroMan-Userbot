@@ -8,7 +8,6 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 import asyncio
-from threading import Event
 
 from pyrogram import Client, enums, filters
 from pyrogram.types import Message
@@ -53,10 +52,9 @@ async def delayspam(client: Client, message: Message):
     if not spam_allowed():
         return
 
-    delaySpamEvent = Event()
     for i in range(0, count):
         if i != 0:
-            delaySpamEvent.wait(delay)
+            await asyncio.sleep(delay)
         await client.send_message(message.chat.id, spam_message)
         limit = increment_spam_count()
         if not limit:
