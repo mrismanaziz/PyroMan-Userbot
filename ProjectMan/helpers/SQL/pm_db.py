@@ -48,7 +48,6 @@ def set_whitelist(user_id, username):
 
 
 def del_whitelist(user_id):
-
     with INSERTION_LOCK:
         user = SESSION.query(WhitelistUsers).get(str(user_id))
         if user:

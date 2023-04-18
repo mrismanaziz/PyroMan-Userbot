@@ -226,7 +226,6 @@ async def pijtau(client: Client, message: Message):
         "YOᑌᖇ ᗷᖇᗩIᑎ ➡️ 🧠\n\n           <(^_^ <)🗑",
     ]
     for i in animation_ttl:
-
         await asyncio.sleep(animation_interval)
         await message.edit(animation_chars[i % 14])
 
@@ -330,7 +329,6 @@ async def gagahkah(client: Client, message: Message):
         "[𝗪𝗵𝗮𝘁 𝗧𝗵𝗲 𝗙 𝗕𝗿𝗮𝗵](https://telegra.ph//file/f3b760e4a99340d331f9b.jpg)",
     ]
     for i in animation_ttl:
-
         await asyncio.sleep(animation_interval)
         await message.edit(animation_chars[i % 5])
 
