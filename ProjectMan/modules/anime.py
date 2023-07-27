@@ -1,5 +1,4 @@
 import requests
-
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
@@ -7,6 +6,7 @@ from pyrogram.types import Message
 from config import CMD_HANDLER as cmd
 
 API_URL = "https://api.nekosapi.com/v2/images/random"
+
 
 @Client.on_message(filters.command("randomanime", cmd) & filters.me)
 async def random_anime(client: Client, message: Message):
