@@ -32,9 +32,7 @@ async def module_help(client: Client, message: Message):
         ac.align = "l"
         for x in split_list(sorted(CMD_HELP.keys()), 2):
             ac.add_row([x[0], x[1] if len(x) >= 2 else None])
-        await edit_or_reply(
-            message, f"```{str(ac)}```\n•Telegram-UserBot Modules•"
-        )
+        await edit_or_reply(message, f"```{str(ac)}```\n•Telegram-UserBot Modules•")
         await message.reply(
             f"**Contoh Ketik** `{CMD_HANDLER}help ngewe` **Untuk Melihat Informasi Module**"
         )

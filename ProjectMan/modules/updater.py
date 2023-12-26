@@ -158,11 +158,7 @@ async def upstream(client: Client, message: Message):
             repo.__del__()
             return
         heroku_app = next(
-            (
-                app
-                for app in heroku_applications
-                if app.name == HEROKU_APP_NAME
-            ),
+            (app for app in heroku_applications if app.name == HEROKU_APP_NAME),
             None,
         )
         if heroku_app is None:
